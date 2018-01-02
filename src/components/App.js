@@ -9,18 +9,21 @@ export default class App extends React.Component {
     }
   }
 
+  getPosition(options) {
+    return new Promise(function (resolve, reject) {
+      navigator.geolocation.getCurrentPosition(resolve, reject, options);
+    });
+  }
+
   componentDidMount() {
-    navigator.geolocation.getCurrentPosition((result, err) => {
-      if(err) console.error(err);
-      else {
-        const state = this.state;
-        state.location.longitude = result.coords.longitude;
-        state.location.latitude = result.coords.latitude;
-        this.setState({
-          state
-        })
-      }
-    })  
+    const currentState = this.state;
+    this.getPosition()
+    .then(result => {
+      currentState.location.latitude: result.coords.latitude,
+      currentState.location.longitude: result.coords.longitude,
+      this.setState({ currentState });
+    })
+    .catch(err => console.error(err));
   }
 
   render() {
