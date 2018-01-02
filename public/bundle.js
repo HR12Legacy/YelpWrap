@@ -22958,6 +22958,22 @@ module.exports = camelize;
 class App extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      location: {}
+    };
+  }
+
+  componentDidMount() {
+    navigator.geolocation.getCurrentPosition((result, err) => {
+      if (err) console.error(err);else {
+        const state = this.state;
+        state.location.longitude = result.coords.longitude;
+        state.location.latitude = result.coords.latitude;
+        this.setState({
+          state
+        });
+      }
+    });
   }
 
   render() {
@@ -22968,11 +22984,6 @@ class App extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
         'h1',
         null,
         ' Hello World '
-      ),
-      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-        'p',
-        null,
-        ' hello '
       )
     );
   }
@@ -22990,16 +23001,6 @@ class App extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__MyMapComponent__ = __webpack_require__(158);
 
 
-/**
- * dependencies:
- *  "googlemaps": "^1.12.0",
-    "markerclustererplus": "^2.1.4",
-    "react": "^16.2.0",
-    "react-bootstrap": "^0.31.5",
-    "react-dom": "^16.2.0",
-    "react-google-maps": "^9.4.3",
-    "react-icons": "^2.2.7",
- */
 
 class MyMapContainerComponent extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
   constructor(props) {
