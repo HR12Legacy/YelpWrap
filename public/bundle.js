@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "76c80794b00f96a870b6"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "64071fd52d2bdc21ca1a"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -23630,7 +23630,8 @@ class App extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
         'h1',
         null,
         ' Hello World '
-      )
+      ),
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__MyMapContainerComponent__["MyMapContainerComponent"], null)
     );
   }
 }
@@ -23695,11 +23696,14 @@ class MyMapContainerComponent extends __WEBPACK_IMPORTED_MODULE_0_react___defaul
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_recompose__ = __webpack_require__(61);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react_google_maps__ = __webpack_require__(164);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react_google_maps___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_react_google_maps__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__config__ = __webpack_require__(363);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__config___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__config__);
 
 
 
 const CaretUp = __webpack_require__(361);
-// import keys from '../../config';
+
+const GOOGLE_API = __WEBPACK_IMPORTED_MODULE_3__config___default.a.GOOGLE_API;
 // import keys from '../credentials';  || keys.GOOGLE_API <--- PRODUCTION
 /**
  * dependencies:
@@ -23726,7 +23730,7 @@ const MyMapComponent = Object(__WEBPACK_IMPORTED_MODULE_1_recompose__["compose"]
     isClicked: !isClicked
   })
 }), Object(__WEBPACK_IMPORTED_MODULE_1_recompose__["withProps"])({
-  googleMapURL: `https://maps.googleapis.com/maps/api/js?key=${GOOGLE_API || keys.GOOGLE_API}&v=3.exp&libraries=geometry,drawing,places`,
+  googleMapURL: `https://maps.googleapis.com/maps/api/js?key=${GOOGLE_API || __WEBPACK_IMPORTED_MODULE_3__config___default.a.GOOGLE_API}&v=3.exp&libraries=geometry,drawing,places`,
   loadingElement: __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("div", { style: { height: `100%` } }),
   containerElement: __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("div", { style: { height: `400px`, width: `75%`, margin: `auto` } }),
   mapElement: __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("div", { style: { height: `100%` } })
@@ -36000,6 +36004,14 @@ IconBase.contextTypes = {
 
 exports.default = IconBase;
 module.exports = exports['default'];
+
+/***/ }),
+/* 363 */
+/***/ (function(module, exports) {
+
+module.exports = {
+	GOOGLE_API: 'AIzaSyCMch5xIRIX7N8fNLiZsUGvrsVhDo0MmtA'
+};
 
 /***/ })
 /******/ ]);

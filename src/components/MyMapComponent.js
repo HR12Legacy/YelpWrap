@@ -2,7 +2,8 @@ import React from 'react';
 import { compose, withProps, withStateHandlers, lifecycle } from "recompose";
 import { withScriptjs, withGoogleMap, GoogleMap, Marker, InfoWindow, DirectionsRenderer } from "react-google-maps";
 const CaretUp = require("react-icons/lib/fa/caret-up");
-// import keys from '../../config';
+import keys from '../../config';
+const GOOGLE_API = keys.GOOGLE_API;
 // import keys from '../credentials';  || keys.GOOGLE_API <--- PRODUCTION
 /**
  * dependencies:
