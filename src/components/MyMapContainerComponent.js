@@ -1,5 +1,5 @@
 import React from 'react';
-import MyMapComponent from './MyMapComponent.jsx';
+import MyMapComponent from './MyMapComponent';
 /**
  * dependencies:
  *  "googlemaps": "^1.12.0",

@@ -1,4 +1,5 @@
 import React from 'react';
+import MyMapContainerComponent from './MyMapContainerComponent';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -10,6 +11,7 @@ export default class App extends React.Component {
     return (
       <div>
         <h1> Hello World </h1>
+
       </div>
     )
   }
