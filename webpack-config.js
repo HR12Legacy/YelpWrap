@@ -18,7 +18,7 @@ module.exports = {
       path.join(__dirname, 'node_modules'),
     ]
   },
-  plugins: [
-    new webpack.HotModuleReplacementPlugin()
-  ],
+  // plugins: [
+  //   new webpack.HotModuleReplacementPlugin()
+  // ],
 }
