@@ -6,6 +6,8 @@ module.exports = {
   output: {
     path: path.join(__dirname, '/public'),
     filename: 'bundle.js',
+    hotUpdateChunkFilename: './hot/hot-update.js',
+    hotUpdateMainFilename: './hot/hot-update.json'
   },
   module: {
     loaders: [
@@ -18,7 +20,7 @@ module.exports = {
       path.join(__dirname, 'node_modules'),
     ]
   },
-  plugins: [
-    new webpack.HotModuleReplacementPlugin()
-  ],
+  // plugins: [
+  //   new webpack.HotModuleReplacementPlugin()
+  // ],
 }
