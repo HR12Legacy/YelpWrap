@@ -46,8 +46,19 @@ class MapContainer extends React.Component {
             </div>
           </InfoWindow>
 
-        </Map>
-      );
+render() {
+    return (
+      <div style={{height:'45vh', display: 'block', position: 'relative' }}>
+      <Map
+      google={this.props.google}
+      mapCenter={this.props.mapCenter} 
+      zoom={14}
+      onDragend={
+        this.props.onMarkerPositionChanged
+      }>
+      </Map>
+      </div>
+    );
   }
 }
 
