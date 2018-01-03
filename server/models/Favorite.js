@@ -4,8 +4,8 @@ const User = require('./User.js');
 const Favorite = db.Model.extend({
 	tableName: 'favorites',
 	hasTimestamps: false,
-	user: () => {
-		this.belongsTo(User, 'userId');
+	userId: () => {
+		return this.belongsTo(User, 'id');
 	}
 })
 
