@@ -17639,16 +17639,17 @@ class App extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
     super(props);
   }
 
-  onMarkerPositionChanged(center) {
-    console.log('arg:', center);
+  onMarkerPositionChanged(mapProps, map) {
+    console.log('mapProps', mapProps);
+    console.log('lat', map.center.lat());
+    console.log('lng', map.center.lng());
   }
-  //onMarkerPositionChanged={this.onMarkerPositionChanged.bind(this)}
 
   render() {
     return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
       'div',
       null,
-      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__MyMapComponent__["a" /* default */], null)
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__MyMapComponent__["a" /* default */], { onMarkerPositionChanged: this.onMarkerPositionChanged.bind(this) })
     );
   }
 }
@@ -17676,8 +17677,14 @@ const GOOGLE_API = __WEBPACK_IMPORTED_MODULE_2__config___default.a.GOOGLE_API;
 
 
 class MapContainer extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
+
   render() {
-    return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_google_maps_react__["Map"], { google: this.props.google, zoom: 14 });
+    return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_google_maps_react__["Map"], {
+      google: this.props.google,
+      mapCenter: this.props.mapCenter,
+      zoom: 14,
+      onDragend: this.props.onMarkerPositionChanged
+    });
   }
 }
 
