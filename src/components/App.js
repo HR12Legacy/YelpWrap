@@ -26,17 +26,17 @@ export default class App extends React.Component {
     .catch(err => console.error(err));
   }
 
-  onMarkerPositionChanged(center) {
-    console.log('arg:', center);
+
+  onMarkerPositionChanged(mapProps, map) {
+    console.log('mapProps', mapProps);
+    console.log('lat', map.center.lat());
+    console.log('lng', map.center.lng());
   };
-  //onMarkerPositionChanged={this.onMarkerPositionChanged.bind(this)}
 
   render() {
     return (
       <div>
-
-        <GoogleApiWrapper />
-
+        <GoogleApiWrapper  onMarkerPositionChanged={this. onMarkerPositionChanged.bind(this)}/>
       </div>
     )
   }
