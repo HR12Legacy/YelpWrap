@@ -1,19 +1,24 @@
-const knex = require(knex)({
+
+
+const knex = require('knex')({
 	client: 'pg',
 	connection: {
+		host: 'localhost',
+		port: '5432',
 		user: 'root',
-		password: '',
 		database: 'yelpwrap'
 	}
 });
 
-knex.schema.hasTable('users', (exists) => {
+knex.schema.hasTable('users').then(exists => {
 	if (!exists) {
-		knex.schema.createTable('users'.then(table => {
+		knex.schema.createTable('users', (table) => {
 			table.increments('id').primary();
-			table.string('username', 255);
+			table.string('username', 255).unique();
 		}).then(table => {
 			console.log('Created table:', table);
+		}).catch(err => {
+			console.error('Error:', err);
 		})
 	}
 });
@@ -34,6 +39,6 @@ knex.schema.hasTable('favorites').then(exists => {
 })
 
 
-const bookshelf = require('bookshelf')(knex);
+const db = require('bookshelf')(knex);
 
-module.exports = bookshelf;
+module.exports = db;
