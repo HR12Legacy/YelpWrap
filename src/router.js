@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const request = require('request')
 const router = require('express').Router();
 const config =require('../config.js');
+const controllers = require('./controllers/mainController.js')
 
 router.use(bodyParser.json());
 
@@ -16,27 +17,21 @@ router.post('/search', function(req, res){
   }; 
 
   request(options, (err, response, body) => {
-    // console.log("Data from Yelp: ", body)
     var results = JSON.parse(body);
     res.send(results.businesses)
   })
-
-
 })
 
-// router.get('/')
+router.post('/user', (req, res) => {
+  controllers.user.add(req.body, () => {
+    res.status(200).send();
+  })
+})
 
+router.post('/favorite', (req, res) => {
+  controllers.favorite.add(req.body, () => {
+    res.status(200).send();
+  })
+})
 
 module.exports = router;
-
-// let options = {
-//     url: 'https://api.yelp.com/v3/businesses/search?location=' + data.location + data.category + 
-//     '&limit=10' +'&radius=' + data.radius,
-//     headers: {
-//       'User-Agent': 'request',
-//       'Authorization': `Bearer ${config.TOKEN}`
-//     },
-//     // token: config.TOKEN,
-    
-
-//   };

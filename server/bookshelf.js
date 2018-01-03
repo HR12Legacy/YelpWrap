@@ -1,5 +1,3 @@
-
-
 const knex = require('knex')({
 	client: 'pg',
 	connection: {
@@ -41,4 +39,4 @@ knex.schema.hasTable('favorites').then(exists => {
 
 const db = require('bookshelf')(knex);
 
-module.exports = db;
+module.exports = {db, knex};
