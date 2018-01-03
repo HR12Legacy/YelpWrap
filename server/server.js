@@ -4,7 +4,8 @@ const webpack = require('webpack');
 const config = require('../webpack-config.js');
 const webpackMiddleware = require('webpack-dev-middleware');
 const path = require('path');
-const router = require('../src/router.js')
+const router = require('../src/router.js');
+const db = require('./bookshelf').db;
 const app = express();
 
 app.set('PORT', 1337);

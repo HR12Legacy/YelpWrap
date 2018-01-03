@@ -3,18 +3,23 @@ import Search from './Search.js';
 import EntryList from './EntryList.js';
 const axios = require('axios');
 import GoogleApiWrapper from './MyMapComponent';
+import sample from '../../sampledata.js'
+
 
 export default class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state ={
-      results: [],
+    this.state = {
+      isAuthenticated: false,
       coords: {},
-      location: ''
+      results: sample.businesses,
+      location: '',
     }
     this.searchHandlerByZip = this.searchHandlerByZip.bind(this);
     this.searchHandlerByCoords = this.searchHandlerByCoords.bind(this);
   }
+
+
 
   getPosition(options) {
     return new Promise(function (resolve, reject) {
@@ -67,7 +72,7 @@ export default class App extends React.Component {
         <h1> Hello World </h1>
         <Search search={this.searchHandlerByZip}/>
         <EntryList list={this.state.results}/>
-        <GoogleApiWrapper  onMarkerPositionChanged={this.onMarkerPositionChanged.bind(this)}/>
+        <GoogleApiWrapper  markers={this.state.results} onMarkerPositionChanged={this. onMarkerPositionChanged.bind(this)}/>
       </div>
     )
   }
