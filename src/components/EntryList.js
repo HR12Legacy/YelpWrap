@@ -6,7 +6,7 @@ import EntryListItem from './EntryListItem.js';
 const  EntryList = (props) =>(
   <div style={{display: 'flex', flexWrap: 'wrap'}}>
     {props.list.map((item, idx)=>{
-    	return <EntryListItem key={idx} item={item}/> } )}
+    	return <EntryListItem key={idx} item={item}/> })}
   </div>
 )
 
