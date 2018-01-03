@@ -1,12 +1,17 @@
 import React from 'react';
+import Search from './Search.js';
+import EntryList from './EntryList.js';
+const axios = require('axios');
 import GoogleApiWrapper from './MyMapComponent';
 
 export default class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
+    this.state ={
+      results: [],
       location: {},
     }
+    this.searchHandler = this.searchHandler.bind(this);
   }
 
   getPosition(options) {
@@ -14,8 +19,9 @@ export default class App extends React.Component {
       navigator.geolocation.getCurrentPosition(resolve, reject, options);
     });
   }
-
+  
   componentDidMount() {
+    this.searchHandler();
     const currentState = this.state;
     this.getPosition()
     .then(result => {
@@ -26,6 +32,16 @@ export default class App extends React.Component {
     .catch(err => console.error(err));
   }
 
+  searchHandler(term='delis', location='10007'){
+    axios.post('/search', {term: term, location: location})
+    .then((data) => {
+      this.setState({results: data.data})
+      console.log(this.state.results);
+    })
+    .catch((err) => {
+      console.log('err from axios: ', err);
+    });
+  }
 
   onMarkerPositionChanged(mapProps, map) {
     console.log('mapProps', mapProps);
@@ -36,6 +52,9 @@ export default class App extends React.Component {
   render() {
     return (
       <div>
+        <h1> Hello World </h1>
+        <Search search={this.searchHandler}/>
+        <EntryList list={this.state.results}/>
         <GoogleApiWrapper  onMarkerPositionChanged={this. onMarkerPositionChanged.bind(this)}/>
       </div>
     )
