@@ -9,9 +9,11 @@ export default class App extends React.Component {
     super(props);
     this.state ={
       results: [],
-      location: {},
+      coords: {},
+      location: ''
     }
-    this.searchHandler = this.searchHandler.bind(this);
+    this.searchHandlerByZip = this.searchHandlerByZip.bind(this);
+    this.searchHandlerByCoords = this.searchHandlerByCoords.bind(this);
   }
 
   getPosition(options) {
@@ -21,19 +23,29 @@ export default class App extends React.Component {
   }
   
   componentDidMount() {
-    this.searchHandler();
-    const currentState = this.state;
+    // this.searchHandler();
     this.getPosition()
     .then(result => {
-      currentState.location.latitude: result.coords.latitude,
-      currentState.location.longitude: result.coords.longitude,
-      this.setState({ currentState });
+      this.setState({ coords: result.coords });
+      console.log('state coords', this.state.coords.latitude)
+      this.searchHandlerByCoords('jackie', this.state.coords)
     })
     .catch(err => console.error(err));
   }
 
-  searchHandler(term='delis', location='10007'){
+  searchHandlerByZip(term='delis', location='10007'){
     axios.post('/search', {term: term, location: location})
+    .then((data) => {
+      this.setState({results: data.data})
+      console.log(this.state.results);
+    })
+    .catch((err) => {
+      console.log('err from axios: ', err);
+    });
+  }
+
+  searchHandlerByCoords(term, coords){
+    axios.post('/search', {term: term, coords: coords})
     .then((data) => {
       this.setState({results: data.data})
       console.log(this.state.results);
@@ -53,9 +65,9 @@ export default class App extends React.Component {
     return (
       <div>
         <h1> Hello World </h1>
-        <Search search={this.searchHandler}/>
+        <Search search={this.searchHandlerByZip}/>
         <EntryList list={this.state.results}/>
-        <GoogleApiWrapper  onMarkerPositionChanged={this. onMarkerPositionChanged.bind(this)}/>
+        <GoogleApiWrapper  onMarkerPositionChanged={this.onMarkerPositionChanged.bind(this)}/>
       </div>
     )
   }
