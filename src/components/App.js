@@ -1,5 +1,5 @@
 import React from 'react';
-import { MyMapContainerComponent as MapContainer } from './MyMapContainerComponent';
+import GoogleApiWrapper from './MyMapComponent';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -7,11 +7,15 @@ export default class App extends React.Component {
 
   }
 
+  onMarkerPositionChanged(center) {
+    console.log('arg:', center);
+  };
+  //onMarkerPositionChanged={this.onMarkerPositionChanged.bind(this)}
+
   render() {
     return (
       <div>
-        <h1> Hello World </h1>
-        <p> hello </p>
+        <GoogleApiWrapper />
       </div>
     )
   }
