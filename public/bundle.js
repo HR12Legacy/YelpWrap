@@ -18283,6 +18283,7 @@ class App extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
   constructor(props) {
     super(props);
     this.state = {
+      isAuthenticated: false,
       results: __WEBPACK_IMPORTED_MODULE_4__sampledata_js___default.a.businesses,
       location: {}
     };
