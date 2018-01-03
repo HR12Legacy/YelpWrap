@@ -1,15 +1,5 @@
 import React from 'react';
 import MyMapComponent from './MyMapComponent';
-/**
- * dependencies:
- *  "googlemaps": "^1.12.0",
-    "markerclustererplus": "^2.1.4",
-    "react": "^16.2.0",
-    "react-bootstrap": "^0.31.5",
-    "react-dom": "^16.2.0",
-    "react-google-maps": "^9.4.3",
-    "react-icons": "^2.2.7",
- */
 
 class MyMapContainerComponent extends React.Component {
   constructor(props){
