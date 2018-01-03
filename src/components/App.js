@@ -3,16 +3,20 @@ import Search from './Search.js';
 import EntryList from './EntryList.js';
 const axios = require('axios');
 import GoogleApiWrapper from './MyMapComponent';
+import sample from '../../sampledata.js'
+
 
 export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state ={
-      results: [],
+      results: sample.businesses,
       location: {},
     }
     this.searchHandler = this.searchHandler.bind(this);
   }
+
+
 
   getPosition(options) {
     return new Promise(function (resolve, reject) {
@@ -21,12 +25,12 @@ export default class App extends React.Component {
   }
   
   componentDidMount() {
-    this.searchHandler();
+    // this.searchHandler();
     const currentState = this.state;
     this.getPosition()
     .then(result => {
-      currentState.location.latitude: result.coords.latitude,
-      currentState.location.longitude: result.coords.longitude,
+      currentState.location.latitude = result.coords.latitude;
+      currentState.location.longitude = result.coords.longitude;
       this.setState({ currentState });
     })
     .catch(err => console.error(err));
@@ -55,7 +59,7 @@ export default class App extends React.Component {
         <h1> Hello World </h1>
         <Search search={this.searchHandler}/>
         <EntryList list={this.state.results}/>
-        <GoogleApiWrapper  onMarkerPositionChanged={this. onMarkerPositionChanged.bind(this)}/>
+        <GoogleApiWrapper  markers={this.state.results} onMarkerPositionChanged={this. onMarkerPositionChanged.bind(this)}/>
       </div>
     )
   }
