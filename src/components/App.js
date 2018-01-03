@@ -10,12 +10,9 @@ export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-<<<<<<< HEAD
       isAuthenticated: false,
-=======
       query: '',
       results: [],
->>>>>>> created route for api call(coords/location)
       coords: {},
       results: sample.businesses,
       location: '',
