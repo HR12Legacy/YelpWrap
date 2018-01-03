@@ -15,15 +15,15 @@ const compiler = webpack(config);
 
 app.use(express.static(path.join(__dirname, '../public')))
 
-app.use(webpackMiddleware(compiler, {
-	hot: true,
-	filename: 'bundle.js',
-	publicPath: '/',
-	stats: {
-		colors: true,
-	},
-	historyApiFallback: true,
-}));
+// app.use(webpackMiddleware(compiler, {
+// 	hot: true,
+// 	filename: 'bundle.js',
+// 	publicPath: '/',
+// 	stats: {
+// 		colors: true,
+// 	},
+// 	historyApiFallback: true,
+// }));
 
 
 app.use('/', router)

@@ -7,7 +7,7 @@ npm install
 
 Compile scrips:
 
-npm build
+npm run build
 
 ------------------------
 
