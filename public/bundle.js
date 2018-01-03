@@ -18639,7 +18639,8 @@ class MapContainer extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Compone
     super(props);
     this.state = {
       showingInfoWindow: false,
-      activeMarker: {}
+      activeMarker: {},
+      info: {}
     };
     this.onMarkerHover = this.onMarkerHover.bind(this);
   }
@@ -18647,10 +18648,10 @@ class MapContainer extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Compone
   onMarkerHover(props, marker, event) {
     this.setState({
       showingInfoWindow: true,
-      activeMarker: marker
+      activeMarker: marker,
+      info: props.info
     });
   }
-
   render() {
     return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
       __WEBPACK_IMPORTED_MODULE_1_google_maps_react__["Map"],
@@ -18664,7 +18665,7 @@ class MapContainer extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Compone
         const lat = marker.coordinates.latitude;
         const lng = marker.coordinates.longitude;
         const name = marker.name;
-        return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_google_maps_react__["Marker"], { onMouseover: this.onMarkerHover, key: idx, name: name, position: { lat, lng } });
+        return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_google_maps_react__["Marker"], { onMouseover: this.onMarkerHover, key: idx, info: marker, position: { lat, lng } });
       }),
       __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
         __WEBPACK_IMPORTED_MODULE_1_google_maps_react__["InfoWindow"],
@@ -18673,10 +18674,18 @@ class MapContainer extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Compone
           'div',
           null,
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-            'h1',
+            'h3',
             null,
-            ' Hello '
-          )
+            ' ',
+            this.state.info.name,
+            ' '
+          ),
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            'a',
+            { href: this.state.info.url },
+            ' Yelp '
+          ),
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('img', { style: { height: '40px', width: '40px' }, src: this.state.info.image_url })
         )
       )
     );
