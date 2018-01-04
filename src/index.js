@@ -12,9 +12,11 @@ const newHistory = createBrowserHistory();
 
 document.addEventListener('DOMContentLoaded', () => {
   ReactDOM.render(
-	  <MuiThemeProvider muiTheme={getMuiTheme()}>
-	    <BrowserRouter routes={routes} />
-	  </MuiThemeProvider>, 
+	  <Base/>, 
 	  document.getElementById('root')
   );
 });
+
+// <MuiThemeProvider muiTheme={getMuiTheme()}>
+// 	    <BrowserRouter routes={routes} />
+// 	  </MuiThemeProvider>
