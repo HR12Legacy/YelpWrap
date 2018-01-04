@@ -44,8 +44,22 @@ a:hover {
 
 .container {
   margin: 0 auto;
+  top: 25%;
+  left: 25%;
   text-align: center;
   width: 700px;
+  position: fixed;
+  float: center;
+  z-index: 10;
+}
+
+.container {
+  margin: 0 auto;
+  /*text-align: center;*/
+  width: 700px;
+  /*position: fixed;*/
+  /*float: center;*/
+  /*z-index: 10;*/
 }
 
 .card-heading {
