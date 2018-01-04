@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react';
 import SignUpForm from './SignUpForm.js';
+import ServerActions from '../../ServerActions.js';
 
 
 class SignUpPage extends React.Component {
@@ -30,10 +31,12 @@ class SignUpPage extends React.Component {
 
   processForm(event) {
     event.preventDefault();
-
-    console.log('name:', this.state.user.name);
-    console.log('email:', this.state.user.email);
-    console.log('password:', this.state.user.password);
+    ServerActions.postRequest('/user', this.state.user, (user) => {
+      localStorage.setItem('user', JSON.stringify(this.state.user.email));
+    })
+    // console.log('name:', this.state.user.name);
+    // console.log('email:', this.state.user.email);
+    // console.log('password:', this.state.user.password);
   }
 
   render() {
