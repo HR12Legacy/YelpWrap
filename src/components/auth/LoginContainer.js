@@ -5,9 +5,10 @@ import { Redirect } from 'react-router'
 
 
 
+
 class LoginPage extends React.Component {
-  constructor(props) {
-    super(props);
+  constructor(props, context) {
+    super(props, context);
     this.state = {
       errors: {},
       user: {
@@ -21,19 +22,30 @@ class LoginPage extends React.Component {
     this.changeUser = this.changeUser.bind(this);
   }
 
-  processForm(event) {
+processForm(event) {
     event.preventDefault();
-    ServerActions.postRequest('/login', this.state.user, (result) => {
-      if(result) {
-        localStorage.setItem('user', JSON.stringify(this.state.user.email));
-        const curr = this.state;
-        curr.redirect = !curr.redirect;
-        this.setState({curr}, console.log(this.state.redirect));
-      }
-    })
+    const email = encodeURIComponent(this.state.user.email);
+    const password = encodeURIComponent(this.state.user.password);
+    const formData = `email=${email}&password=${password}`;
+    const xhr = new XMLHttpRequest();
+    xhr.open('post', '/login');
+    xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+    xhr.responseType = 'json';
+    xhr.addEventListener('load', () => {
+      if (xhr.status === 200) {
+        this.setState({
+          errors: {}
+        });
+      } else {
+        const errors = xhr.response.errors ? xhr.response.errors : {};
+        errors.summary = xhr.response.message;
 
-    // console.log('email:', this.state.user.email);
-    // console.log('password:', this.state.user.password);
+        this.setState({
+          errors
+        });
+      }
+    });
+    xhr.send(formData);
   }
 
   changeUser(event) {
@@ -58,5 +70,4 @@ class LoginPage extends React.Component {
   }
 
 }
-
 export default LoginPage;

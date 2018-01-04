@@ -1,5 +1,15 @@
-.container {
-  height: 45vh;
+.mapContainer{
+  height: 45vh; 
   display: block;
-  position: relative;
+  position: sticky;
+}
+.map{
+	float: left;
+    width: 100%;
+    clear: both;
+    height: 0;
+    overflow: hidden;
+    padding-bottom: 22.25%;
+    padding-top: 30px;
+    position: relative;
 }
