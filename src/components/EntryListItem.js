@@ -20,3 +20,4 @@ const EntryListItem = (props) =>(
   </div>
   )
 export default EntryListItem;
+
