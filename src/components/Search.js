@@ -16,7 +16,7 @@ class Search extends React.Component {
   changeHandler(e){
     e.preventDefault();
     this.setState({[e.target.name]: e.target.value});
-    console.log('term: ', this.state.term, 'location: ', this.state.location);
+    // console.log('term: ', this.state.term, 'location: ', this.state.location);
   }
   clickHandler(e){
     e.preventDefault();
