@@ -34,15 +34,10 @@ export default class App extends React.Component {
     this.getPosition()
     .then(result => {
       this.setState({ coords: result.coords }, ()=>{
-        console.log('inside comp did mount',this.state);
+        // console.log('inside comp did mount',this.state);
         this.searchHandlerByCoords(this.state.query, this.state.coords.latitude, 
         this.state.coords.longitude)
-      }
-    );
-
-
-      console.log('state coords', this.state.coords)
-      
+      });
     })
     .catch(err => console.error(err));
   }
@@ -52,8 +47,8 @@ export default class App extends React.Component {
     axios.post('/search', {term: term, location: location})
     .then((data) => {
       this.setState({results: data.data})
-      console.log('State change in SearchByZip', this.state.results);
-      console.log('query from state in app searchByZip',this.state.query);
+      // console.log('State change in SearchByZip', this.state.results);
+      // console.log('query from state in app searchByZip',this.state.query);
     })
     .catch((err) => {
       console.log('err from axios: ', err);
@@ -64,7 +59,7 @@ export default class App extends React.Component {
     axios.post('/search', {term, lat, lng})
     .then((data) => {
       this.setState({results: data.data})
-      console.log(this.state.results);
+      // console.log(this.state.results);
     })
     .catch((err) => {
       console.log('err from axios: ', err);

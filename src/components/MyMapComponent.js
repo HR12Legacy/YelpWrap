@@ -36,7 +36,11 @@ class MapContainer extends React.Component {
               const lat = marker.coordinates.latitude;
               const lng = marker.coordinates.longitude;
               const name = marker.name;
-              return <Marker onMouseover={this.onMarkerHover} key={idx} info={marker} position={{lat, lng}}/>
+              return (<Marker 
+                onMouseover={this.onMarkerHover} 
+                key={idx} info={marker} 
+                position={{lat, lng}}
+              />)
             })}
 
             <InfoWindow marker={this.state.activeMarker} visible={this.state.showingInfoWindow}>
