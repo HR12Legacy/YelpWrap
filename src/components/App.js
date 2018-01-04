@@ -18,8 +18,10 @@ export default class App extends React.Component {
       isAuthenticated: false,
       query: '',
       results: [],
-      coords: {},
-      results: sample.businesses,
+
+      coords: {lat: 48.61021668181817,
+        lng: 9.103665540909093},
+
       location: '',
     }
     this.searchHandlerByZip = this.searchHandlerByZip.bind(this);
@@ -38,33 +40,35 @@ export default class App extends React.Component {
     this.searchHandlerByZip();
     this.getPosition()
     .then(result => {
-      this.setState({ coords: result.coords }, ()=>{
-        this.searchHandlerByCoords(this.state.query, this.state.coords.latitude, 
-        this.state.coords.longitude)
+
+      this.setState({ coords: {lat: result.coords.latitude, lng: result.coords.longitude} }, ()=>{
+        this.searchHandlerByCoords(this.state.query, this.state.coords.lat, 
+        this.state.coords.lng)
       }
-    );      
+    );
+
     })
     .catch(err => console.error(err));
   }
 
   searchHandlerByZip(term='delis', location='10007'){
-    this.setState({query: term},()=>{console.log('query from state in app searchByZip',this.state.query)})
+    this.setState({query: term})
     axios.post('/search', {term: term, location: location})
     .then((data) => {
-      this.setState({results: data.data})
-      console.log('State change in SearchByZip', this.state.results);
-      console.log('query from state in app searchByZip',this.state.query);
+      this.setState({results: data.data.businesses})
+      this.setState({coords: {lat: data.data.region.center.latitude, lng: data.data.region.center.longitude}}, ()=>{console.log('state coords',this.state.coords)})
+      // console.log('State change in SearchByZip', this.state.results);
+      // console.log('query from state in app searchByZip',this.state.query);
     })
     .catch((err) => {
       console.log('err from axios: ', err);
     });
   }
 
-  searchHandlerByCoords(term, lat, lng){
+  searchHandlerByCoords(term='delis', lat, lng){
     axios.post('/search', {term, lat, lng})
     .then((data) => {
-      this.setState({results: data.data})
-      console.log(this.state.results);
+      this.setState({results: data.data.businesses})
     })
     .catch((err) => {
       console.log('err from axios: ', err);
@@ -72,9 +76,12 @@ export default class App extends React.Component {
   }
 
   onMarkerPositionChanged(mapProps, map) {
-    console.log('mapProps', mapProps);
-    console.log('lat', map.center.lat());
+    console.log('map', map);
+    console.log('mapProp', mapProps)
+    console.log('lat', map.center);
     console.log('lng', map.center.lng());
+    var coords = {latitude: map.center.lat(), longitude: map.center.lng()}
+    this.setState({coords: coords},()=>{this.searchHandlerByCoords(this.state.query, this.state.coords.latitude, this.state.coords.longitude)})
   };
 
   render() {    
@@ -83,7 +90,8 @@ export default class App extends React.Component {
         <h1> Hello World </h1>
         <Search search={this.searchHandlerByZip}/>
         <EntryList list={this.state.results} style={{display: 'block'}}/>
-        <GoogleApiWrapper  markers={this.state.results} onMarkerPositionChanged={this.onMarkerPositionChanged.bind(this)} />
+        <GoogleApiWrapper  markers={this.state.results} onMarkerPositionChanged={this.onMarkerPositionChanged.bind(this)} 
+        xy={this.state.coords} />
       </div>
     )
   }
