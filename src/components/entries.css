@@ -1,10 +1,10 @@
 /* TODO: shadowing */
 .entryList {
-  display: flex; 
   flex-wrap: wrap; 
   height: 250px; 
   width: 60%; 
   overflow-y: scroll;
+  display: flex; 
   float: left;
 }
 

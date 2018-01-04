@@ -9,10 +9,10 @@ class SignUpPage extends React.Component {
     this.state = {
       errors: {},
       user: {
-        email: '',
-        name: '',
-        password: ''
-      }
+        email: ' ',
+        name: ' ',
+        password: ' '
+      },
     };
 
     this.processForm = this.processForm.bind(this);
