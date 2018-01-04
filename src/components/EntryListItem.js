@@ -1,4 +1,5 @@
 import React from 'react'
+import style from './entries.css';
 
 const EntryListItem = (props) =>(
   <div className={style.entryListItem}>

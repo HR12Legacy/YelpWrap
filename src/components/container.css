@@ -1,5 +1,7 @@
 .container {
-  height: 45vh;
+  height: 45vh; 
   display: block;
-  position: relative;
+  position: absolute;
+  position: -webkit-sticky;
+  position: sticky;
 }

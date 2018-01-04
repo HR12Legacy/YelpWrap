@@ -11,6 +11,7 @@ import LoginPage from './components/auth/LoginContainer.js';
 import SignUpPage from './components/auth/SignUpContainer.js';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import { HashRouter, Route, Link } from 'react-router-dom';
+import style from './base.css';
 
 injectTapEventPlugin();
 
@@ -19,12 +20,12 @@ const Base = () => (
     <HashRouter>
       <div>
 
-        <div className="top-bar">
-          <div className="top-bar-left">
+        <div className={style.topBar}>
+          <div className={style.topBarLeft}>
             <Link to="/">Home</Link>
           </div>
 
-          <div className="top-bar-right">
+          <div className={style.topBarRight}>
             <Link to="/login">Log in</Link>
             <Link to="/signup">Sign up</Link>
           </div>

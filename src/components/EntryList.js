@@ -1,5 +1,6 @@
 import React from 'react';
 import EntryListItem from './EntryListItem.js';
+import style from './entries.css';
 
 const  EntryList = (props) =>(
 
