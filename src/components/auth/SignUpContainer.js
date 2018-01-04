@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react';
 import SignUpForm from './SignUpForm.js';
 import ServerActions from '../../ServerActions.js';
+import { Link } from 'react-router-dom';
 
 
 class SignUpPage extends React.Component {
@@ -12,7 +13,7 @@ class SignUpPage extends React.Component {
         email: '',
         name: '',
         password: ''
-      }
+      },
     };
 
     this.processForm = this.processForm.bind(this);
@@ -31,13 +32,31 @@ class SignUpPage extends React.Component {
 
   processForm(event) {
     event.preventDefault();
-    ServerActions.postRequest('/user', this.state.user, (user) => {
-      localStorage.setItem('user', JSON.stringify(this.state.user.email));
-    })
-    // console.log('name:', this.state.user.name);
-    // console.log('email:', this.state.user.email);
-    // console.log('password:', this.state.user.password);
+    const name = encodeURIComponent(this.state.user.name);
+    const email = encodeURIComponent(this.state.user.email);
+    const password = encodeURIComponent(this.state.user.password);
+    const formData = `name=${name}&email=${email}&password=${password}`;
+    const xhr = new XMLHttpRequest();
+    xhr.open('post', '/user');
+    xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+    xhr.responseType = 'json';
+    xhr.addEventListener('load', () => {
+      if (xhr.status === 200) {
+        this.setState({
+          errors: {}
+        });
+      } else {
+        const errors = xhr.response.errors ? xhr.response.errors : {};
+        errors.summary = xhr.response.message;
+
+        this.setState({
+          errors
+        });
+      }
+    });
+    xhr.send(formData);
   }
+
 
   render() {
     return (

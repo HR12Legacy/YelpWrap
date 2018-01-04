@@ -48,7 +48,7 @@ class SignUpForm extends React.Component {
             <RaisedButton type="submit" label="Create New Account" primary />
           </div>
 
-          
+          <CardText>Already have an account? <Link to={'/login'}>Sign In</Link>.</CardText>
         </form>
       </Card>
       

@@ -27,8 +27,7 @@ class MapContainer extends React.Component {
   
   render() {
       return (
-        <div style={{height:'45vh', display: 'block', position: 'absolute', position: '-webkit-sticky',
-        position: 'sticky'}}>
+        <div className={style.mapContainer}>
           <Map
             google={window.google}
             center={
