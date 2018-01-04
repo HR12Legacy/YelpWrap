@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 import { Card, CardText } from 'material-ui/Card';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
@@ -42,11 +42,11 @@ const LoginForm = ({
         <RaisedButton type="submit" label="Log in" primary />
       </div>
 
-      <CardText>Don't have an account? <Link to={'/signup'}>Create one</Link>.</CardText>
+      
     </form>
   </Card>
 );
-
+// <CardText>Don't have an account? <Link to={'/signup'}>Create one</Link>.</CardText>
 // LoginForm.propTypes = {
 //   onSubmit: PropTypes.func.isRequired,
 //   onChange: PropTypes.func.isRequired,

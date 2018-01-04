@@ -4,9 +4,6 @@ import EntryList from './EntryList.js';
 const axios = require('axios');
 import GoogleApiWrapper from './MyMapComponent';
 import sample from '../../sampledata.js'
-import SignUpContainer from './auth/SignUpContainer.js';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-
 
 export default class App extends React.Component {
   constructor(props) {
@@ -75,15 +72,11 @@ export default class App extends React.Component {
 
   render() {
     return (
-        <MuiThemeProvider>
       <div style={{height: '200px'}}>
-        <h1> Hello World </h1>
-        <SignUpContainer/>
         <Search search={this.searchHandlerByZip}/>
         <EntryList list={this.state.results} style={{display: 'block'}}/>
         <GoogleApiWrapper  markers={this.state.results} onMarkerPositionChanged={this.onMarkerPositionChanged.bind(this)} />
       </div>
-        </MuiThemeProvider>
     )
   }
 }

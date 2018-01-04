@@ -1,12 +1,12 @@
 import React, { PropTypes } from 'react';
-import { Link, IndexLink } from 'react-router';
+import { Link, Navlink } from 'react-router-dom';
 
 
 const Base = ({ children }) => (
   <div>
     <div className="top-bar">
       <div className="top-bar-left">
-        <IndexLink to="/">React App</IndexLink>
+        <Link to="/">React App</Link>
       </div>
 
       <div className="top-bar-right">
@@ -21,8 +21,9 @@ const Base = ({ children }) => (
   </div>
 );
 
-Base.propTypes = {
-  children: PropTypes.object.isRequired
-};
+
+// Base.propTypes = {
+//   children: PropTypes.object.isRequired
+// };
 
 export default Base;
