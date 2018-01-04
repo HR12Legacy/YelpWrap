@@ -87,17 +87,11 @@ export default class App extends React.Component {
     return (
       <div style={{height: '200px'}}>
         <Search search={this.searchHandlerByZip}/>
-<<<<<<< HEAD
         <EntryList list={this.state.results}/>
         <GoogleApiWrapper  markers={this.state.results} onMarkerPositionChanged={this.onMarkerPositionChanged.bind(this)} 
         xy={this.state.coords} />
         <FavEntryList list={this.state.results}/>
-=======
-        <EntryList list={this.state.results} style={{display: 'block'}}/>
         xy={this.state.coords} />
-        <FavEntryList list={this.state.results}/>
-        <GoogleApiWrapper  markers={this.state.results} onMarkerPositionChanged={this.onMarkerPositionChanged.bind(this)}/>
->>>>>>> refactoring css implementation and added favorites list
       </div>
     )
   }
