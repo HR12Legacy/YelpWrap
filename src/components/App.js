@@ -19,8 +19,6 @@ export default class App extends React.Component {
     this.searchHandlerByCoords = this.searchHandlerByCoords.bind(this);
   }
 
-
-
   getPosition(options) {
     return new Promise(function (resolve, reject) {
       navigator.geolocation.getCurrentPosition(resolve, reject, options);

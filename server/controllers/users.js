@@ -3,7 +3,6 @@ const User = require('../models/User.js');
 
 const userController = {
   add: (body, cb) => {
-  	console.log('adding')
   	const newUser = new User({
   		username: body.username,
   		password: body.password,

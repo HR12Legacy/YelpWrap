@@ -35589,7 +35589,6 @@ class LoginPage extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component 
 
   processForm(event) {
     event.preventDefault();
-
     console.log('email:', this.state.user.email);
     console.log('password:', this.state.user.password);
   }
