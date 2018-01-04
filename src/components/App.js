@@ -5,21 +5,19 @@ const axios = require('axios');
 import GoogleApiWrapper from './MyMapComponent';
 import sample from '../../sampledata.js'
 
-
 export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       isAuthenticated: false,
+      query: '',
+      results: [],
       coords: {},
-      results: sample.businesses,
       location: '',
     }
     this.searchHandlerByZip = this.searchHandlerByZip.bind(this);
     this.searchHandlerByCoords = this.searchHandlerByCoords.bind(this);
   }
-
-
 
   getPosition(options) {
     return new Promise(function (resolve, reject) {
@@ -28,32 +26,36 @@ export default class App extends React.Component {
   }
   
   componentDidMount() {
-    // this.searchHandler();
+    this.searchHandlerByZip();
     this.getPosition()
     .then(result => {
-      this.setState({ coords: result.coords });
-      console.log('state coords', this.state.coords.latitude)
-      this.searchHandlerByCoords('jackie', this.state.coords)
+      this.setState({ coords: result.coords }, ()=>{
+        // console.log('inside comp did mount',this.state);
+        this.searchHandlerByCoords(this.state.query, this.state.coords.latitude, 
+        this.state.coords.longitude)
+      });
     })
     .catch(err => console.error(err));
   }
 
   searchHandlerByZip(term='delis', location='10007'){
+    this.setState({query: term},()=>{console.log('query from state in app searchByZip',this.state.query)})
     axios.post('/search', {term: term, location: location})
     .then((data) => {
       this.setState({results: data.data})
-      console.log(this.state.results);
+      // console.log('State change in SearchByZip', this.state.results);
+      // console.log('query from state in app searchByZip',this.state.query);
     })
     .catch((err) => {
       console.log('err from axios: ', err);
     });
   }
 
-  searchHandlerByCoords(term, coords){
-    axios.post('/search', {term: term, coords: coords})
+  searchHandlerByCoords(term, lat, lng){
+    axios.post('/search', {term, lat, lng})
     .then((data) => {
       this.setState({results: data.data})
-      console.log(this.state.results);
+      // console.log(this.state.results);
     })
     .catch((err) => {
       console.log('err from axios: ', err);
@@ -68,11 +70,10 @@ export default class App extends React.Component {
 
   render() {
     return (
-      <div>
-        <h1> Hello World </h1>
+      <div style={{height: '200px'}}>
         <Search search={this.searchHandlerByZip}/>
-        <EntryList list={this.state.results}/>
-        <GoogleApiWrapper  markers={this.state.results} onMarkerPositionChanged={this. onMarkerPositionChanged.bind(this)}/>
+        <EntryList list={this.state.results} style={{display: 'block'}}/>
+        <GoogleApiWrapper  markers={this.state.results} onMarkerPositionChanged={this.onMarkerPositionChanged.bind(this)} />
       </div>
     )
   }

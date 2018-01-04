@@ -1,7 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './components/App.js';
+import Base from './Base.js'
+
 
 document.addEventListener('DOMContentLoaded', () => {
-  ReactDOM.render(<App/>, document.getElementById('root'));
+  ReactDOM.render(
+	  <Base/>, 
+	  document.getElementById('root')
+  );
 });
