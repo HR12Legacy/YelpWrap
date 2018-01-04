@@ -19,6 +19,7 @@ const Base = () => (
   <MuiThemeProvider muiTheme={getMuiTheme()}>
     <BrowserRouter>
       <div>
+      
         <div className="top-bar">
           <div className="top-bar-left">
             <Link to="/">Home</Link>
@@ -36,7 +37,7 @@ const Base = () => (
           <Route path='/login' component={LoginPage} />
           <Route path='/signup' component={SignUpPage} />
         </switch>
-        
+
       </div>
     </BrowserRouter>
   </MuiThemeProvider>
