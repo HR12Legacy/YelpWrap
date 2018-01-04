@@ -1,6 +1,7 @@
 import React from 'react';
 import Search from './Search.js';
 import EntryList from './EntryList.js';
+import FavEntryList from './FavEntryList.js';
 const axios = require('axios');
 import GoogleApiWrapper from './MyMapComponent';
 import sample from '../../sampledata.js'
@@ -72,6 +73,7 @@ export default class App extends React.Component {
     });
   }
 
+  //Chris has this utilized on his branch:
   onMarkerPositionChanged(mapProps, map) {
     console.log('map', map);
     console.log('mapProp', mapProps)
@@ -84,11 +86,11 @@ export default class App extends React.Component {
   render() {    
     return (
       <div style={{height: '200px'}}>
-        <h1> Hello World </h1>
         <Search search={this.searchHandlerByZip}/>
-        <EntryList list={this.state.results} style={{display: 'block'}}/>
+        <EntryList list={this.state.results}/>
         <GoogleApiWrapper  markers={this.state.results} onMarkerPositionChanged={this.onMarkerPositionChanged.bind(this)} 
         xy={this.state.coords} />
+        <FavEntryList list={this.state.results}/>
       </div>
     )
   }
