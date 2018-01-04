@@ -4,6 +4,11 @@ import EntryList from './EntryList.js';
 const axios = require('axios');
 import GoogleApiWrapper from './MyMapComponent';
 
+/**
+ * NOTICE:
+ * npm install --save axios on production branch 
+ */
+
 export default class App extends React.Component {
   constructor(props) {
     super(props);
@@ -22,12 +27,12 @@ export default class App extends React.Component {
   
   componentDidMount() {
     this.searchHandler();
-    const currentState = this.state;
+    let currentLocation = {};
     this.getPosition()
     .then(result => {
-      currentState.location.latitude: result.coords.latitude,
-      currentState.location.longitude: result.coords.longitude,
-      this.setState({ currentState });
+      currentLocation.latitude = result.coords.latitude
+      currentLocation.longitude = result.coords.longitude
+      this.setState({ location: currentLocation });
     })
     .catch(err => console.error(err));
   }
@@ -36,7 +41,6 @@ export default class App extends React.Component {
     axios.post('/search', {term: term, location: location})
     .then((data) => {
       this.setState({results: data.data})
-      console.log(this.state.results);
     })
     .catch((err) => {
       console.log('err from axios: ', err);
@@ -49,7 +53,7 @@ export default class App extends React.Component {
     console.log('lng', map.center.lng());
   };
 
-  render() {
+  render() {    
     return (
       <div>
         <h1> Hello World </h1>
