@@ -10,7 +10,6 @@ const userController = {
   	})
   	newUser.save()
   	.then(newUser => {
-  		console.log('saved');
   		cb(newUser);
   	})
   	.catch(err => {

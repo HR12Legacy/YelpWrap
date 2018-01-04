@@ -16,7 +16,6 @@ const User = db.Model.extend({
 		const hasher = Promise.promisify(bcrypt.hash);
 		return hasher(this.get('password'), 10).bind(this)
 			.then(hash => {
-				console.log('hash')
 				this.set('password', hash);
 			})
 			.catch(err => console.log(err))
