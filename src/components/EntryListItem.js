@@ -2,7 +2,6 @@ import React from 'react'
 
 const EntryListItem = (props) =>(
   <div className={style.entryListItem}>
-    
     <a href={props.item.url}><img src={props.item.image_url} alt="item" className={style.imageEntryListItem}/></a>
     <div className={style.textBoxListItem}>
       <span>{props.item.name}</span> <br/>

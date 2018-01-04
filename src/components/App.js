@@ -5,8 +5,6 @@ import FavEntryList from './FavEntryList.js';
 const axios = require('axios');
 import GoogleApiWrapper from './MyMapComponent';
 import sample from '../../sampledata.js'
-
-
 /**
  * NOTICE:
  * npm install --save axios on production branch 
@@ -27,8 +25,6 @@ export default class App extends React.Component {
     this.searchHandlerByCoords = this.searchHandlerByCoords.bind(this);
   }
 
-
-
   getPosition(options) {
     return new Promise(function (resolve, reject) {
       navigator.geolocation.getCurrentPosition(resolve, reject, options);
@@ -44,7 +40,6 @@ export default class App extends React.Component {
         this.state.coords.lng)
       }
     );
-        console.log('348917234987>>>>', result.coords)
     })
     .catch(err => console.error(err));
   }

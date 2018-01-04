@@ -16,11 +16,13 @@ class Search extends React.Component {
   changeHandler(e){
     e.preventDefault();
     this.setState({[e.target.name]: e.target.value});
-    // console.log('term: ', this.state.term, 'location: ', this.state.location);
   }
+  
   clickHandler(e){
     e.preventDefault();
-    this.props.search(this.state.term, this.state.location);
+    this.state.term.length && this.state.location.length ?
+    this.props.search(this.state.term, this.state.location) :
+    null;
   }
 
   render(){

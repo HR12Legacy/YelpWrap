@@ -40,8 +40,6 @@ class MapContainer extends React.Component {
             }>
             {/* {console.log('===53456==>',mapCenter)} */}
             {console.log('===123123==>', window.google)}
-
-
             {this.props.markers.map((marker, idx) => {
               const lat = marker.coordinates.latitude;
               const lng = marker.coordinates.longitude;
