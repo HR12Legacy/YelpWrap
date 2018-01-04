@@ -5,7 +5,9 @@ const router = require('express').Router();
 const config =require('../config.js');
 const controllers = require('../server/controllers/mainController.js')
 
-router.use(bodyParser.json());
+// router.use(bodyParser.json());
+
+
 
 router.post('/search', function(req, res){
   controllers.search.request(req.body, result => {

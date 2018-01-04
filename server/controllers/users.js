@@ -1,12 +1,21 @@
 const knex = require('../../server/config.js').knex;
+const User = require('../models/User.js');
 
 const userController = {
   add: (body, cb) => {
-    knex('users').insert({
-      username: body.username,
-    }).then((user) => {
-      cb();
-    })
+  	console.log('adding')
+  	const newUser = new User({
+  		username: body.username,
+  		password: body.password,
+  	})
+  	newUser.save()
+  	.then(newUser => {
+  		console.log('saved');
+  		cb(newUser);
+  	})
+  	.catch(err => {
+  		console.error(err)
+  	})
   }
 }
 
