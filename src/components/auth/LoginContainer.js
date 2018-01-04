@@ -1,5 +1,8 @@
 import React, { PropTypes } from 'react';
 import LoginForm from './LoginForm.js';
+import ServerActions from '../../ServerActions.js';
+import { Redirect } from 'react-router'
+
 
 
 class LoginPage extends React.Component {
@@ -8,9 +11,10 @@ class LoginPage extends React.Component {
     this.state = {
       errors: {},
       user: {
-        email: '',
+        username: '',
         password: ''
-      }
+      },
+      redirect: false,
     };
 
     this.processForm = this.processForm.bind(this);
@@ -19,8 +23,17 @@ class LoginPage extends React.Component {
 
   processForm(event) {
     event.preventDefault();
-    console.log('email:', this.state.user.email);
-    console.log('password:', this.state.user.password);
+    ServerActions.postRequest('/login', this.state.user, (result) => {
+      if(result) {
+        localStorage.setItem('user', JSON.stringify(this.state.user.email));
+        const curr = this.state;
+        curr.redirect = !curr.redirect;
+        this.setState({curr}, console.log(this.state.redirect));
+      }
+    })
+
+    // console.log('email:', this.state.user.email);
+    // console.log('password:', this.state.user.password);
   }
 
   changeUser(event) {
@@ -34,14 +47,14 @@ class LoginPage extends React.Component {
   }
 
   render() {
-    return (
-      <LoginForm
+      return (
+        <LoginForm
         onSubmit={this.processForm}
         onChange={this.changeUser}
         errors={this.state.errors}
         user={this.state.user}
       />
-    );
+      )
   }
 
 }

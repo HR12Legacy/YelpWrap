@@ -4,7 +4,7 @@ const User = require('../models/User.js');
 const userController = {
   add: (body, cb) => {
   	const newUser = new User({
-  		username: body.username,
+  		username: body.email,
   		password: body.password,
   	})
   	newUser.save()

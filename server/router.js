@@ -3,7 +3,8 @@ const bodyParser = require('body-parser');
 const request = require('request')
 const router = require('express').Router();
 const config =require('../config.js');
-const controllers = require('../server/controllers/mainController.js')
+const controllers = require('../server/controllers/mainController.js');
+const util = require('./util.js');
 
 // router.use(bodyParser.json());
 
@@ -15,9 +16,13 @@ router.post('/search', function(req, res){
   })
 })
 
+router.post('/login', (req, res) => {
+	util.validateLogin(req, res)
+})
+
 router.post('/user', (req, res) => {
-  controllers.user.add(req.body, () => {
-    res.status(200).send();
+  controllers.user.add(req.body, (user) => {
+    res.status(200).send(user);
   })
 })
 

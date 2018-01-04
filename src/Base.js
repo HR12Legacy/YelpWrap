@@ -10,13 +10,13 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import LoginPage from './components/auth/LoginContainer.js';
 import SignUpPage from './components/auth/SignUpContainer.js';
 import injectTapEventPlugin from 'react-tap-event-plugin';
-import { BrowserRouter, Route, Link } from 'react-router-dom';
+import { HashRouter, Route, Link } from 'react-router-dom';
 
 injectTapEventPlugin();
 
 const Base = () => (
   <MuiThemeProvider muiTheme={getMuiTheme()}>
-    <BrowserRouter>
+    <HashRouter>
       <div>
 
         <div className="top-bar">
@@ -38,7 +38,7 @@ const Base = () => (
         </switch>
 
       </div>
-    </BrowserRouter>
+    </HashRouter>
   </MuiThemeProvider>
 );
 
