@@ -5181,36 +5181,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom__ = __webpack_require__(18);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react_dom__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_App_js__ = __webpack_require__(123);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Base_js__ = __webpack_require__(336);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__frontend_routes_js__ = __webpack_require__(337);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__frontend_routes_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__frontend_routes_js__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_material_ui_styles_MuiThemeProvider__ = __webpack_require__(297);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_material_ui_styles_MuiThemeProvider___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_material_ui_styles_MuiThemeProvider__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_material_ui_styles_getMuiTheme__ = __webpack_require__(298);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_material_ui_styles_getMuiTheme___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_material_ui_styles_getMuiTheme__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_react_router_dom__ = __webpack_require__(168);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_history_createBrowserHistory__ = __webpack_require__(170);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_history_createBrowserHistory___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_8_history_createBrowserHistory__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Base_js__ = __webpack_require__(336);
 
 
 
-
-
-
-
-
-
-
-const newHistory = __WEBPACK_IMPORTED_MODULE_8_history_createBrowserHistory___default()();
 
 document.addEventListener('DOMContentLoaded', () => {
-  __WEBPACK_IMPORTED_MODULE_1_react_dom___default.a.render(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__Base_js__["a" /* default */], null), document.getElementById('root'));
+  __WEBPACK_IMPORTED_MODULE_1_react_dom___default.a.render(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__Base_js__["a" /* default */], null), document.getElementById('root'));
 });
-
-// <MuiThemeProvider muiTheme={getMuiTheme()}>
-// 	    <BrowserRouter routes={routes} />
-// 	  </MuiThemeProvider>
 
 /***/ }),
 /* 115 */
@@ -22565,7 +22543,7 @@ const EntryListItem = props => __WEBPACK_IMPORTED_MODULE_0_react___default.a.cre
   ),
   __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
     'div',
-    { style: { float: 'right' } },
+    { style: { float: 'right' }, className: 'container-small' },
     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
       'span',
       null,
@@ -38990,14 +38968,8 @@ exports.default = TextFieldUnderline;
 
 
 class SignUpPage extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
-
-  /**
-   * Class constructor.
-   */
   constructor(props) {
     super(props);
-
-    // set the initial component state
     this.state = {
       errors: {},
       user: {
@@ -39011,11 +38983,6 @@ class SignUpPage extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component
     this.changeUser = this.changeUser.bind(this);
   }
 
-  /**
-   * Change the user object.
-   *
-   * @param {object} event - the JavaScript event object
-   */
   changeUser(event) {
     const field = event.target.name;
     const user = this.state.user;
@@ -39026,13 +38993,7 @@ class SignUpPage extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component
     });
   }
 
-  /**
-   * Process the form.
-   *
-   * @param {object} event - the JavaScript event object
-   */
   processForm(event) {
-    // prevent default action. in this case, action is the form submission event
     event.preventDefault();
 
     console.log('name:', this.state.user.name);
@@ -39040,9 +39001,6 @@ class SignUpPage extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component
     console.log('password:', this.state.user.password);
   }
 
-  /**
-   * Render the component.
-   */
   render() {
     return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__SignUpForm_js__["a" /* default */], {
       onSubmit: this.processForm,
@@ -44528,14 +44486,8 @@ exports.default = new Typography();
 
 
 class LoginPage extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
-
-  /**
-   * Class constructor.
-   */
   constructor(props) {
     super(props);
-
-    // set the initial component state
     this.state = {
       errors: {},
       user: {
@@ -44548,24 +44500,13 @@ class LoginPage extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component 
     this.changeUser = this.changeUser.bind(this);
   }
 
-  /**
-   * Process the form.
-   *
-   * @param {object} event - the JavaScript event object
-   */
   processForm(event) {
-    // prevent default action. in this case, action is the form submission event
     event.preventDefault();
 
     console.log('email:', this.state.user.email);
     console.log('password:', this.state.user.password);
   }
 
-  /**
-   * Change the user object.
-   *
-   * @param {object} event - the JavaScript event object
-   */
   changeUser(event) {
     const field = event.target.name;
     const user = this.state.user;
@@ -44576,9 +44517,6 @@ class LoginPage extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component 
     });
   }
 
-  /**
-   * Render the component.
-   */
   render() {
     return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__LoginForm_js__["a" /* default */], {
       onSubmit: this.processForm,
@@ -44684,19 +44622,15 @@ const LoginForm = ({
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom__ = __webpack_require__(18);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react_dom__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_App_js__ = __webpack_require__(123);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__frontend_routes_js__ = __webpack_require__(337);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__frontend_routes_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__frontend_routes_js__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_material_ui_styles_MuiThemeProvider__ = __webpack_require__(297);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_material_ui_styles_MuiThemeProvider___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_material_ui_styles_MuiThemeProvider__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_material_ui_styles_getMuiTheme__ = __webpack_require__(298);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_material_ui_styles_getMuiTheme___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_material_ui_styles_getMuiTheme__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_react_router_dom__ = __webpack_require__(168);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_history_createBrowserHistory__ = __webpack_require__(170);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_history_createBrowserHistory___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7_history_createBrowserHistory__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__components_auth_LoginContainer_js__ = __webpack_require__(333);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__components_auth_SignUpContainer_js__ = __webpack_require__(287);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10_react_tap_event_plugin__ = __webpack_require__(338);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10_react_tap_event_plugin___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_10_react_tap_event_plugin__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_material_ui_styles_MuiThemeProvider__ = __webpack_require__(297);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_material_ui_styles_MuiThemeProvider___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_material_ui_styles_MuiThemeProvider__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_material_ui_styles_getMuiTheme__ = __webpack_require__(298);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_material_ui_styles_getMuiTheme___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_material_ui_styles_getMuiTheme__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__components_auth_LoginContainer_js__ = __webpack_require__(333);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__components_auth_SignUpContainer_js__ = __webpack_require__(287);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_react_tap_event_plugin__ = __webpack_require__(338);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_react_tap_event_plugin___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7_react_tap_event_plugin__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_react_router_dom__ = __webpack_require__(168);
 
 // import { Link, Navlink } from 'react-router-dom';
 
@@ -44711,13 +44645,13 @@ const LoginForm = ({
 
 
 
-
+__WEBPACK_IMPORTED_MODULE_7_react_tap_event_plugin___default()();
 
 const Base = () => __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-  __WEBPACK_IMPORTED_MODULE_4_material_ui_styles_MuiThemeProvider___default.a,
-  { muiTheme: __WEBPACK_IMPORTED_MODULE_5_material_ui_styles_getMuiTheme___default()() },
+  __WEBPACK_IMPORTED_MODULE_3_material_ui_styles_MuiThemeProvider___default.a,
+  { muiTheme: __WEBPACK_IMPORTED_MODULE_4_material_ui_styles_getMuiTheme___default()() },
   __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-    __WEBPACK_IMPORTED_MODULE_6_react_router_dom__["a" /* BrowserRouter */],
+    __WEBPACK_IMPORTED_MODULE_8_react_router_dom__["a" /* BrowserRouter */],
     null,
     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
       'div',
@@ -44729,7 +44663,7 @@ const Base = () => __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
           'div',
           { className: 'top-bar-left' },
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-            __WEBPACK_IMPORTED_MODULE_6_react_router_dom__["b" /* Link */],
+            __WEBPACK_IMPORTED_MODULE_8_react_router_dom__["b" /* Link */],
             { to: '/' },
             'Home'
           )
@@ -44738,12 +44672,12 @@ const Base = () => __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
           'div',
           { className: 'top-bar-right' },
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-            __WEBPACK_IMPORTED_MODULE_6_react_router_dom__["b" /* Link */],
+            __WEBPACK_IMPORTED_MODULE_8_react_router_dom__["b" /* Link */],
             { to: '/login' },
             'Log in'
           ),
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-            __WEBPACK_IMPORTED_MODULE_6_react_router_dom__["b" /* Link */],
+            __WEBPACK_IMPORTED_MODULE_8_react_router_dom__["b" /* Link */],
             { to: '/signup' },
             'Sign up'
           )
@@ -44752,56 +44686,18 @@ const Base = () => __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
       __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
         'switch',
         null,
-        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_6_react_router_dom__["c" /* Route */], { path: '/', component: __WEBPACK_IMPORTED_MODULE_2__components_App_js__["a" /* default */] }),
-        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_6_react_router_dom__["c" /* Route */], { path: '/login', component: __WEBPACK_IMPORTED_MODULE_8__components_auth_LoginContainer_js__["a" /* default */] }),
-        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_6_react_router_dom__["c" /* Route */], { path: '/signup', component: __WEBPACK_IMPORTED_MODULE_9__components_auth_SignUpContainer_js__["a" /* default */] })
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_8_react_router_dom__["c" /* Route */], { path: '/', component: __WEBPACK_IMPORTED_MODULE_2__components_App_js__["a" /* default */] }),
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_8_react_router_dom__["c" /* Route */], { path: '/login', component: __WEBPACK_IMPORTED_MODULE_5__components_auth_LoginContainer_js__["a" /* default */] }),
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_8_react_router_dom__["c" /* Route */], { path: '/signup', component: __WEBPACK_IMPORTED_MODULE_6__components_auth_SignUpContainer_js__["a" /* default */] })
       )
     )
   )
 );
 
-// Base.propTypes = {
-//   children: PropTypes.object.isRequired
-// };
-``;
 /* harmony default export */ __webpack_exports__["a"] = (Base);
 
 /***/ }),
-/* 337 */
-/***/ (function(module, __webpack_exports__) {
-
-"use strict";
-
-// import App from './components/App.js';
-// import LoginPage from './components/auth/LoginContainer.js';
-// import SignUpPage from './components/auth/SignUpContainer.js';
-
-
-// const routes = {
-//   component: Base,
-//   childRoutes: [
-
-//     {
-//       path: '/',
-//       component: App
-//     },
-
-//     {
-//       path: '/login',
-//       component: LoginPage
-//     },
-
-//     {
-//       path: '/signup',
-//       component: SignUpPage
-//     }
-
-//   ]
-// };
-
-// export default routes;
-
-/***/ }),
+/* 337 */,
 /* 338 */
 /***/ (function(module, exports, __webpack_require__) {
 

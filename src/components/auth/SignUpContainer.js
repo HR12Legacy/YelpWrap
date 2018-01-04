@@ -3,14 +3,8 @@ import SignUpForm from './SignUpForm.js';
 
 
 class SignUpPage extends React.Component {
-
-  /**
-   * Class constructor.
-   */
   constructor(props) {
     super(props);
-
-    // set the initial component state
     this.state = {
       errors: {},
       user: {
@@ -24,11 +18,6 @@ class SignUpPage extends React.Component {
     this.changeUser = this.changeUser.bind(this);
   }
 
-  /**
-   * Change the user object.
-   *
-   * @param {object} event - the JavaScript event object
-   */
   changeUser(event) {
     const field = event.target.name;
     const user = this.state.user;
@@ -39,13 +28,7 @@ class SignUpPage extends React.Component {
     });
   }
 
-  /**
-   * Process the form.
-   *
-   * @param {object} event - the JavaScript event object
-   */
   processForm(event) {
-    // prevent default action. in this case, action is the form submission event
     event.preventDefault();
 
     console.log('name:', this.state.user.name);
@@ -53,9 +36,6 @@ class SignUpPage extends React.Component {
     console.log('password:', this.state.user.password);
   }
 
-  /**
-   * Render the component.
-   */
   render() {
     return (
       <SignUpForm

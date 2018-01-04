@@ -3,7 +3,7 @@ const bodyParser = require('body-parser');
 const request = require('request')
 const router = require('express').Router();
 const config =require('../config.js');
-const controllers = require('./controllers/mainController.js')
+const controllers = require('../server/controllers/mainController.js')
 
 router.use(bodyParser.json());
 

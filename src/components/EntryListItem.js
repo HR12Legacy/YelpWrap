@@ -4,7 +4,7 @@ const EntryListItem = (props) =>(
   <div style={{ padding:15, margin: 15, border: '1px solid red', width: '100%', height: '60px'}}>
     
     <a href={props.item.url}><img src={props.item.image_url} alt="item" height="100%" width="25%"/></a>
-    <div style={{float: 'right'}}>
+    <div style={{float: 'right'}} className="container-small">
       <span>{props.item.name}</span> <br/>
       <span>{props.item.phone}</span>  <br/>
       <span>{props.item.location.address1}</span> <br/>
@@ -18,5 +18,5 @@ const EntryListItem = (props) =>(
     </div>
   
   </div>
-  )
+)
 export default EntryListItem;
