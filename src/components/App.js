@@ -6,16 +6,18 @@ import GoogleApiWrapper from './MyMapComponent';
 import sample from '../../sampledata.js'
 
 
+/**
+ * NOTICE:
+ * npm install --save axios on production branch 
+ */
+
 export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-<<<<<<< HEAD
       isAuthenticated: false,
-=======
       query: '',
       results: [],
->>>>>>> created route for api call(coords/location)
       coords: {},
       results: sample.businesses,
       location: '',
@@ -37,15 +39,10 @@ export default class App extends React.Component {
     this.getPosition()
     .then(result => {
       this.setState({ coords: result.coords }, ()=>{
-        console.log('inside comp did mount',this.state);
         this.searchHandlerByCoords(this.state.query, this.state.coords.latitude, 
         this.state.coords.longitude)
       }
-    );
-
-
-      console.log('state coords', this.state.coords)
-      
+    );      
     })
     .catch(err => console.error(err));
   }
@@ -80,7 +77,7 @@ export default class App extends React.Component {
     console.log('lng', map.center.lng());
   };
 
-  render() {
+  render() {    
     return (
       <div style={{height: '200px'}}>
         <h1> Hello World </h1>

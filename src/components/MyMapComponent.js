@@ -2,7 +2,10 @@ import React from 'react';
 import {Map, InfoWindow, Marker, GoogleApiWrapper} from 'google-maps-react';
 const CaretUp = require("react-icons/lib/fa/caret-up");
 import keys from '../../config';
- 
+import style from './container.css';
+
+
+
 class MapContainer extends React.Component {
   constructor(props) {
     super(props);
@@ -21,8 +24,10 @@ class MapContainer extends React.Component {
       info: props.info
     })
   }
+  
   render() {
       return (
+        <div className={style.container}>
         <Map
           google={this.props.google}
           mapCenter={this.props.mapCenter} 
@@ -45,22 +50,12 @@ class MapContainer extends React.Component {
               <img style={{height: '40px', width: '40px'}} src={this.state.info.image_url}/>
             </div>
           </InfoWindow>
-
-render() {
-    return (
-      <div style={{height:'45vh', display: 'block', position: 'relative' }}>
-      <Map
-      google={this.props.google}
-      mapCenter={this.props.mapCenter} 
-      zoom={14}
-      onDragend={
-        this.props.onMarkerPositionChanged
-      }>
-      </Map>
-      </div>
-    );
+          </Map>
+          </div>
+        )
+      }
   }
-}
+
 
 export default GoogleApiWrapper({
   apiKey: (keys.GoogleMap_TOKEN)

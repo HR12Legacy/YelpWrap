@@ -27,7 +27,6 @@ router.post('/search', function(req, res){
   request(options, (err, response, body) => {
     var results = JSON.parse(body);
     res.send(results.businesses)
-<<<<<<< HEAD
   })
 })
 
@@ -43,9 +42,4 @@ router.post('/favorite', (req, res) => {
   })
 })
 
-=======
-  })  
-});
-
->>>>>>> created route for api call(coords/location)
 module.exports = router;
