@@ -17,6 +17,7 @@ class Search extends React.Component {
     e.preventDefault();
     this.setState({[e.target.name]: e.target.value});
   }
+  
   clickHandler(e){
     e.preventDefault();
     this.state.term.length && this.state.location.length ?

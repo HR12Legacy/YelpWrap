@@ -2,7 +2,10 @@ import React from 'react';
 import {Map, InfoWindow, Marker, GoogleApiWrapper} from 'google-maps-react';
 const CaretUp = require("react-icons/lib/fa/caret-up");
 import keys from '../../config';
- 
+import style from './container.css';
+
+
+
 class MapContainer extends React.Component {
   constructor(props) {
     super(props);
@@ -10,10 +13,10 @@ class MapContainer extends React.Component {
       showingInfoWindow: false,
       activeMarker: {},
       info:{},
+      loc: ''
     }
     this.onMarkerHover = this.onMarkerHover.bind(this);
   }
-
   onMarkerHover(props, marker, event) {
     this.setState({
       showingInfoWindow: true,
@@ -21,17 +24,22 @@ class MapContainer extends React.Component {
       info: props.info
     })
   }
+  
   render() {
       return (
-        <div style={{height:'45vh', display: 'block', position: 'relative' }}>
+        <div style={{height:'45vh', display: 'block', position: 'absolute', position: '-webkit-sticky',
+        position: 'sticky'}}>
           <Map
-            google={this.props.google}
-            mapCenter={this.props.mapCenter} 
+            google={window.google}
+            center={
+              this.props.xy
+            }
             zoom={14}
             onDragend={
               this.props.onMarkerPositionChanged
-            }
-          >
+            }>
+            {/* {console.log('===53456==>',mapCenter)} */}
+            {console.log('===123123==>', window.google)}
             {this.props.markers.map((marker, idx) => {
               const lat = marker.coordinates.latitude;
               const lng = marker.coordinates.longitude;
@@ -42,7 +50,6 @@ class MapContainer extends React.Component {
                 position={{lat, lng}}
               />)
             })}
-
             <InfoWindow marker={this.state.activeMarker} visible={this.state.showingInfoWindow}>
               <div>
                 <h3> {this.state.info.name} </h3>
@@ -55,10 +62,6 @@ class MapContainer extends React.Component {
       )
   }
 }
-
 export default GoogleApiWrapper({
   apiKey: (keys.GoogleMap_TOKEN)
 })(MapContainer)
-
-
-

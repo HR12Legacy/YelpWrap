@@ -1,9 +1,11 @@
-import React from 'react'
+import React from 'react';
+import style from './entries.css';
 
-const EntryListItem = (props) =>(
-  <div className={style.entryListItem}>
+const FavEntryListItem = (props) =>(
+  <div className={style.favEntryListItem}>
+    
     <a href={props.item.url}><img src={props.item.image_url} alt="item" className={style.imageEntryListItem}/></a>
-    <div className={style.textBoxListItem}>
+    <div className={style.textBoxFavListItem}>
       <span>{props.item.name}</span> <br/>
       <span>{props.item.phone}</span>  <br/>
       <span>{props.item.location.address1}</span> <br/>
@@ -18,5 +20,5 @@ const EntryListItem = (props) =>(
   
   </div>
   )
-export default EntryListItem;
+export default FavEntryListItem;
 
