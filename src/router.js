@@ -27,7 +27,6 @@ router.post('/search', function(req, res){
   request(options, (err, response, body) => {
     var results = JSON.parse(body);
     res.send(results)
-
   })
 })
 

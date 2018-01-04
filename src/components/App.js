@@ -18,10 +18,8 @@ export default class App extends React.Component {
       isAuthenticated: false,
       query: '',
       results: [],
-
       coords: {lat: 48.61021668181817,
         lng: 9.103665540909093},
-
       location: '',
     }
     this.searchHandlerByZip = this.searchHandlerByZip.bind(this);
@@ -40,13 +38,12 @@ export default class App extends React.Component {
     this.searchHandlerByZip();
     this.getPosition()
     .then(result => {
-
       this.setState({ coords: {lat: result.coords.latitude, lng: result.coords.longitude} }, ()=>{
         this.searchHandlerByCoords(this.state.query, this.state.coords.lat, 
         this.state.coords.lng)
       }
     );
-
+        console.log('348917234987>>>>', result.coords)
     })
     .catch(err => console.error(err));
   }
