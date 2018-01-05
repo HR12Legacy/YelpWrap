@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 .mapContainer{
   height: 45vh; 
   display: block;
@@ -13,3 +14,21 @@
     padding-top: 30px;
     position: relative;
 }
+=======
+.searchContainer {
+  height: 15vh; 
+  display: block;
+  position: sticky;
+}
+
+.appContainer {
+  height: 95vh; 
+  display: block;
+  position: sticky;
+}
+.mapContainer{
+  height: 45vh; 
+  display: block;
+  position: sticky;
+}
+>>>>>>> header

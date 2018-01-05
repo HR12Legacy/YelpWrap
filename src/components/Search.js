@@ -1,6 +1,5 @@
-
 import React from 'react';
-
+import style from './container.css';
 
 class Search extends React.Component {
   constructor (props){
@@ -26,7 +25,7 @@ class Search extends React.Component {
   }
 
   render(){
-    return (<div>
+    return (<div className={style.searchContainer} >
       <form>
         <input name='term' type='text' value={this.state.term} placeholder='What do u want' 
         onChange={this.changeHandler}/>

@@ -1,0 +1,19 @@
+.topBar {
+  padding: 10px 15px;
+  margin-bottom: 50px;
+}
+.topBar::after {
+  content: '';
+  display: block;
+  clear: both;
+}
+.topBarLeft {
+  float: left;
+  font-size: 1.5em;
+}
+.topBarRight {
+  float: right;
+}
+
+
+
