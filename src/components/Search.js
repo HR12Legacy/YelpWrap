@@ -7,30 +7,19 @@ class Search extends React.Component {
     this.state = {
       term: '',
       location: '',
-      // sortBy: '',
-      // filter: ''
     }
     this.changeHandler = this.changeHandler.bind(this)
     this.clickHandler = this.clickHandler.bind(this)
-    // this.selectHandler = this.selectHandler.bind(this)
   }
 
   changeHandler(e){
     e.preventDefault();
     this.setState({[e.target.name]: e.target.value});
-    // console.log('term: ', this.state.term, 'location: ', this.state.location);
   }
   clickHandler(e){
     e.preventDefault();
     this.props.search(this.state.term, this.state.location, this.props.filter, this.props.sortBy, this.props.openNow);
   }
-
-  // selectHandler(e) {
-  //   e.preventDefault();
-  //   this.setState({[e.target.name]: e.target.value}, ()=>{console.log(this.state)})
-  //   const select = e.target.id;
-  //   console.log(select);
-  // }
 
   render(){
     return (<div className={style.searchContainer} >

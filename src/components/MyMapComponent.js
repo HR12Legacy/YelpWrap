@@ -40,13 +40,6 @@ class MapContainer extends React.Component {
             center={
               this.props.xy
             }
-<<<<<<< HEAD
-            zoom={12}
-            onDragend={
-              this.props.onMarkerPositionChanged
-            }>
-          
-=======
             gestureHandling={"cooperative"}
             disableDefaultUI={true}
             zoom={10}
@@ -54,7 +47,6 @@ class MapContainer extends React.Component {
             onDragend={
               this.props.onMarkerPositionChanged
             }>
->>>>>>> f378e85002826b38f9c29b53f8b205941293b524
             {this.props.markers.map((marker, idx) => {
               const lat = marker.coordinates.latitude;
               const lng = marker.coordinates.longitude;

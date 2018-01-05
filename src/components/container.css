@@ -1,9 +1,4 @@
-<<<<<<< HEAD
-.mapContainer{
-  height: 45vh; 
-  display: block;
-  position: sticky;
-}
+
 .map{
 	float: left;
     width: 100%;
@@ -14,7 +9,6 @@
     padding-top: 30px;
     position: relative;
 }
-=======
 .searchContainer {
   height: 15vh; 
   display: block;
@@ -31,4 +25,3 @@
   display: block;
   position: sticky;
 }
->>>>>>> header
