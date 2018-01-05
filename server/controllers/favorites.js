@@ -7,7 +7,7 @@ const favoriteController = {
       url: body.url,
       name: body.name,
       phone: body.phone,
-      address: body.address,
+      display_address: body.address,
       img_url: body.img_url,
       location: JSON.stringify(body.location)
     }).then(() => {

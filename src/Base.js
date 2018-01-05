@@ -36,7 +36,6 @@ class Base extends React.Component {
     <MuiThemeProvider muiTheme={getMuiTheme()}>
       <HashRouter>
         <div>
-        {/* HEADER WRAPPER */}
         <Header links={
           <div>
             <div className={style.topBar}>
