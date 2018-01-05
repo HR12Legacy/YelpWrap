@@ -1,5 +1,11 @@
 import React from 'react';
 import style from './container.css';
+import TextField from 'material-ui/TextField';
+import IconButton from 'material-ui/IconButton';
+import ActionSearch from 'material-ui/svg-icons/action/search';
+
+
+
 
 class Search extends React.Component {
   constructor (props){
@@ -25,15 +31,60 @@ class Search extends React.Component {
   }
 
   render(){
+    const styles = {
+      smallIcon: {
+        width: 36,
+        height: 36,
+      },
+      mediumIcon: {
+        width: 48,
+        height: 48,
+      },
+      largeIcon: {
+        width: 60,
+        height: 60,
+      },
+      small: {
+        width: 72,
+        height: 72,
+        padding: 16,
+      },
+      medium: {
+        width: 96,
+        height: 96,
+        padding: 24,
+      },
+      large: {
+        width: 120,
+        height: 120,
+        padding: 30,
+      },
+    };
+
     return (<div className={style.searchContainer} >
       <form>
-        <input name='term' type='text' value={this.state.term} placeholder='What do u want' 
-        onChange={this.changeHandler}/>
+        <TextField
+          floatingLabelText="Place, Bussiness, Restaurant..."
+          name="term"
+          onChange={this.changeHandler}
+          value={this.state.term}
+        />
+        <TextField
+          floatingLabelText="Zipcode"
+          name="location"
+          onChange={this.changeHandler}
+          value={this.state.location}
+        />
 
-        <br/><input name='location' type='text' value={this.state.location} 
-        placeholder='Where' onChange={this.changeHandler}/>
+        <IconButton
+          iconStyle={styles.mediumIcon}
+          style={styles.medium}
+          onClick={this.clickHandler}
+        >
+          <ActionSearch/>
+        </IconButton> 
 
-        <br/><button onClick={this.clickHandler}>Search</button>
+        {/* <button onClick={this.clickHandler}>Search</button> */}
 
       </form>
     </div>);

@@ -19,7 +19,8 @@ const styles = {
 
 const  EntryList = (props) => (
   <div className={styles.root}>
-  	<GridList cols="1" style={styles.gridList}>
+  {/* changed cols to equal integer */}
+  	<GridList cols={1} style={styles.gridList}>
       { props.list.map((item, idx)=>{return <GridListItem key={idx} item={item}/>}) }
     </GridList>
  </div>

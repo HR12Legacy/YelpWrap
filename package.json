@@ -26,6 +26,7 @@
     "history": "^4.7.2",
     "knex": "^0.14.2",
     "markerclustererplus": "^2.1.4",
+    "material-design-icons": "^3.0.1",
     "material-ui": "^0.20.0",
     "nodemon": "^1.14.7",
     "pg": "^7.4.0",
