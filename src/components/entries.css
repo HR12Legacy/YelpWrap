@@ -1,14 +1,11 @@
-/* TODO: shadowing */
 .entryList {
-  display: flex; 
-  flex-wrap: wrap; 
-  height: 250px; 
-  width: 60%; 
-  overflow-y: scroll;
+  display: flex;
+  margin: 0px;
   float: left;
+  position: sticky;
+  clear: both;
 }
 
-/* TODO: animation on hover and click*/
 .entryListItem {
   padding: 15px; 
   margin: 15px; 
@@ -17,17 +14,15 @@
   height: 60px;
 }
 
-/* TODO: shadowing */
 .favEntryList {
   display: flex; 
   flex-wrap: wrap; 
   height: 250px; 
   width: 40%; 
   overflow-y: scroll;
-  float: right;
+  position: sticky;
 }
 
-/* TODO: animation on hover and click*/
 .favEntryListItem {
   padding: 15px; 
   margin: 15px; 
@@ -36,24 +31,31 @@
   height: 60px;
 }
 
-/* TODO: responsive with parent */
 .imageEntryListItem {
-  height: 100%; 
+  height: auto; 
   width: 25%;
 }
 
-/* TODO: responsive with parent */
 .imageFavEntryListItem {
-  height: 100%; 
+  height: auto; 
   width: 25%;
 }
 
-/* TODO: responsive with parent */
 .textBoxListItem {
   float: right;
 }
 
-/* TODO: responsive with parent */
 .textBoxFavListItem {
   float: right;
+}
+
+.root {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+.gridList {
+  width: 450px;
+  height: 550px;
+  overflow-y: auto;
 }

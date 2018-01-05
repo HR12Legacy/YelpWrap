@@ -3,17 +3,18 @@ import { Link } from 'react-router-dom';
 import { Card, CardText } from 'material-ui/Card';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
+import style from './auth.css';
 
 class SignUpForm extends React.Component {
   render() {
     return (
-      <Card className="container">
+      <Card className={style.container}>
         <form action="/" onSubmit={this.props.onSubmit}>
-          <h2 className="card-heading">Sign Up</h2>
+          <h2 className={style.cardHeading}>Sign Up</h2>
 
-          {this.props.errors.summary && <p className="error-message">{this.props.errors.summary}</p>}
+          {this.props.errors.summary && <p className={style.errorMessage}>{this.props.errors.summary}</p>}
 
-          <div className="field-line">
+          <div className={style.fieldLine}>
             <TextField
               floatingLabelText="Name"
               name="name"
@@ -23,7 +24,7 @@ class SignUpForm extends React.Component {
             />
           </div>
 
-          <div className="field-line">
+          <div className={style.fieldLine}>
             <TextField
               floatingLabelText="Email"
               name="email"
@@ -33,7 +34,7 @@ class SignUpForm extends React.Component {
             />
           </div>
 
-          <div className="field-line">
+          <div className={style.fieldLine}>
             <TextField
               floatingLabelText="Password"
               type="password"
@@ -44,11 +45,11 @@ class SignUpForm extends React.Component {
             />
           </div>
 
-          <div className="button-line">
+          <div className={style.buttonLine}>
             <RaisedButton type="submit" label="Create New Account" primary />
           </div>
 
-          
+          <CardText>Already have an account? <Link to={'/login'}>Sign In</Link>.</CardText>
         </form>
       </Card>
       

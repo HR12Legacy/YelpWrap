@@ -3,7 +3,6 @@ const config =require('../../config.js');
 
 module.exports = {
   request: (body, cb) => {
-    console.log('body',body)
     var qs; // qs are the params for request to yelps api 
     if(body.location) { //this if statement to check wheter location was given in human readable (zip code etc.) or coordinates
       qs = {

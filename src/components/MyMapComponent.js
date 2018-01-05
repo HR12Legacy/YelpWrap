@@ -3,6 +3,7 @@ import {Map, InfoWindow, Marker, GoogleApiWrapper} from 'google-maps-react';
 const CaretUp = require("react-icons/lib/fa/caret-up");
 import keys from '../../config';
 import style from './container.css';
+import star from 'material-ui/svg-icons/toggle/star';
 
 
 
@@ -26,25 +27,35 @@ class MapContainer extends React.Component {
   }
   
   render() {
+      const mapStyle = {
+        'height': '100%',
+        'overflow': 'hidden',
+        'paddingBottom': '22.25%',
+        'paddingTop': '30px',
+        'position': 'relative',
+      }
       return (
-        <div style={{height:'45vh', display: 'block', position: 'absolute', position: '-webkit-sticky',
-        position: 'sticky'}}>
+        <div className={style.mapContainer}>
           <Map
-            google={window.google}
+            google={this.props.google}
             center={
               this.props.xy
             }
-            zoom={14}
+            gestureHandling={"cooperative"}
+            disableDefaultUI={true}
+            zoom={10}
+            style={mapStyle}
             onDragend={
               this.props.onMarkerPositionChanged
             }>
-            {/* {console.log('===53456==>',mapCenter)} */}
-            {console.log('===123123==>', window.google)}
             {this.props.markers.map((marker, idx) => {
               const lat = marker.coordinates.latitude;
               const lng = marker.coordinates.longitude;
               const name = marker.name;
               return (<Marker 
+                icon={this.props.faves.indexOf(name) > -1 ? { url:'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c9/Star_empty_font_awesome.svg/2000px-Star_empty_font_awesome.svg.png',
+                       anchor: new google.maps.Point(8,8),
+                       scaledSize: new google.maps.Size(16,16)}: undefined}
                 onMouseover={this.onMarkerHover} 
                 key={idx} info={marker} 
                 position={{lat, lng}}
@@ -62,6 +73,7 @@ class MapContainer extends React.Component {
       )
   }
 }
+
 export default GoogleApiWrapper({
   apiKey: (keys.GoogleMap_TOKEN)
 })(MapContainer)

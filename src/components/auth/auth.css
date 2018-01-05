@@ -1,62 +1,60 @@
-/*
-We can switch element specific CSS styling to className instead, so we can designate styles.css in public to global CSS styling 
-*/
-
-/*TODO: className for wrapped component of /auth */
-body {
-  /* margin: 0;
-  font-size: 16px; */
-}
-/*TODO: className for anchors within /auth */
+/*body {
+  margin: 0;
+  font-size: 16px;
+}*/
 a {
-  /* color: #00bcd4;
+  color: #00bcd4;
   font-weight: bold;
   text-decoration: none;
-  transition: color 0.4s; */
+  transition: color 0.4s;
 }
 a:hover {
   color: #1976d2;
 }
-
-.textCenter {
+.text-center {
   text-align: center;
 }
-.topBar {
+.top-bar {
   padding: 10px 15px;
   margin-bottom: 50px;
 }
-.topBar::after {
+.top-bar::after {
   content: '';
   display: block;
   clear: both;
 }
-.topBarLeft {
+.top-bar-left {
   float: left;
   font-size: 1.5em;
 }
-.topBarRight {
+.top-bar-right {
   float: right;
 }
-.topBar a,
+.top-bar a,
 .nav a {
   margin: 0 8px;
 }
 .container {
+  position: absolute;
   margin: 0 auto;
   text-align: center;
   width: 700px;
 }
-.cardHeading {
+.card-heading {
   padding: 16px;
 }
-.fieldLine, .buttonLine {
+.fieldLine {
+  z-index: 99 !important; 
   padding: 16px;
 }
-.errorMessage {
+.buttonLine {
+  padding: 16px;
+}
+.error-message {
   padding: 0 16px;
   color: tomato;
 }
-.successMessage {
+.success-message {
   padding: 0 16px;
   color: green;
 }

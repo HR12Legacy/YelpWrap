@@ -6,6 +6,12 @@ const ServerActions = {
 		.then((response) => {
 			callback(response);
 		})
+	},
+	getRequest: (endpoint, callback) => {
+		axios.get(endpoint)
+		.then((response) => {
+			callback(response);
+		})
 	}
 }
 

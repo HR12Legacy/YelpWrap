@@ -1,15 +1,16 @@
 import React from 'react';
 import Search from './Search.js';
 import EntryList from './EntryList.js';
-import FavEntryList from './FavEntryList.js';
 const axios = require('axios');
 import GoogleApiWrapper from './MyMapComponent';
-import sample from '../../sampledata.js'
+import sample from '../../sampledata.js';
+import styles from './entries.css'
+import style from './container.css'
+import ServerActions from '../ServerActions';
 /**
  * NOTICE:
  * npm install --save axios on production branch 
  */
-
 export default class App extends React.Component {
   constructor(props) {
     super(props);
@@ -20,27 +21,34 @@ export default class App extends React.Component {
       coords: {lat: 48.61021668181817,
         lng: 9.103665540909093},
       location: '',
+      favorites: [],
     }
     this.searchHandlerByZip = this.searchHandlerByZip.bind(this);
     this.searchHandlerByCoords = this.searchHandlerByCoords.bind(this);
+    this.generateFavorites = this.generateFavorites.bind(this);
   }
-
+  
   getPosition(options) {
     return new Promise(function (resolve, reject) {
       navigator.geolocation.getCurrentPosition(resolve, reject, options);
     });
   }
   
+  componentWillReceiveProps(nextProps) {
+    console.log(this.props.userId)
+    if(this.props.userId) this.generateFavorites();
+  }
+
   componentDidMount() {
     this.searchHandlerByZip();
+
     this.getPosition()
     .then(result => {
       this.setState({ coords: {lat: result.coords.latitude, lng: result.coords.longitude} }, ()=>{
         this.searchHandlerByCoords(this.state.query, this.state.coords.lat, 
         this.state.coords.lng)
       }
-    );
-    })
+    )})
     .catch(err => console.error(err));
   }
 
@@ -48,10 +56,9 @@ export default class App extends React.Component {
     this.setState({query: term})
     axios.post('/search', {term: term, location: location})
     .then((data) => {
-      this.setState({results: data.data.businesses})
+      this.setState({results: data.data})
       this.setState({coords: {lat: data.data.region.center.latitude, lng: data.data.region.center.longitude}}, ()=>{console.log('state coords',this.state.coords)})
-      // console.log('State change in SearchByZip', this.state.results);
-      // console.log('query from state in app searchByZip',this.state.query);
+
     })
     .catch((err) => {
       console.log('err from axios: ', err);
@@ -61,32 +68,45 @@ export default class App extends React.Component {
   searchHandlerByCoords(term='delis', lat, lng){
     axios.post('/search', {term, lat, lng})
     .then((data) => {
-      this.setState({results: data.data.businesses})
+      this.setState({results: data.data})
     })
     .catch((err) => {
       console.log('err from axios: ', err);
     });
   }
 
-  //Chris has this utilized on his branch:
   onMarkerPositionChanged(mapProps, map) {
-    console.log('map', map);
-    console.log('mapProp', mapProps)
-    console.log('lat', map.center);
-    console.log('lng', map.center.lng());
-    var coords = {latitude: map.center.lat(), longitude: map.center.lng()}
-    this.setState({coords: coords},()=>{this.searchHandlerByCoords(this.state.query, this.state.coords.latitude, this.state.coords.longitude)})
+    var coords = {lat: map.center.lat(), lng: map.center.lng()}
+    this.setState({coords: coords},()=>{this.searchHandlerByCoords(this.state.query, this.state.coords.lat, this.state.coords.lng)})
   };
+
+
+  generateFavorites(callback) {
+    if (this.props.userId) {
+      ServerActions.getRequest('/favorite/'+this.props.userId, (result) => {
+        console.log('result', result)
+          this.setState({
+            favorites: result.data,
+          }, ()=> console.log(this.state.favorites))
+      })
+    }
+  };
+
 
   render() {    
     return (
       <div style={{height: '200px'}}>
         <Search search={this.searchHandlerByZip}/>
-        <EntryList list={this.state.results}/>
-        <GoogleApiWrapper  markers={this.state.results} onMarkerPositionChanged={this.onMarkerPositionChanged.bind(this)} 
-        xy={this.state.coords} />
-        <FavEntryList list={this.state.results}/>
-        xy={this.state.coords} />
+        <div className={styles.entryList}>
+          <EntryList userId={ this.props.userId } list={this.state.results}/>
+        </div>
+        <div className={styles.entryList} data-type="favorites">
+          <EntryList faves={ this.state.favorites } userId={ this.props.userId } list={this.state.favorites}/>
+        </div>
+        <div className={style.map}>
+          <GoogleApiWrapper  faves={ this.state.favorites } markers={ this.state.results } onMarkerPositionChanged={ this.onMarkerPositionChanged.bind(this) } 
+          xy={this.state.coords} />
+        </div>
       </div>
     )
   }

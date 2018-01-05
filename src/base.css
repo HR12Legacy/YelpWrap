@@ -1,0 +1,47 @@
+.topBar {
+  padding: 10px 15px;
+  margin-bottom: 50px;
+}
+.topBar::after {
+  content: '';
+  display: block;
+  clear: both;
+}
+.topBarLeft {
+  float: left;
+  font-size: 1.5em;
+}
+.topBarRight {
+  float: right;
+}
+.smallIcon {
+  width: 36;
+  height: 36;
+}
+.mediumIcon {
+  width: 48;
+  height: 48
+}
+.largeIcon {
+  width: 60px;
+  height: 60px;
+}
+.small {
+  width: 72px;
+  height: 72px;
+  padding: 16px;
+}
+.medium {
+  width: 96px;
+  height: 96px;
+  padding: 24px;
+}
+.large {
+  width: 120px;
+  height: 120px;
+  padding: 30px;
+}
+
+
+  /* </div> */
+  /* <div className={style.header}> */
