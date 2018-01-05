@@ -15,12 +15,15 @@ class GridListItem extends React.Component {
   }
   
   handleFavorite () {
+    console.log(this.props)
     ServerActions.postRequest('/favorite', {
       userId: this.props.userId,
       url:this.props.item.url,
+      img_url: this.props.item.image_url,
+      location: this.props.item.location,
       name: this.props.item.name,
       phone: '',
-      address: this.props.item.location.address1
+      display_address: this.props.item.location.display_address
     }, console.log)
   }
 
@@ -29,13 +32,7 @@ class GridListItem extends React.Component {
       <GridTile
         key={this.props.item.image_url}
         title={this.props.item.name}
-        subtitle={<span>{Object.keys(this.props.item.location).reduce((arr, key) => {
-          let dataKeys = {'city': true, 'state': true, 'zip_code': true}
-            if(dataKeys[key]) {
-              arr.push(`${this.props.item.location[key]} `)
-            }
-            return arr;
-        }, [this.props.item.location.address1 + ', '])}</span>}
+        subtitle={<span>{this.props.item.location.display_address || this.props.item.display_address}</span>}
         actionIcon={<IconButton onClick={this.handleFavorite}><StarBorder color="white" /></IconButton>}
       >
       <img src={this.props.item.image_url} />

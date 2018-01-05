@@ -1,6 +1,5 @@
 node_modules
 public/bundle.js
-package.json
 package-lock.json
 
 

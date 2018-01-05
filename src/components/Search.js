@@ -63,14 +63,29 @@ class Search extends React.Component {
     return (<div className={style.searchContainer} >
       <MuiThemeProvider muiTheme={getMuiTheme()}>
       <form style={{float: "left"}}>
+        <div>
+        <TextField
+          floatingLabelText="Place, Bussiness, Restaurant..."
+          name="term"
+          onChange={this.changeHandler}
+          value={this.state.term}
+        />
+        <TextField
+          floatingLabelText="Zipcode"
+          name="location"
+          onChange={this.changeHandler}
+          value={this.state.location}
+        />
+        <IconButton
+          iconStyle={styles.smallIcon}
+          style={styles.small}
+          onClick={this.clickHandler}
+        >
+          <ActionSearch/>
+        </IconButton> 
+        </div>
       &nbsp;&nbsp;
-      
-        <input name='term' type='text' value={this.state.term} placeholder='What do u want' 
-        onChange={this.changeHandler}/>
-        &nbsp;&nbsp;
 
-        <input name='location' type='text' value={this.state.location} 
-        placeholder='Where' onChange={this.changeHandler}/>
         <br/>
         &nbsp;&nbsp;
 
@@ -95,27 +110,6 @@ class Search extends React.Component {
 
         <br/>&nbsp;&nbsp;<button onClick={this.clickHandler}>Search</button>   
 
-        <div>
-        <TextField
-          floatingLabelText="Place, Bussiness, Restaurant..."
-          name="term"
-          onChange={this.changeHandler}
-          value={this.state.term}
-        />
-        <TextField
-          floatingLabelText="Zipcode"
-          name="location"
-          onChange={this.changeHandler}
-          value={this.state.location}
-        />
-        <IconButton
-          iconStyle={styles.smallIcon}
-          style={styles.small}
-          onClick={this.clickHandler}
-        >
-          <ActionSearch/>
-        </IconButton> 
-        </div>
       </form>
         
     </MuiThemeProvider>

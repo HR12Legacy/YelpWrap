@@ -7,7 +7,10 @@ const favoriteController = {
       url: body.url,
       name: body.name,
       phone: body.phone,
-      address: body.address
+      display_address: body.address,
+      image_url: body.img_url,
+      location: body.location,
+      display_address: body.display_address,
     }).then(() => {
       cb();
     })
@@ -15,8 +18,6 @@ const favoriteController = {
   retrieve: (body, cb) => {
     knex('favorites').where('userId', body.userId)
     .then((result) => {
-      console.log(body.userId)
-      console.log(result);
       cb(result);
     })
   }
