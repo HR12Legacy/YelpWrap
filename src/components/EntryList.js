@@ -1,11 +1,6 @@
 import React from 'react';
-<<<<<<< HEAD
 import GridListItem from './EntryListItem.js';
 import {GridList} from 'material-ui/GridList';
-=======
-import EntryListItem from './EntryListItem.js';
-import style from './entries.css';
->>>>>>> header
 
 
 const styles = {

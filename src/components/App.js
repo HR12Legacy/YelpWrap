@@ -4,14 +4,9 @@ import EntryList from './EntryList.js';
 import FavEntryList from './FavEntryList.js';
 const axios = require('axios');
 import GoogleApiWrapper from './MyMapComponent';
-<<<<<<< HEAD
 import sample from '../../sampledata.js';
 import styles from './entries.css'
 import style from './container.css'
-=======
-import sample from '../../sampledata.js'
-import style from './container.css';
->>>>>>> header
 /**
  * NOTICE:
  * npm install --save axios on production branch 
@@ -30,10 +25,6 @@ export default class App extends React.Component {
     this.searchHandlerByZip = this.searchHandlerByZip.bind(this);
     this.searchHandlerByCoords = this.searchHandlerByCoords.bind(this);
   }
-<<<<<<< HEAD
-  
-=======
->>>>>>> header
   getPosition(options) {
     return new Promise(function (resolve, reject) {
       navigator.geolocation.getCurrentPosition(resolve, reject, options);
@@ -73,15 +64,10 @@ export default class App extends React.Component {
       console.log('err from axios: ', err);
     });
   }
-<<<<<<< HEAD
-
-  onMarkerPositionChanged(mapProps, map) {
-=======
   //Chris has this utilized on his branch:
   onMarkerPositionChanged(mapProps, map) {
     console.log('map', map);
     console.log('mapProp', mapProps)
->>>>>>> header
     var coords = {lat: map.center.lat(), lng: map.center.lng()}
     this.setState({coords: coords},()=>{this.searchHandlerByCoords(this.state.query, this.state.coords.lat, this.state.coords.lng)})
   };
@@ -91,7 +77,6 @@ export default class App extends React.Component {
     return (
       <div className={style.appContainer} >
         <Search search={this.searchHandlerByZip}/>
-<<<<<<< HEAD
         <div className={styles.entryList}>
           <EntryList list={this.state.results}/>
         </div>
@@ -102,15 +87,6 @@ export default class App extends React.Component {
           <GoogleApiWrapper  markers={this.state.results} onMarkerPositionChanged={this.onMarkerPositionChanged.bind(this)} 
           xy={this.state.coords} />
         </div>
-=======
-        <EntryList list={this.state.results}/>
-        <FavEntryList list={this.state.results}/>
-        <GoogleApiWrapper  
-          markers={this.state.results} 
-          onMarkerPositionChanged={this.onMarkerPositionChanged.bind(this)}
-          xy={this.state.coords} 
-        />
->>>>>>> header
       </div>
     )
   }

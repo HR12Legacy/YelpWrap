@@ -33,7 +33,6 @@ class Base extends React.Component {
     <MuiThemeProvider muiTheme={getMuiTheme()}>
       <HashRouter>
         <div>
-          //Added className only 
           <div className={style.topBar}>
             <div className={style.topBarLeft}>
               <Link to="/">Home</Link>
@@ -49,6 +48,7 @@ class Base extends React.Component {
                 <div onClick={this.handleLogin.bind(this)}> Logout </div>
               }
             </div>
+        </div>
 
           <switch>
             <Route path='/' component={App} />
