@@ -1,10 +1,19 @@
+<<<<<<< HEAD
 import React from 'react'
 import style from './entries.css'
+=======
+import React from 'react';
+>>>>>>> rendering
 import {GridList, GridTile} from 'material-ui/GridList';
 import IconButton from 'material-ui/IconButton';
 import Subheader from 'material-ui/Subheader';
 import StarBorder from 'material-ui/svg-icons/toggle/star-border';
 import ServerActions from '../ServerActions.js';
+<<<<<<< HEAD
+=======
+import style from './entries.css';
+
+>>>>>>> rendering
 
 // const styles =  {
 //   main: {

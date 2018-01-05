@@ -3,11 +3,17 @@ import Search from './Search.js';
 import EntryList from './EntryList.js';
 const axios = require('axios');
 import GoogleApiWrapper from './MyMapComponent';
+<<<<<<< HEAD
 
 import sample from '../../sampledata.js';
 import styles from './entries.css'
 import style from './container.css'
 
+=======
+import sample from '../../sampledata.js';
+import styles from './entries.css'
+import style from './container.css'
+>>>>>>> rendering
 /**
  * NOTICE:
  * npm install --save axios on production branch 
@@ -31,7 +37,10 @@ export default class App extends React.Component {
     this.searchHandlerByCoords = this.searchHandlerByCoords.bind(this);
     this.selectHandler = this.selectHandler.bind(this);
   }
+<<<<<<< HEAD
 
+=======
+>>>>>>> rendering
   getPosition(options) {
     return new Promise(function (resolve, reject) {
       navigator.geolocation.getCurrentPosition(resolve, reject, options);
@@ -96,8 +105,15 @@ export default class App extends React.Component {
       console.log('err from axios: ', err);
     });
   }
+<<<<<<< HEAD
 
   onMarkerPositionChanged(mapProps, map) {
+=======
+  //Chris has this utilized on his branch:
+  onMarkerPositionChanged(mapProps, map) {
+    console.log('map', map);
+    console.log('mapProp', mapProps)
+>>>>>>> rendering
     var coords = {lat: map.center.lat(), lng: map.center.lng()}
     this.setState({coords: coords},
       ()=>{this.searchHandlerByCoords(this.state.query, this.state.coords.lat, 
@@ -111,9 +127,16 @@ export default class App extends React.Component {
     return (
 
       <div className={style.appContainer} >
+<<<<<<< HEAD
         <Search search={this.searchHandlerByZip} filterFunc={this.selectHandler} filter={this.state.filter} 
         sortBy={this.state.sortBy} openNow={this.state.openNow} delivery={this.state.delivery}/>
     
+=======
+        <Search search={this.searchHandlerByZip}/>
+        <div className={styles.entryList}>
+          <EntryList list={this.state.results}/>
+        </div>
+>>>>>>> rendering
         <div className={styles.entryList}>
           <EntryList list={this.state.results}/>
         </div>
