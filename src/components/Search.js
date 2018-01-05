@@ -62,7 +62,8 @@ class Search extends React.Component {
     };
 
     return (<div className={style.searchContainer} >
-      <form>
+      <form style={{float: "left"}}>
+        <div>
         <TextField
           floatingLabelText="Place, Bussiness, Restaurant..."
           name="term"
@@ -75,17 +76,14 @@ class Search extends React.Component {
           onChange={this.changeHandler}
           value={this.state.location}
         />
-
         <IconButton
-          iconStyle={styles.mediumIcon}
-          style={styles.medium}
+          iconStyle={styles.smallIcon}
+          style={styles.small}
           onClick={this.clickHandler}
         >
           <ActionSearch/>
         </IconButton> 
-
-        {/* <button onClick={this.clickHandler}>Search</button> */}
-
+        </div>
       </form>
     </div>);
   }

@@ -10,6 +10,7 @@ import { HashRouter, Route, Link } from 'react-router-dom';
 import IconButton from 'material-ui/IconButton';
 import ActionHome from 'material-ui/svg-icons/action/home';
 import style from './base.css';
+import Header from './components/Header';
 
 injectTapEventPlugin();
 
@@ -35,7 +36,8 @@ class Base extends React.Component {
     <MuiThemeProvider muiTheme={getMuiTheme()}>
       <HashRouter>
         <div>
-          <div className={style.topBar}>
+          <Header links={
+            <div>
             <div className={style.topBarLeft}>
               <Link to="/">
                 <IconButton
@@ -58,7 +60,9 @@ class Base extends React.Component {
                 <div onClick={this.handleLogin.bind(this)}> Logout </div>
               }
             </div>
-        </div>
+            </div>
+            }/>
+          
 
           <switch>
             <Route path='/' component={App} />

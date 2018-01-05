@@ -1,22 +1,9 @@
 import React from 'react';
 import GridListItem from './EntryListItem.js';
 import {GridList} from 'material-ui/GridList';
+import styles from './entries.css';
 
-
-const styles = {
-  root: {
-    display: 'flex',
-    flexWrap: 'wrap',
-    justifyContent: 'space-around',
-  },
-  gridList: {
-    width: 450,
-    height: 550,
-    overflowY: 'auto',
-  },
-};
-
-
+// KeepClasses
 const  EntryList = (props) => (
   <div className={styles.root}>
   {/* changed cols to equal integer */}

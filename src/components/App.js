@@ -17,7 +17,7 @@ export default class App extends React.Component {
     this.state = {
       isAuthenticated: false,
       query: '',
-      results: [],
+      results: sample.businesses,
       coords: {lat: 48.61021668181817,
         lng: 9.103665540909093},
       location: ''
@@ -32,16 +32,16 @@ export default class App extends React.Component {
   }
   
   componentDidMount() {
-    this.searchHandlerByZip();
-    this.getPosition()
-    .then(result => {
-      this.setState({ coords: {lat: result.coords.latitude, lng: result.coords.longitude} }, ()=>{
-        this.searchHandlerByCoords(this.state.query, this.state.coords.lat, 
-        this.state.coords.lng)
-      }
-    );
-    })
-    .catch(err => console.error(err));
+    // this.searchHandlerByZip();
+    // this.getPosition()
+    // .then(result => {
+    //   this.setState({ coords: {lat: result.coords.latitude, lng: result.coords.longitude} }, ()=>{
+    //     this.searchHandlerByCoords(this.state.query, this.state.coords.lat, 
+    //     this.state.coords.lng)
+    //   }
+    // );
+    // })
+    // .catch(err => console.error(err));
   }
   searchHandlerByZip(term='delis', location='10007'){
     this.setState({query: term})
@@ -64,7 +64,6 @@ export default class App extends React.Component {
       console.log('err from axios: ', err);
     });
   }
-  //Chris has this utilized on his branch:
   onMarkerPositionChanged(mapProps, map) {
     console.log('map', map);
     console.log('mapProp', mapProps)
@@ -84,8 +83,11 @@ export default class App extends React.Component {
           <EntryList list={this.state.results}/>
         </div>
         <div className={style.map}>
-          <GoogleApiWrapper  markers={this.state.results} onMarkerPositionChanged={this.onMarkerPositionChanged.bind(this)} 
-          xy={this.state.coords} />
+          {/* <GoogleApiWrapper  
+            markers={this.state.results} 
+            onMarkerPositionChanged={this.onMarkerPositionChanged.bind(this)} 
+            xy={this.state.coords} 
+          /> */}
         </div>
       </div>
     )

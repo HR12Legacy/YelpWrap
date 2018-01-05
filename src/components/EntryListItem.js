@@ -6,14 +6,6 @@ import StarBorder from 'material-ui/svg-icons/toggle/star-border';
 import ServerActions from '../ServerActions.js';
 import style from './entries.css';
 
-
-// const styles =  {
-//   main: {
-//     width: 350,
-//     height: 250,
-//     overflowY: 'auto',
-//   }
-// }
 const GridListItem = (props) => {
   return (
     <GridTile
@@ -28,7 +20,7 @@ const GridListItem = (props) => {
       }, [props.item.location.address1 + ', '])}</span>}
       actionIcon={<IconButton><StarBorder color="white" /></IconButton>}
     >
-    <img src={props.item.image_url} />
+    <img src={props.item.image_url} className={style.imageEntryListItem}/>
     </GridTile>
       
   )
