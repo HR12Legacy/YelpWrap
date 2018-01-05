@@ -1,8 +1,9 @@
 /* TODO: shadowing */
 .entryList {
   display: flex;
-  margin: 5px;
+  margin: 0px;
   float: left;
+  clear: both;
 }
 
 /* TODO: animation on hover and click*/

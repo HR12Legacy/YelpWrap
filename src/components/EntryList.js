@@ -17,13 +17,24 @@ const styles = {
 };
 
 
-const  EntryList = (props) => (
-  <div className={styles.root}>
-  	<GridList cols="1" style={styles.gridList}>
-      { props.list.map((item, idx)=>{return <GridListItem key={idx} item={item}/>}) }
-    </GridList>
- </div>
-)
+class EntryList extends React.Component {
+  constructor(props){
+    super(props)
+  }
+
+  render(){
+    return (
+        <div className={styles.root}>
+          <GridList cols="1" style={styles.gridList}>
+            { 
+              this.props.list ?
+              this.props.list.map((item, idx)=>{return <GridListItem userId={ this.props.userId }key={ idx } item={ item }/>}):
+              this.state.favorites.map((item, idx)=>{return <GridListItem userId={ this.props.userId } key={ idx } item={ item }/>})
+            }
+          </GridList>
+       </div>
+    )}
+}
 
 export default EntryList;
 

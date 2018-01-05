@@ -7,6 +7,7 @@ import GoogleApiWrapper from './MyMapComponent';
 import sample from '../../sampledata.js';
 import styles from './entries.css'
 import style from './container.css'
+import ServerActions from '../ServerActions';
 /**
  * NOTICE:
  * npm install --save axios on production branch 
@@ -21,9 +22,11 @@ export default class App extends React.Component {
       coords: {lat: 48.61021668181817,
         lng: 9.103665540909093},
       location: '',
+      favorites: [],
     }
     this.searchHandlerByZip = this.searchHandlerByZip.bind(this);
     this.searchHandlerByCoords = this.searchHandlerByCoords.bind(this);
+    this.generateFavorites = this.generateFavorites.bind(this);
   }
   
   getPosition(options) {
@@ -32,16 +35,20 @@ export default class App extends React.Component {
     });
   }
   
+  componentWillReceiveProps(nextProps) {
+    if(this.props.userId) this.generateFavorites();
+  }
+
   componentDidMount() {
     this.searchHandlerByZip();
+
     this.getPosition()
     .then(result => {
       this.setState({ coords: {lat: result.coords.latitude, lng: result.coords.longitude} }, ()=>{
         this.searchHandlerByCoords(this.state.query, this.state.coords.lat, 
         this.state.coords.lng)
       }
-    );
-    })
+    )})
     .catch(err => console.error(err));
   }
 
@@ -73,6 +80,21 @@ export default class App extends React.Component {
     this.setState({coords: coords},()=>{this.searchHandlerByCoords(this.state.query, this.state.coords.lat, this.state.coords.lng)})
   };
 
+
+  generateFavorites(callback) {
+    // UPDATE DATABASE TO STORE SAME THINGS AS REQUIRED FOR GRID
+    if (this.props.userId) {
+      ServerActions.getRequest('/favorite/'+this.props.userId, (result) => {
+        console.log('result', result)
+        debugger;
+          this.setState({
+            favorites: result.data,
+          }, ()=> console.log(this.state.favorites))
+      })
+    }
+  };
+
+
   render() {    
     return (
       <div style={{height: '200px'}}>
@@ -80,8 +102,8 @@ export default class App extends React.Component {
         <div className={styles.entryList}>
           <EntryList list={this.state.results}/>
         </div>
-        <div className={styles.entryList}>
-          <EntryList list={this.state.results}/>
+        <div className={styles.entryList} data-type="favorites">
+          <EntryList userId={ this.props.userId } list={this.state.favorites}/>
         </div>
         <div className={style.map}>
           <GoogleApiWrapper  markers={this.state.results} onMarkerPositionChanged={this.onMarkerPositionChanged.bind(this)} 

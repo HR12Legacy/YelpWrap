@@ -6,31 +6,42 @@ import Subheader from 'material-ui/Subheader';
 import StarBorder from 'material-ui/svg-icons/toggle/star-border';
 import ServerActions from '../ServerActions.js';
 
-// const styles =  {
-//   main: {
-//     width: 350,
-//     height: 250,
-//     overflowY: 'auto',
-//   }
-// }
-const GridListItem = (props) => {
-  return (
-    <GridTile
-      key={props.item.image_url}
-      title={props.item.name}
-      subtitle={<span>{Object.keys(props.item.location).reduce((arr, key) => {
-        let dataKeys = {'city': true, 'state': true, 'zip_code': true}
-          if(dataKeys[key]) {
-            arr.push(`${props.item.location[key]} `)
-          }
-          return arr;
-      }, [props.item.location.address1 + ', '])}</span>}
-      actionIcon={<IconButton><StarBorder color="white" /></IconButton>}
-    >
-    <img src={props.item.image_url} />
-    </GridTile>
-      
-  )
+
+
+class GridListItem extends React.Component {
+  constructor(props){
+    super(props);
+    this.handleFavorite = this.handleFavorite.bind(this);
+  }
+  
+  handleFavorite () {
+    ServerActions.postRequest('/favorite', {
+      userId: this.props.userId,
+      url:this.props.item.url,
+      name: this.props.item.name,
+      phone: '',
+      address: this.props.item.location.address1
+    }, console.log)
+  }
+
+  render(){
+    return (
+      <GridTile
+        key={this.props.item.image_url}
+        title={this.props.item.name}
+        subtitle={<span>{Object.keys(this.props.item.location).reduce((arr, key) => {
+          let dataKeys = {'city': true, 'state': true, 'zip_code': true}
+            if(dataKeys[key]) {
+              arr.push(`${this.props.item.location[key]} `)
+            }
+            return arr;
+        }, [this.props.item.location.address1 + ', '])}</span>}
+        actionIcon={<IconButton onClick={this.handleFavorite}><StarBorder color="white" /></IconButton>}
+      >
+      <img src={this.props.item.image_url} />
+      </GridTile>
+      )
+  }
 }
 
 export default GridListItem;

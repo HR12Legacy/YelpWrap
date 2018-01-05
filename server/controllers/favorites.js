@@ -11,6 +11,14 @@ const favoriteController = {
     }).then(() => {
       cb();
     })
+  },
+  retrieve: (body, cb) => {
+    knex('favorites').where('userId', body.userId)
+    .then((result) => {
+      console.log(body.userId)
+      console.log(result);
+      cb(result);
+    })
   }
 }
 
