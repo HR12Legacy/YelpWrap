@@ -32,7 +32,7 @@ knex.schema.hasTable('favorites').then(exists => {
 			table.string('name', 255);
 			table.string('phone', 16);
 			table.string('display_address', 255);
-			table.string('img_url', 255);
+			table.string('image_url', 255);
 			table.string('location', 255);
 		}).then(table => {
 			console.log('Created table:', table);

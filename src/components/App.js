@@ -35,6 +35,7 @@ export default class App extends React.Component {
   }
   
   componentWillReceiveProps(nextProps) {
+    console.log(this.props.userId)
     if(this.props.userId) this.generateFavorites();
   }
 
@@ -84,7 +85,6 @@ export default class App extends React.Component {
     if (this.props.userId) {
       ServerActions.getRequest('/favorite/'+this.props.userId, (result) => {
         console.log('result', result)
-        debugger;
           this.setState({
             favorites: result.data,
           }, ()=> console.log(this.state.favorites))
@@ -98,7 +98,7 @@ export default class App extends React.Component {
       <div style={{height: '200px'}}>
         <Search search={this.searchHandlerByZip}/>
         <div className={styles.entryList}>
-          <EntryList list={this.state.results}/>
+          <EntryList userId={ this.props.userId } list={this.state.results}/>
         </div>
         <div className={styles.entryList} data-type="favorites">
           <EntryList faves={ this.state.favorites } userId={ this.props.userId } list={this.state.favorites}/>

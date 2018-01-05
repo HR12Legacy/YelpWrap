@@ -35,6 +35,7 @@ a:hover {
   margin: 0 8px;
 }
 .container {
+  position: absolute;
   margin: 0 auto;
   text-align: center;
   width: 700px;
@@ -43,6 +44,7 @@ a:hover {
   padding: 16px;
 }
 .fieldLine {
+  z-index: 99 !important; 
   padding: 16px;
 }
 .buttonLine {

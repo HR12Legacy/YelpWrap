@@ -27,9 +27,7 @@ class EntryList extends React.Component {
         <MuiThemeProvider>
           <GridList cols="1" style={styles.gridList}>
             { 
-              this.props.list ?
-              this.props.list.map((item, idx)=>{return <GridListItem userId={ this.props.userId }key={ idx } item={ item }/>}):
-              this.state.favorites.map((item, idx)=>{return <GridListItem userId={ this.props.userId } key={ idx } item={ item }/>})
+              this.props.list.map((item, idx)=>{return <GridListItem userId={ this.props.userId }key={ idx } item={ item }/>})
             }
           </GridList>
           </MuiThemeProvider>

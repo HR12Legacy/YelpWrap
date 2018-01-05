@@ -11,7 +11,6 @@ import style from './base.css';
 import Header from './components/Header';
 import IconButton from 'material-ui/IconButton';
 import ActionHome from 'material-ui/svg-icons/action/home';
-import style from './base.css';
 
 injectTapEventPlugin();
 
@@ -28,7 +27,7 @@ class Base extends React.Component {
     this.setState({
       isLoggedIn: !this.state.isLoggedIn,
       userId: email,
-    });
+    }, ()=> console.log(this.state));
   }
 
   render() {

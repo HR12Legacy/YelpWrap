@@ -15,10 +15,11 @@ class GridListItem extends React.Component {
   }
   
   handleFavorite () {
+    console.log(this.props)
     ServerActions.postRequest('/favorite', {
       userId: this.props.userId,
       url:this.props.item.url,
-      img_url: this.props.image_url,
+      img_url: this.props.item.image_url,
       location: this.props.item.location,
       name: this.props.item.name,
       phone: '',
@@ -31,7 +32,7 @@ class GridListItem extends React.Component {
       <GridTile
         key={this.props.item.image_url}
         title={this.props.item.name}
-        subtitle={<span>{this.props.item.location.display_address}</span>}
+        subtitle={<span>{this.props.item.location.display_address || this.props.item.display_address}</span>}
         actionIcon={<IconButton onClick={this.handleFavorite}><StarBorder color="white" /></IconButton>}
       >
       <img src={this.props.item.image_url} />
