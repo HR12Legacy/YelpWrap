@@ -1,6 +1,5 @@
-
 import React from 'react';
-
+import style from './container.css';
 
 class Search extends React.Component {
   constructor (props){
@@ -34,7 +33,7 @@ class Search extends React.Component {
   // }
 
   render(){
-    return (<div>
+    return (<div className={style.searchContainer} >
       <form>
       &nbsp;&nbsp;
       

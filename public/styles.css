@@ -3,6 +3,7 @@ body {
   font-size: 16px;
 }
 
+<<<<<<< HEAD
 a {
   color: #00bcd4;
   font-weight: bold;
@@ -10,6 +11,16 @@ a {
   transition: color 0.4s;
 }
 
+=======
+body {
+  height: 100%; 
+ }
+ 
+ #root {
+   height: 100%;
+ }
+/* 
+>>>>>>> f378e85002826b38f9c29b53f8b205941293b524
 a:hover {
   color: #1976d2;
 }
@@ -46,20 +57,42 @@ a:hover {
   margin: 0 auto;
   text-align: center;
   width: 700px;
+<<<<<<< HEAD
+}
+=======
+  position: fixed;
+  float: center;
+  z-index: 10;
 }
 
-.card-heading {
+.container {
+  margin: 0 auto;
+  /*text-align: center;*/
+  /* width: 700px; */
+  /*position: fixed;*/
+  /*float: center;*/
+  /*z-index: 10;*/
+/*}*/
+>>>>>>> f378e85002826b38f9c29b53f8b205941293b524
+
+/* .card-heading {
   padding: 16px;
 }
 
 .field-line, .button-line {
   padding: 16px;
+<<<<<<< HEAD
 }
 
 .error-message {
   padding: 0 16px;
   color: tomato;
 }
+=======
+} */
+
+
+>>>>>>> f378e85002826b38f9c29b53f8b205941293b524
 
 .success-message {
   padding: 0 16px;

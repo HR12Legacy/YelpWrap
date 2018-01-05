@@ -42,7 +42,14 @@ a:hover {
 .card-heading {
   padding: 16px;
 }
+<<<<<<< HEAD
 .field-line, .button-line {
+=======
+.fieldLine {
+  padding: 16px;
+}
+.buttonLine {
+>>>>>>> f378e85002826b38f9c29b53f8b205941293b524
   padding: 16px;
 }
 .error-message {

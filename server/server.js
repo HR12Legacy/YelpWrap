@@ -11,6 +11,7 @@ const app = express();
 app.set('PORT', 1337);
 
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 
 const compiler = webpack(config);
 
