@@ -8,7 +8,6 @@ import sample from '../../sampledata.js';
 import styles from './entries.css'
 import style from './container.css'
 import ServerActions from '../ServerActions';
-
 /**
  * NOTICE:
  * npm install --save axios on production branch 
@@ -34,8 +33,8 @@ export default class App extends React.Component {
     this.searchHandlerByZip = this.searchHandlerByZip.bind(this);
     this.searchHandlerByCoords = this.searchHandlerByCoords.bind(this);
     this.generateFavorites = this.generateFavorites.bind(this);
-
   }
+
   getPosition(options) {
     return new Promise(function (resolve, reject) {
       navigator.geolocation.getCurrentPosition(resolve, reject, options);
@@ -127,6 +126,18 @@ export default class App extends React.Component {
     }
   };
 
+  generateFavorites(callback) {
+    // UPDATE DATABASE TO STORE SAME THINGS AS REQUIRED FOR GRID
+    if (this.props.userId) {
+      ServerActions.getRequest('/favorite/'+this.props.userId, (result) => {
+        console.log('result', result)
+        debugger;
+          this.setState({
+            favorites: result.data,
+          }, ()=> console.log(this.state.favorites))
+      })
+    }
+  };
 
   render() {    
     return (
