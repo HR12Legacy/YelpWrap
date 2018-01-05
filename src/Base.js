@@ -9,6 +9,9 @@ import injectTapEventPlugin from 'react-tap-event-plugin';
 import { HashRouter, Route, Link } from 'react-router-dom';
 import style from './base.css';
 import Header from './components/Header';
+import IconButton from 'material-ui/IconButton';
+import ActionHome from 'material-ui/svg-icons/action/home';
+import style from './base.css';
 
 injectTapEventPlugin();
 
@@ -38,7 +41,15 @@ class Base extends React.Component {
           <div>
             <div className={style.topBar}>
               <div className={style.topBarLeft}>
-                <Link to="/">Home</Link>
+                <Link to="/">
+                <IconButton
+                  iconStyle={style.large}
+                  style={style.large}
+                  tooltip="Home"
+                >
+                <ActionHome/>
+                </IconButton>
+                </Link>
               </div>
 
               <div className={style.topBarRight}>
