@@ -64,8 +64,7 @@ class Base extends React.Component {
               </div>
             </div>
           </div>
-          }
-        />    
+          }/>    
           <switch>
             <Route path='/' render={() => {
               return <App 

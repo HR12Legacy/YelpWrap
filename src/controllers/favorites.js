@@ -1,4 +1,4 @@
-const knex = require('../../server/bookshelf.js').knex;
+const knex = require('../../server/config.js').knex;
 
 const favoriteController = {
   add: (body, cb) => {

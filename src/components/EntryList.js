@@ -1,7 +1,8 @@
 import React from 'react';
 import GridListItem from './EntryListItem.js';
 import {GridList} from 'material-ui/GridList';
-
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
 
 const styles = {
   root: {
@@ -23,6 +24,7 @@ class EntryList extends React.Component {
   render(){
     return (
         <div className={styles.root}>
+        <MuiThemeProvider>
           <GridList cols="1" style={styles.gridList}>
             { 
               this.props.list ?
@@ -30,6 +32,7 @@ class EntryList extends React.Component {
               this.state.favorites.map((item, idx)=>{return <GridListItem userId={ this.props.userId } key={ idx } item={ item }/>})
             }
           </GridList>
+          </MuiThemeProvider>
        </div>
     )}
 }

@@ -1,9 +1,10 @@
-import React from 'react';
+ import React from 'react';
 import style from './container.css';
 import TextField from 'material-ui/TextField';
 import IconButton from 'material-ui/IconButton';
 import ActionSearch from 'material-ui/svg-icons/action/search';
-
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
 
 
 
@@ -60,6 +61,7 @@ class Search extends React.Component {
     };
 
     return (<div className={style.searchContainer} >
+      <MuiThemeProvider muiTheme={getMuiTheme()}>
       <form style={{float: "left"}}>
       &nbsp;&nbsp;
       
@@ -116,7 +118,10 @@ class Search extends React.Component {
         </div>
       </form>
         
-    </div>);
+    </MuiThemeProvider>
+    </div>
+    );
+
   }
 
 
