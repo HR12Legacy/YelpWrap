@@ -6,6 +6,18 @@ const config =require('../config.js');
 const controllers = require('../server/controllers/mainController.js');
 const util = require('./util.js');
 const User = require('./models/User')
+// router.use(bodyParser.json());
+
+
+
+router.post('/search', function(req, res){
+  console.log('search router')
+  controllers.search.request(req.body, result => {
+    res.status(200).send(result);
+  })
+})
+
+
 
 router.post('/search', function(req, res){
   controllers.search.request(req.body, result => {
@@ -21,6 +33,7 @@ router.post('/favorite', (req, res) => {
 })
 
 router.get('/favorite/:userId', (req, res) => {
+  console.log(req.params)
   controllers.favorite.retrieve(req.params, (result) => {
     res.status(200).send(result);
   })

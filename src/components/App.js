@@ -46,16 +46,17 @@ export default class App extends React.Component {
   }
 
   componentDidMount() {
+    console.log('mounting')
     this.searchHandlerByZip();
-
     this.getPosition()
     .then(result => {
-
+      console.log(result)
+      console.log('getting results')
       this.setState({ coords: {lat: result.coords.latitude, lng: result.coords.longitude} }, ()=>{
         this.searchHandlerByCoords(this.state.query, this.state.coords.lat, 
         this.state.coords.lng, this.state.filter, this.state.sortBy, this.state.openNow, this.state.delivery)
       }
-    )})
+    ), () => console.log('state', this.state)})
     .catch(err => console.error(err));
   }
 
@@ -112,19 +113,6 @@ export default class App extends React.Component {
         this.state.coords.lng, this.state.filter, this.state.sortBy, 
         this.state.openNow, this.state.delivery)})
   }
-
-  generateFavorites(callback) {
-    // UPDATE DATABASE TO STORE SAME THINGS AS REQUIRED FOR GRID
-    if (this.props.userId) {
-      ServerActions.getRequest('/favorite/'+this.props.userId, (result) => {
-        console.log('result', result)
-        debugger;
-          this.setState({
-            favorites: result.data,
-          }, ()=> console.log(this.state.favorites))
-      })
-    }
-  };
 
   generateFavorites(callback) {
     // UPDATE DATABASE TO STORE SAME THINGS AS REQUIRED FOR GRID
