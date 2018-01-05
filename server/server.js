@@ -8,7 +8,7 @@ const router = require('./router.js');
 const db = require('./config').db;
 const app = express();
 
-app.set('PORT', 1337);
+app.set('PORT', process.env.PORT || 1337);
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -17,15 +17,15 @@ const compiler = webpack(config);
 
 app.use(express.static(path.join(__dirname, '../public')))
 
-// app.use(webpackMiddleware(compiler, {
-// 	hot: true,
-// 	filename: 'bundle.js',
-// 	publicPath: '/',
-// 	stats: {
-// 		colors: true,
-// 	},
-// 	historyApiFallback: true,
-// }));
+app.use(webpackMiddleware(compiler, {
+	hot: true,
+	filename: 'bundle.js',
+	publicPath: '/',
+	stats: {
+		colors: true,
+	},
+	historyApiFallback: true,
+}));
 
 
 app.use('/', router)
