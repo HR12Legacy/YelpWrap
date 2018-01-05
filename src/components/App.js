@@ -11,6 +11,8 @@ import style from './container.css'
 /**
  * NOTICE:
  * npm install --save axios on production branch 
+ * 
+ * npm install--save fstream on porduction branch
  */
 export default class App extends React.Component {
   constructor(props) {
@@ -31,7 +33,6 @@ export default class App extends React.Component {
     this.searchHandlerByCoords = this.searchHandlerByCoords.bind(this);
     this.selectHandler = this.selectHandler.bind(this);
   }
-
   getPosition(options) {
     return new Promise(function (resolve, reject) {
       navigator.geolocation.getCurrentPosition(resolve, reject, options);
@@ -96,8 +97,10 @@ export default class App extends React.Component {
       console.log('err from axios: ', err);
     });
   }
-
+  //Chris has this utilized on his branch:
   onMarkerPositionChanged(mapProps, map) {
+    console.log('map', map);
+    console.log('mapProp', mapProps)
     var coords = {lat: map.center.lat(), lng: map.center.lng()}
     this.setState({coords: coords},
       ()=>{this.searchHandlerByCoords(this.state.query, this.state.coords.lat, 

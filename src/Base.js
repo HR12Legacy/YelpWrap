@@ -8,6 +8,7 @@ import SignUpPage from './components/auth/SignUpContainer.js';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import { HashRouter, Route, Link } from 'react-router-dom';
 import style from './base.css';
+import Header from './components/Header';
 
 injectTapEventPlugin();
 
@@ -33,23 +34,28 @@ class Base extends React.Component {
     <MuiThemeProvider muiTheme={getMuiTheme()}>
       <HashRouter>
         <div>
-          //Added className only 
-          <div className={style.topBar}>
-            <div className={style.topBarLeft}>
-              <Link to="/">Home</Link>
-            </div>
+        {/* HEADER WRAPPER */}
+        <Header links={
+          <div>
+            <div className={style.topBar}>
+              <div className={style.topBarLeft}>
+                <Link to="/">Home</Link>
+              </div>
 
-            <div className={style.topBarRight}>
-              {
-                !this.state.isLoggedIn ? 
-                <div>
-                  <Link to="/login">Log in</Link>
-                  <Link to="/signup">Sign up</Link> 
-                </div> :
-                <div onClick={this.handleLogin.bind(this)}> Logout </div>
-              }
+              <div className={style.topBarRight}>
+                {
+                  !this.state.isLoggedIn ? 
+                  <div>
+                    <Link to="/login">Log in</Link>
+                    <Link to="/signup">Sign up</Link> 
+                  </div> :
+                  <div onClick={this.handleLogin.bind(this)}> Logout </div>
+                }
+              </div>
             </div>
           </div>
+          }
+        />    
           <switch>
             <Route path='/' component={App} />
 

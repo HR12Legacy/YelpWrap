@@ -1,5 +1,11 @@
 import React from 'react';
 import style from './container.css';
+import TextField from 'material-ui/TextField';
+import IconButton from 'material-ui/IconButton';
+import ActionSearch from 'material-ui/svg-icons/action/search';
+
+
+
 
 class Search extends React.Component {
   constructor (props){
@@ -21,9 +27,40 @@ class Search extends React.Component {
     this.props.search(this.state.term, this.state.location, this.props.filter, this.props.sortBy, this.props.openNow);
   }
 
+  //MERGE COPY WITH SELECT AND MY NEW TEXT FIELDS
   render(){
+    const styles = {
+      smallIcon: {
+        width: 36,
+        height: 36,
+      },
+      mediumIcon: {
+        width: 48,
+        height: 48,
+      },
+      largeIcon: {
+        width: 60,
+        height: 60,
+      },
+      small: {
+        width: 72,
+        height: 72,
+        padding: 16,
+      },
+      medium: {
+        width: 96,
+        height: 96,
+        padding: 24,
+      },
+      large: {
+        width: 120,
+        height: 120,
+        padding: 30,
+      },
+    };
+
     return (<div className={style.searchContainer} >
-      <form>
+      <form style={{float: "left"}}>
       &nbsp;&nbsp;
       
         <input name='term' type='text' value={this.state.term} placeholder='What do u want' 
@@ -54,11 +91,29 @@ class Search extends React.Component {
         &nbsp;&nbsp;<button name='openNow' onClick={this.props.filterFunc} > OPEN NOW</button>
         &nbsp;&nbsp;<button name='delivery' onClick={this.props.filterFunc} >Has Delivery</button>
 
+        <br/>&nbsp;&nbsp;<button onClick={this.clickHandler}>Search</button>   
 
-
-
-        <br/>&nbsp;&nbsp;<button onClick={this.clickHandler}>Search</button>
-
+        <div>
+        <TextField
+          floatingLabelText="Place, Bussiness, Restaurant..."
+          name="term"
+          onChange={this.changeHandler}
+          value={this.state.term}
+        />
+        <TextField
+          floatingLabelText="Zipcode"
+          name="location"
+          onChange={this.changeHandler}
+          value={this.state.location}
+        />
+        <IconButton
+          iconStyle={styles.smallIcon}
+          style={styles.small}
+          onClick={this.clickHandler}
+        >
+          <ActionSearch/>
+        </IconButton> 
+        </div>
       </form>
         
     </div>);
