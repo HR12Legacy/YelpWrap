@@ -7,7 +7,6 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 
 
-
 class Search extends React.Component {
   constructor (props){
     super(props)
@@ -58,12 +57,30 @@ class Search extends React.Component {
         height: 120,
         padding: 30,
       },
+      buttonOpen:{
+        backgroundColor: '#808080',
+        borderRadius: '7px',
+        fontFamily: 'Arial',
+        color: '#ffffff',
+        fontSize: '13px',
+        // padding: '10px',
+      },
+      dropDown:{
+        backgroundColor: '#808080',
+        borderRadius: '7px',
+        fontFamily: 'Arial',
+        color: '#ffffff',
+        fontSize: '13px',
+        padding: '20px',
+      }
     };
 
     return (<div className={style.searchContainer} >
       <MuiThemeProvider muiTheme={getMuiTheme()}>
       <form style={{float: "left"}}>
+       
         <div>
+        &nbsp;&nbsp;&nbsp;&nbsp;
         <TextField
           floatingLabelText="Place, Bussiness, Restaurant..."
           name="term"
@@ -84,41 +101,37 @@ class Search extends React.Component {
           <ActionSearch/>
         </IconButton> 
         </div>
-      &nbsp;&nbsp;
-
         <br/>
-        &nbsp;&nbsp;
-
-        <select name="filter" onChange={this.props.filterFunc}>
-          <option value="" disabled selected hidden>Select a price filter</option>
-          <option value="1">$</option>
-          <option value="2">$$</option>
-          <option value="3">$$$</option>
-          <option value="4">$$$$</option>
-        </select> 
-        
-        &nbsp;&nbsp;
-
-        <select name="sortBy" onChange={this.props.filterFunc} >
-          <option value="" disabled selected hidden>Sort by</option>
-          <option value="best_match">Best Match</option>
-          <option value="rating">Highest Rated</option>
-          <option value="review_count">Most Reviewed</option>
-        </select>
-        &nbsp;&nbsp;<button name='openNow' onClick={this.props.filterFunc} > OPEN NOW</button>
-        &nbsp;&nbsp;<button name='delivery' onClick={this.props.filterFunc} >Has Delivery</button>
-
-        <br/>&nbsp;&nbsp;<button onClick={this.clickHandler}>Search</button>   
+        <div>
+        &nbsp;&nbsp;&nbsp;
+          <select style={styles.dropDown} name="filter" onChange={this.props.filterFunc}>
+            <option value="" disabled selected hidden>Price</option>
+            <option value="1">Tha Dolla Menu</option>
+            <option value="2">$$</option>
+            <option value="3">$$$</option>
+            <option value="4">Bourgeoisie</option>
+          </select> 
+          
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          
+          <select name="sortBy" style={styles.dropDown} onChange={this.props.filterFunc} >
+            <option value="" disabled selected hidden>Sort By</option>
+            <option value="best_match">Best Match</option>
+            <option value="rating">Highest Rated</option>
+            <option value="review_count">Most Reviewed</option>
+          </select>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <button name='openNow' onClick={this.props.filterFunc} style={styles.buttonOpen}> Open Now</button>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <button name='delivery' onClick={this.props.filterFunc} style={styles.buttonOpen}>Has Delivery</button>
+       </div>
+       <br/>
 
       </form>
-        
     </MuiThemeProvider>
     </div>
     );
-
   }
-
-
 }
 
 

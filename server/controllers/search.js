@@ -1,5 +1,5 @@
 const request = require('request')
-const config =require('../../config.js');
+const config =require('./../config.js');
 
 module.exports = {
   request: (body, cb) => {

@@ -24,6 +24,7 @@ export default class App extends React.Component {
       favorites: [],
     }
     this.searchHandlerByZip = this.searchHandlerByZip.bind(this);
+    this.selectHandler = this.selectHandler.bind(this);
     this.searchHandlerByCoords = this.searchHandlerByCoords.bind(this);
     this.generateFavorites = this.generateFavorites.bind(this);
   }
@@ -52,13 +53,33 @@ export default class App extends React.Component {
     .catch(err => console.error(err));
   }
 
-  searchHandlerByZip(term='delis', location='10007'){
-    this.setState({query: term})
-    axios.post('/search', {term: term, location: location})
-    .then((data) => {
-      this.setState({results: data.data})
-      this.setState({coords: {lat: data.data.region.center.latitude, lng: data.data.region.center.longitude}}, ()=>{console.log('state coords',this.state.coords)})
+  selectHandler(e) {
+    e.preventDefault();
+    console.log('e.taget', e.target.name)
+    if(e.target.name === 'openNow' || e.target.name === 'delivery'){
+      this.setState({[e.target.name]: !this.state[e.target.name]}, ()=>{console.log('select handler', this.state);
+        this.searchHandlerByCoords(this.state.query, this.state.coords.lat, 
+          this.state.coords.lng, this.state.filter, this.state.sortBy, this.state.openNow, this.state.delivery);
+      })
+    }else{
+      this.setState({[e.target.name]: e.target.value}, ()=>{console.log('select handler yah',this.state);
+        this.searchHandlerByCoords(this.state.query, this.state.coords.lat, 
+          this.state.coords.lng, this.state.filter, this.state.sortBy, this.state.openNow, this.state.delivery);
+      })
+    }
+  }
 
+  searchHandlerByZip(term='delis', location='10007', filter, sortBy, openNow, delivery){
+    this.setState({query: term, filter: filter, sortBy: sortBy, openNow: openNow, delivery: delivery},()=>{
+      axios.post('/search', {term, location, filter, sortBy, openNow, delivery})
+      .then((data) => {
+        this.setState({results: data.data.businesses, 
+          coords: {lat: data.data.region.center.latitude, lng: data.data.region.center.longitude}
+        })
+      })
+      .catch((err) => {
+        console.log('err from axios: ', err);
+      })
     })
     .catch((err) => {
       console.log('err from axios: ', err);
@@ -68,7 +89,10 @@ export default class App extends React.Component {
   searchHandlerByCoords(term='delis', lat, lng){
     axios.post('/search', {term, lat, lng})
     .then((data) => {
-      this.setState({results: data.data})
+      this.setState({results: data.data.businesses, 
+        coords: {lat: data.data.region.center.latitude, lng: data.data.region.center.longitude}},()=>{
+          console.log('fixing coords', data)
+        })
     })
     .catch((err) => {
       console.log('err from axios: ', err);
@@ -96,7 +120,9 @@ export default class App extends React.Component {
   render() {    
     return (
       <div style={{height: '200px'}}>
-        <Search search={this.searchHandlerByZip}/>
+        <Search search={this.searchHandlerByZip} filterFunc={this.selectHandler} 
+        filter={this.state.filter} 
+        sortBy={this.state.sortBy} openNow={this.state.openNow} delivery={this.state.delivery}/>
         <div className={styles.entryList}>
           <EntryList userId={ this.props.userId } list={this.state.results}/>
         </div>
