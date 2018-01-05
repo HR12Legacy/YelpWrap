@@ -19,8 +19,8 @@ class Base extends React.Component {
   constructor() {
     super();
     this.state = {
-      isLoggedIn: false,
-      userId: null,
+      isLoggedIn: true,
+      userId: 1,
     }
   }
 

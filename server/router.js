@@ -21,7 +21,6 @@ router.post('/favorite', (req, res) => {
 })
 
 router.get('/favorite/:userId', (req, res) => {
-  console.log(req.params)
   controllers.favorite.retrieve(req.params, (result) => {
     res.status(200).send(result);
   })

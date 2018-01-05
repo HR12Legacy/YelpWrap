@@ -18,6 +18,8 @@ class GridListItem extends React.Component {
     ServerActions.postRequest('/favorite', {
       userId: this.props.userId,
       url:this.props.item.url,
+      img_url: this.props.image_url,
+      location: this.props.item.location,
       name: this.props.item.name,
       phone: '',
       address: this.props.item.location.address1

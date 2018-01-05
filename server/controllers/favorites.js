@@ -4,12 +4,14 @@ const favoriteController = {
   add: (body, cb) => {
     knex('favorites').insert({
       userId: body.userId,
+      img_url: body.image_url,
+      location: body.location,
       url: body.url,
       name: body.name,
       phone: body.phone,
       address: body.address
-    }).then(() => {
-      cb();
+    }).then((fav) => {
+      cb(fav);
     })
   },
   retrieve: (body, cb) => {
