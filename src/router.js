@@ -11,7 +11,7 @@ router.post('/search', function(req, res){
   var qs; // qs are the params for request to yelps api 
   if(req.body.location) { //this if statement to check wheter location was given in human readable (zip code etc.) or coordinates
     qs = {term: req.body.term,
-      limit: 4,
+      limit: 8,
       location: req.body.location,
       price: req.body.filter,
       radius: 8046,      
@@ -20,7 +20,7 @@ router.post('/search', function(req, res){
     };
   } else {
     qs = {term: req.body.term,
-      limit: 4,
+      limit: 8,
       radius: 8046,
       latitude: req.body.lat,
       longitude: req.body.lng,
