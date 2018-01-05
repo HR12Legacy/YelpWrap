@@ -1,9 +1,10 @@
 import React from 'react'
 
 const EntryListItem = (props) =>(
-  <div className={style.entryListItem}>
-    <a href={props.item.url}><img src={props.item.image_url} alt="item" className={style.imageEntryListItem}/></a>
-    <div className={style.textBoxListItem}>
+  <div style={{ padding:15, margin: 15, border: '1px solid red', width: '100%', height: '60px'}}>
+    
+    <a href={props.item.url}><img src={props.item.image_url} alt="item" height="100%" width="25%"/></a>
+    <div style={{float: 'right'}}>
       <span>{props.item.name}</span> <br/>
       <span>{props.item.phone}</span>  <br/>
       <span>{props.item.location.address1}</span> <br/>

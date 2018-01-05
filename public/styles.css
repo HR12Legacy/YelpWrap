@@ -1,7 +1,14 @@
-html {
-  height: 100%;
+body {
+  margin: 0;
+  font-size: 16px;
 }
 
+a {
+  color: #00bcd4;
+  font-weight: bold;
+  text-decoration: none;
+  transition: color 0.4s;
+}
 
 a:hover {
   color: #1976d2;
@@ -37,22 +44,8 @@ a:hover {
 
 .container {
   margin: 0 auto;
-  top: 25%;
-  left: 25%;
   text-align: center;
   width: 700px;
-  position: fixed;
-  float: center;
-  z-index: 10;
-}
-
-.container {
-  margin: 0 auto;
-  /*text-align: center;*/
-  width: 700px;
-  /*position: fixed;*/
-  /*float: center;*/
-  /*z-index: 10;*/
 }
 
 .card-heading {
@@ -61,12 +54,14 @@ a:hover {
 
 .field-line, .button-line {
   padding: 16px;
-
-body {
- height: 100%; 
 }
 
-#root {
-  height: 100%;
+.error-message {
+  padding: 0 16px;
+  color: tomato;
 }
 
+.success-message {
+  padding: 0 16px;
+  color: green;
+}

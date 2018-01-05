@@ -34,12 +34,11 @@ class MapContainer extends React.Component {
             center={
               this.props.xy
             }
-            zoom={14}
+            zoom={12}
             onDragend={
               this.props.onMarkerPositionChanged
             }>
-            {/* {console.log('===53456==>',mapCenter)} */}
-            {console.log('===123123==>', window.google)}
+          
             {this.props.markers.map((marker, idx) => {
               const lat = marker.coordinates.latitude;
               const lng = marker.coordinates.longitude;
@@ -62,6 +61,7 @@ class MapContainer extends React.Component {
       )
   }
 }
+
 export default GoogleApiWrapper({
   apiKey: (keys.GoogleMap_TOKEN)
 })(MapContainer)

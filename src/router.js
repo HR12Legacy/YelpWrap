@@ -11,13 +11,25 @@ router.post('/search', function(req, res){
   var qs; // qs are the params for request to yelps api 
   if(req.body.location) { //this if statement to check wheter location was given in human readable (zip code etc.) or coordinates
     qs = {term: req.body.term,
-      location: req.body.location};
+      limit: 4,
+      location: req.body.location,
+      price: req.body.filter,
+      radius: 8046,      
+      open_now: req.body.openNow,
+      sort_by: req.body.sortBy,
+    };
   } else {
     qs = {term: req.body.term,
+      limit: 4,
+      radius: 8046,
       latitude: req.body.lat,
-      longitude: req.body.lng};
+      longitude: req.body.lng,
+      price: req.body.filter,
+      open_now: req.body.openNow,
+      sort_by: req.body.sortBy,
+    };
   }
-  
+
   const options = {
     url: 'https://api.yelp.com/v3/businesses/search?',
     headers: {'Authorization': `Bearer ${config.Yelp_TOKEN}` },
@@ -25,10 +37,17 @@ router.post('/search', function(req, res){
   }; 
 
   request(options, (err, response, body) => {
-    var results = JSON.parse(body);
-    res.send(results)
-  })
-})
+    const datas = JSON.parse(body);
+    console.log(datas)
+    if(req.body.delivery) {
+      datas.businesses = datas.businesses.reduce((acc, curr) => {
+        curr.transactions.indexOf('delivery') !== -1 ? acc.push(curr) : acc;
+        return acc;
+      }, []);
+    }
+    res.send(datas); 
+  });   
+});
 
 router.post('/user', (req, res) => {
   controllers.user.add(req.body, () => {

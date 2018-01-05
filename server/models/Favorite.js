@@ -1,4 +1,4 @@
-const db = require('../config.js').db;
+const db = require('../bookshelf.js');
 const User = require('./User.js');
 
 const Favorite = db.Model.extend({
