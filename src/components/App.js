@@ -7,6 +7,7 @@ import GoogleApiWrapper from './MyMapComponent';
 import sample from '../../sampledata.js';
 import styles from './entries.css'
 import style from './container.css'
+import ServerActions from '../ServerActions';
 
 /**
  * NOTICE:
@@ -27,11 +28,13 @@ export default class App extends React.Component {
       delivery: false,
       coords: {lat: 48.61021668181817,
         lng: 9.103665540909093},
-      location: ''
+      location: '',
+      favorites: [],
     }
     this.searchHandlerByZip = this.searchHandlerByZip.bind(this);
     this.searchHandlerByCoords = this.searchHandlerByCoords.bind(this);
-    this.selectHandler = this.selectHandler.bind(this);
+    this.generateFavorites = this.generateFavorites.bind(this);
+
   }
   getPosition(options) {
     return new Promise(function (resolve, reject) {
@@ -39,8 +42,13 @@ export default class App extends React.Component {
     });
   }
   
+  componentWillReceiveProps(nextProps) {
+    if(this.props.userId) this.generateFavorites();
+  }
+
   componentDidMount() {
     this.searchHandlerByZip();
+
     this.getPosition()
     .then(result => {
 
@@ -48,9 +56,7 @@ export default class App extends React.Component {
         this.searchHandlerByCoords(this.state.query, this.state.coords.lat, 
         this.state.coords.lng, this.state.filter, this.state.sortBy, this.state.openNow, this.state.delivery)
       }
-    );
-
-    })
+    )})
     .catch(err => console.error(err));
   }
 
@@ -108,17 +114,29 @@ export default class App extends React.Component {
         this.state.openNow, this.state.delivery)})
   }
 
+  generateFavorites(callback) {
+    // UPDATE DATABASE TO STORE SAME THINGS AS REQUIRED FOR GRID
+    if (this.props.userId) {
+      ServerActions.getRequest('/favorite/'+this.props.userId, (result) => {
+        console.log('result', result)
+        debugger;
+          this.setState({
+            favorites: result.data,
+          }, ()=> console.log(this.state.favorites))
+      })
+    }
+  };
 
-  
+
   render() {    
     return (
-
-      <div className={style.appContainer} >
-        <Search search={this.searchHandlerByZip} filterFunc={this.selectHandler} filter={this.state.filter} 
-        sortBy={this.state.sortBy} openNow={this.state.openNow} delivery={this.state.delivery}/>
-    
+      <div style={{height: '200px'}}>
+        <Search search={this.searchHandlerByZip}/>
         <div className={styles.entryList}>
           <EntryList list={this.state.results}/>
+        </div>
+        <div className={styles.entryList} data-type="favorites">
+          <EntryList userId={ this.props.userId } list={this.state.favorites}/>
         </div>
        
         <div className={style.map}>

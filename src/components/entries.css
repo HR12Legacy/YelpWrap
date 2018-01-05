@@ -1,8 +1,9 @@
 .entryList {
   display: flex;
-  margin: 5px;
+  margin: 0px;
   float: left;
   position: sticky;
+  clear: both;
 }
 
 .entryListItem {

@@ -17,19 +17,18 @@ class Base extends React.Component {
     super();
     this.state = {
       isLoggedIn: false,
+      userId: null,
     }
   }
 
-  handleLogin(e) {
-    e.preventDefault();
+  handleLogin(email) {
     this.setState({
-      isLoggedIn: !this.state.isLoggedIn
-    })
+      isLoggedIn: !this.state.isLoggedIn,
+      userId: email,
+    });
   }
 
-
   render() {
-    const isLoggedIn = localStorage.getItem('loggedIn')
     return (
     <MuiThemeProvider muiTheme={getMuiTheme()}>
       <HashRouter>
@@ -57,12 +56,18 @@ class Base extends React.Component {
           }
         />    
           <switch>
-            <Route path='/' component={App} />
+            <Route path='/' render={() => {
+              return <App 
+                userId={this.state.userId}
+                />
+            }}/>
 
             <Route path='/login' render={() => {
+              <Route path='/' component={App} />
               return (
                 <LoginPage 
                   login={this.handleLogin.bind(this)}
+                  faves={this.generateFavorites}
                 />
               )
             }}/>

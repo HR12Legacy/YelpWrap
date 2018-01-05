@@ -20,6 +20,13 @@ router.post('/favorite', (req, res) => {
   })
 })
 
+router.get('/favorite/:userId', (req, res) => {
+  console.log(req.params)
+  controllers.favorite.retrieve(req.params, (result) => {
+    res.status(200).send(result);
+  })
+})
+
 router.post('/user', (req, res) => {
   const validationResult = util.validateSignupForm(req.body);
   if (!validationResult.success) {
@@ -38,28 +45,28 @@ router.post('/user', (req, res) => {
 });
 
 router.post('/login', (req, res) => {
-  console.log('login')
-  const validationResult = util.validateSignupForm(req.body);
+  const validationResult = util.validateLoginForm(req.body);
   if (!validationResult.success) {
-    console.log('hello123')
     return res.status(400).send({
       success: false,
       message: validationResult.message,
       errors: validationResult.errors
     });
   } else {
-    new User({username: req.body.username})
+    new User({email: req.body.email})
     .fetch()
     .then(user => {
       user.comparePassword(req.body.password, (match) => {
+        console.log(user)
         if(match) {
-          console.log('match')
           return res.status(200).json({
               success:true,
-              redirectUrl: '/'
+              redirectUrl: '/',
+              userId: user.id
           })
         } else {
-          console.log('hello')
+          // validationResult.message = 'Check form for errors';
+          // validationResult.errors = 'Invalid combinations';
           return res.status(400).send({
             success: false,
             message: validationResult.message,

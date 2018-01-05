@@ -48,7 +48,6 @@ class SignUpPage extends React.Component {
       } else {
         const errors = xhr.response.errors ? xhr.response.errors : {};
         errors.summary = xhr.response.message;
-
         this.setState({
           errors
         });

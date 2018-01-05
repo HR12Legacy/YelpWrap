@@ -1,10 +1,6 @@
 import React, { PropTypes } from 'react';
 import LoginForm from './LoginForm.js';
 import ServerActions from '../../ServerActions.js';
-import { Redirect } from 'react-router'
-
-
-
 
 class LoginPage extends React.Component {
   constructor(props, context) {
@@ -36,6 +32,7 @@ processForm(event) {
         this.setState({
           errors: {}
         });
+        this.props.login(xhr.response.userId);
       } else {
         const errors = xhr.response.errors ? xhr.response.errors : {};
         errors.summary = xhr.response.message;
