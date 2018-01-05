@@ -1,12 +1,9 @@
-<<<<<<< HEAD
 
-=======
 .mapContainer{
   height: 45vh; 
   display: block;
   position: sticky;
 }
->>>>>>> rendering
 .map{
 	float: left;
     width: 100%;
@@ -28,12 +25,5 @@
   display: block;
   position: sticky;
 }
-<<<<<<< HEAD
-.mapContainer{
-  height: 45vh; 
-  display: block;
-  position: sticky;
-}
-=======
 
->>>>>>> rendering
+
