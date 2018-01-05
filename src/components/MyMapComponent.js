@@ -26,19 +26,27 @@ class MapContainer extends React.Component {
   }
   
   render() {
+      const mapStyle = {
+        'height': '100%',
+        'overflow': 'hidden',
+        'paddingBottom': '22.25%',
+        'paddingTop': '30px',
+        'position': 'relative',
+      }
       return (
-        <div className={style.container}>
+        <div className={style.mapContainer}>
           <Map
-            google={window.google}
+            google={this.props.google}
             center={
               this.props.xy
             }
-            zoom={14}
+            gestureHandling={"cooperative"}
+            disableDefaultUI={true}
+            zoom={10}
+            style={mapStyle}
             onDragend={
               this.props.onMarkerPositionChanged
             }>
-            {/* {console.log('===53456==>',mapCenter)} */}
-            {console.log('===123123==>', window.google)}
             {this.props.markers.map((marker, idx) => {
               const lat = marker.coordinates.latitude;
               const lng = marker.coordinates.longitude;

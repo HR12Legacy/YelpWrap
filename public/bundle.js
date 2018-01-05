@@ -24863,11 +24863,14 @@ const Base = () => __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__MyMapComponent__ = __webpack_require__(179);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__sampledata_js__ = __webpack_require__(200);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__sampledata_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5__sampledata_js__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__container_css__ = __webpack_require__(198);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__container_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6__container_css__);
 
 
 
 
 const axios = __webpack_require__(87);
+
 
 
 /**
@@ -24925,22 +24928,24 @@ class App extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
   onMarkerPositionChanged(mapProps, map) {
     console.log('map', map);
     console.log('mapProp', mapProps);
-    console.log('lat', map.center);
-    console.log('lng', map.center.lng());
     var coords = { lat: map.center.lat(), lng: map.center.lng() };
     this.setState({ coords: coords }, () => {
       this.searchHandlerByCoords(this.state.query, this.state.coords.lat, this.state.coords.lng);
     });
   }
+
   render() {
     return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
       'div',
-      { style: { height: '200px' } },
+      { className: __WEBPACK_IMPORTED_MODULE_6__container_css___default.a.appContainer },
       __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__Search_js__["a" /* default */], { search: this.searchHandlerByZip }),
       __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__EntryList_js__["a" /* default */], { list: this.state.results }),
-      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__MyMapComponent__["a" /* default */], { markers: this.state.results, onMarkerPositionChanged: this.onMarkerPositionChanged.bind(this),
-        xy: this.state.coords }),
-      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__FavEntryList_js__["a" /* default */], { list: this.state.results })
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__FavEntryList_js__["a" /* default */], { list: this.state.results }),
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__MyMapComponent__["a" /* default */], {
+        markers: this.state.results,
+        onMarkerPositionChanged: this.onMarkerPositionChanged.bind(this),
+        xy: this.state.coords
+      })
     );
   }
 }
@@ -24954,6 +24959,8 @@ class App extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__container_css__ = __webpack_require__(198);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__container_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__container_css__);
 
 
 
@@ -24981,7 +24988,7 @@ class Search extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
   render() {
     return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
       'div',
-      null,
+      { className: __WEBPACK_IMPORTED_MODULE_1__container_css___default.a.searchContainer },
       __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
         'form',
         null,
@@ -25096,7 +25103,7 @@ exports = module.exports = __webpack_require__(52)(true);
 
 
 // module
-exports.push([module.i, "/* TODO: shadowing */\n.entryList___1NEx_ {\n  display: flex; \n  flex-wrap: wrap; \n  height: 250px; \n  width: 60%; \n  overflow-y: scroll;\n  float: left;\n}\n\n/* TODO: animation on hover and click*/\n.entryListItem___2IDYQ {\n  padding: 15px; \n  margin: 15px; \n  border: 1px solid red; \n  width: 100%; \n  height: 60px;\n}\n\n/* TODO: shadowing */\n.favEntryList___2rH4o {\n  display: flex; \n  flex-wrap: wrap; \n  height: 250px; \n  width: 40%; \n  overflow-y: scroll;\n  float: right;\n}\n\n/* TODO: animation on hover and click*/\n.favEntryListItem___3sdI6 {\n  padding: 15px; \n  margin: 15px; \n  border: 1px solid red; \n  width: 100%; \n  height: 60px;\n}\n\n/* TODO: responsive with parent */\n.imageEntryListItem___A4xO- {\n  height: 100%; \n  width: 25%;\n}\n\n/* TODO: responsive with parent */\n.imageFavEntryListItem___1axIK {\n  height: 100%; \n  width: 25%;\n}\n\n/* TODO: responsive with parent */\n.textBoxListItem___2tmTP {\n  float: right;\n}\n\n/* TODO: responsive with parent */\n.textBoxFavListItem___3Yph8 {\n  float: right;\n}\n", "", {"version":3,"sources":["/Users/derricktheodore/Desktop/greenfieldProject/YelpWrap/src/components/entries.css"],"names":[],"mappings":"AAAA,qBAAqB;AACrB;EACE,cAAc;EACd,gBAAgB;EAChB,cAAc;EACd,WAAW;EACX,mBAAmB;EACnB,YAAY;CACb;;AAED,uCAAuC;AACvC;EACE,cAAc;EACd,aAAa;EACb,sBAAsB;EACtB,YAAY;EACZ,aAAa;CACd;;AAED,qBAAqB;AACrB;EACE,cAAc;EACd,gBAAgB;EAChB,cAAc;EACd,WAAW;EACX,mBAAmB;EACnB,aAAa;CACd;;AAED,uCAAuC;AACvC;EACE,cAAc;EACd,aAAa;EACb,sBAAsB;EACtB,YAAY;EACZ,aAAa;CACd;;AAED,kCAAkC;AAClC;EACE,aAAa;EACb,WAAW;CACZ;;AAED,kCAAkC;AAClC;EACE,aAAa;EACb,WAAW;CACZ;;AAED,kCAAkC;AAClC;EACE,aAAa;CACd;;AAED,kCAAkC;AAClC;EACE,aAAa;CACd","file":"entries.css","sourcesContent":["/* TODO: shadowing */\n.entryList {\n  display: flex; \n  flex-wrap: wrap; \n  height: 250px; \n  width: 60%; \n  overflow-y: scroll;\n  float: left;\n}\n\n/* TODO: animation on hover and click*/\n.entryListItem {\n  padding: 15px; \n  margin: 15px; \n  border: 1px solid red; \n  width: 100%; \n  height: 60px;\n}\n\n/* TODO: shadowing */\n.favEntryList {\n  display: flex; \n  flex-wrap: wrap; \n  height: 250px; \n  width: 40%; \n  overflow-y: scroll;\n  float: right;\n}\n\n/* TODO: animation on hover and click*/\n.favEntryListItem {\n  padding: 15px; \n  margin: 15px; \n  border: 1px solid red; \n  width: 100%; \n  height: 60px;\n}\n\n/* TODO: responsive with parent */\n.imageEntryListItem {\n  height: 100%; \n  width: 25%;\n}\n\n/* TODO: responsive with parent */\n.imageFavEntryListItem {\n  height: 100%; \n  width: 25%;\n}\n\n/* TODO: responsive with parent */\n.textBoxListItem {\n  float: right;\n}\n\n/* TODO: responsive with parent */\n.textBoxFavListItem {\n  float: right;\n}\n"],"sourceRoot":""}]);
+exports.push([module.i, "/* TODO: shadowing */\n.entryList___1NEx_ {\n  display: flex; \n  flex-wrap: wrap; \n  height: 250px; \n  width: 60%; \n  overflow-y: scroll;\n  float: left;\n  position: sticky;\n}\n\n/* TODO: animation on hover and click*/\n.entryListItem___2IDYQ {\n  padding: 15px; \n  margin: 15px; \n  border: 1px solid red; \n  width: 100%; \n  height: 60px;\n}\n\n/* TODO: shadowing */\n.favEntryList___2rH4o {\n  display: flex; \n  flex-wrap: wrap; \n  height: 250px; \n  width: 40%; \n  overflow-y: scroll;\n  position: sticky;\n}\n\n/* TODO: animation on hover and click*/\n.favEntryListItem___3sdI6 {\n  padding: 15px; \n  margin: 15px; \n  border: 1px solid red; \n  width: 100%; \n  height: 60px;\n}\n\n/* TODO: responsive with parent */\n.imageEntryListItem___A4xO- {\n  height: 100%; \n  width: 25%;\n}\n\n/* TODO: responsive with parent */\n.imageFavEntryListItem___1axIK {\n  height: 100%; \n  width: 25%;\n}\n\n/* TODO: responsive with parent */\n.textBoxListItem___2tmTP {\n  float: right;\n}\n\n/* TODO: responsive with parent */\n.textBoxFavListItem___3Yph8 {\n  float: right;\n}\n", "", {"version":3,"sources":["/Users/derricktheodore/Desktop/greenfieldProject/YelpWrap/src/components/entries.css"],"names":[],"mappings":"AAAA,qBAAqB;AACrB;EACE,cAAc;EACd,gBAAgB;EAChB,cAAc;EACd,WAAW;EACX,mBAAmB;EACnB,YAAY;EACZ,iBAAiB;CAClB;;AAED,uCAAuC;AACvC;EACE,cAAc;EACd,aAAa;EACb,sBAAsB;EACtB,YAAY;EACZ,aAAa;CACd;;AAED,qBAAqB;AACrB;EACE,cAAc;EACd,gBAAgB;EAChB,cAAc;EACd,WAAW;EACX,mBAAmB;EACnB,iBAAiB;CAClB;;AAED,uCAAuC;AACvC;EACE,cAAc;EACd,aAAa;EACb,sBAAsB;EACtB,YAAY;EACZ,aAAa;CACd;;AAED,kCAAkC;AAClC;EACE,aAAa;EACb,WAAW;CACZ;;AAED,kCAAkC;AAClC;EACE,aAAa;EACb,WAAW;CACZ;;AAED,kCAAkC;AAClC;EACE,aAAa;CACd;;AAED,kCAAkC;AAClC;EACE,aAAa;CACd","file":"entries.css","sourcesContent":["/* TODO: shadowing */\n.entryList {\n  display: flex; \n  flex-wrap: wrap; \n  height: 250px; \n  width: 60%; \n  overflow-y: scroll;\n  float: left;\n  position: sticky;\n}\n\n/* TODO: animation on hover and click*/\n.entryListItem {\n  padding: 15px; \n  margin: 15px; \n  border: 1px solid red; \n  width: 100%; \n  height: 60px;\n}\n\n/* TODO: shadowing */\n.favEntryList {\n  display: flex; \n  flex-wrap: wrap; \n  height: 250px; \n  width: 40%; \n  overflow-y: scroll;\n  position: sticky;\n}\n\n/* TODO: animation on hover and click*/\n.favEntryListItem {\n  padding: 15px; \n  margin: 15px; \n  border: 1px solid red; \n  width: 100%; \n  height: 60px;\n}\n\n/* TODO: responsive with parent */\n.imageEntryListItem {\n  height: 100%; \n  width: 25%;\n}\n\n/* TODO: responsive with parent */\n.imageFavEntryListItem {\n  height: 100%; \n  width: 25%;\n}\n\n/* TODO: responsive with parent */\n.textBoxListItem {\n  float: right;\n}\n\n/* TODO: responsive with parent */\n.textBoxFavListItem {\n  float: right;\n}\n"],"sourceRoot":""}]);
 
 // exports
 exports.locals = {
@@ -26211,17 +26218,26 @@ class MapContainer extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Compone
   }
 
   render() {
+    const mapStyle = {
+      'height': '100%',
+      'overflow': 'hidden',
+      'paddingBottom': '22.25%',
+      'paddingTop': '30px',
+      'position': 'relative'
+    };
     return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
       'div',
-      { className: __WEBPACK_IMPORTED_MODULE_3__container_css___default.a.container },
+      { className: __WEBPACK_IMPORTED_MODULE_3__container_css___default.a.mapContainer },
       __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
         __WEBPACK_IMPORTED_MODULE_1_google_maps_react__["Map"],
         {
-          google: window.google,
+          google: this.props.google,
           center: this.props.xy,
-          zoom: 14,
+          gestureHandling: "cooperative",
+          disableDefaultUI: true,
+          zoom: 10,
+          style: mapStyle,
           onDragend: this.props.onMarkerPositionChanged },
-        console.log('===123123==>', window.google),
         this.props.markers.map((marker, idx) => {
           const lat = marker.coordinates.latitude;
           const lng = marker.coordinates.longitude;
@@ -31419,11 +31435,13 @@ exports = module.exports = __webpack_require__(52)(true);
 
 
 // module
-exports.push([module.i, ".container___1MJcM {\n  height: 45vh; \n  display: block;\n  position: absolute;\n  position: -webkit-sticky;\n  position: sticky;\n}", "", {"version":3,"sources":["/Users/derricktheodore/Desktop/greenfieldProject/YelpWrap/src/components/container.css"],"names":[],"mappings":"AAAA;EACE,aAAa;EACb,eAAe;EACf,mBAAmB;EACnB,yBAAyB;EACzB,iBAAiB;CAClB","file":"container.css","sourcesContent":[".container {\n  height: 45vh; \n  display: block;\n  position: absolute;\n  position: -webkit-sticky;\n  position: sticky;\n}"],"sourceRoot":""}]);
+exports.push([module.i, ".searchContainer___3ms-6 {\n  height: 15vh; \n  display: block;\n  position: sticky;\n}\n\n.appContainer___2CrXc {\n  height: 95vh; \n  display: block;\n  position: sticky;\n}\n.mapContainer___2hKuL{\n  height: 45vh; \n  display: block;\n  position: sticky;\n}\n", "", {"version":3,"sources":["/Users/derricktheodore/Desktop/greenfieldProject/YelpWrap/src/components/container.css"],"names":[],"mappings":"AAAA;EACE,aAAa;EACb,eAAe;EACf,iBAAiB;CAClB;;AAED;EACE,aAAa;EACb,eAAe;EACf,iBAAiB;CAClB;AACD;EACE,aAAa;EACb,eAAe;EACf,iBAAiB;CAClB","file":"container.css","sourcesContent":[".searchContainer {\n  height: 15vh; \n  display: block;\n  position: sticky;\n}\n\n.appContainer {\n  height: 95vh; \n  display: block;\n  position: sticky;\n}\n.mapContainer{\n  height: 45vh; \n  display: block;\n  position: sticky;\n}\n"],"sourceRoot":""}]);
 
 // exports
 exports.locals = {
-	"container": "container___1MJcM"
+	"searchContainer": "searchContainer___3ms-6",
+	"appContainer": "appContainer___2CrXc",
+	"mapContainer": "mapContainer___2hKuL"
 };
 
 /***/ }),
