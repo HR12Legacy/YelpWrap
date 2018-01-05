@@ -49,7 +49,7 @@ class Base extends React.Component {
                 <div onClick={this.handleLogin.bind(this)}> Logout </div>
               }
             </div>
-
+          </div>
           <switch>
             <Route path='/' component={App} />
 

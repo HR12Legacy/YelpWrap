@@ -1,5 +1,6 @@
-html {
-  height: 100%;
+body {
+  margin: 0;
+  font-size: 16px;
 }
 
 body {
@@ -44,10 +45,9 @@ a:hover {
 
 .container {
   margin: 0 auto;
-  top: 25%;
-  left: 25%;
   text-align: center;
   width: 700px;
+}
   position: fixed;
   float: center;
   z-index: 10;
@@ -68,7 +68,17 @@ a:hover {
 
 .field-line, .button-line {
   padding: 16px;
+}
+
+.error-message {
+  padding: 0 16px;
+  color: tomato;
+}
 } */
 
 
 
+.success-message {
+  padding: 0 16px;
+  color: green;
+}
