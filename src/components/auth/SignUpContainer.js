@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import SignUpForm from './SignUpForm.js';
+import SignUpForm from './SignupForm.js';
 import ServerActions from '../../ServerActions.js';
 import { Link } from 'react-router-dom';
 
