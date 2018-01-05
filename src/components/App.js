@@ -81,7 +81,6 @@ export default class App extends React.Component {
 
 
   generateFavorites(callback) {
-    // UPDATE DATABASE TO STORE SAME THINGS AS REQUIRED FOR GRID
     if (this.props.userId) {
       ServerActions.getRequest('/favorite/'+this.props.userId, (result) => {
         console.log('result', result)
@@ -102,10 +101,10 @@ export default class App extends React.Component {
           <EntryList list={this.state.results}/>
         </div>
         <div className={styles.entryList} data-type="favorites">
-          <EntryList userId={ this.props.userId } list={this.state.favorites}/>
+          <EntryList faves={ this.state.favorites } userId={ this.props.userId } list={this.state.favorites}/>
         </div>
         <div className={style.map}>
-          <GoogleApiWrapper  markers={this.state.results} onMarkerPositionChanged={this.onMarkerPositionChanged.bind(this)} 
+          <GoogleApiWrapper  faves={ this.state.favorites } markers={ this.state.results } onMarkerPositionChanged={ this.onMarkerPositionChanged.bind(this) } 
           xy={this.state.coords} />
         </div>
       </div>
