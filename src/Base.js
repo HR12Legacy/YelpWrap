@@ -7,6 +7,7 @@ import LoginPage from './components/auth/LoginContainer.js';
 import SignUpPage from './components/auth/SignUpContainer.js';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import { HashRouter, Route, Link } from 'react-router-dom';
+import style from './base.css';
 
 injectTapEventPlugin();
 
@@ -32,13 +33,13 @@ class Base extends React.Component {
     <MuiThemeProvider muiTheme={getMuiTheme()}>
       <HashRouter>
         <div>
-
-          <div className="top-bar">
-            <div className="top-bar-left">
+          //Added className only 
+          <div className={style.topBar}>
+            <div className={style.topBarLeft}>
               <Link to="/">Home</Link>
             </div>
 
-            <div className="top-bar-right">
+            <div className={style.topBarRight}>
               {
                 !this.state.isLoggedIn ? 
                 <div>
@@ -48,8 +49,6 @@ class Base extends React.Component {
                 <div onClick={this.handleLogin.bind(this)}> Logout </div>
               }
             </div>
-
-          </div>
 
           <switch>
             <Route path='/' component={App} />

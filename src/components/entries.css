@@ -3,6 +3,7 @@
   display: flex;
   margin: 5px;
   float: left;
+  position: sticky;
 }
 
 /* TODO: animation on hover and click*/
@@ -21,7 +22,7 @@
   height: 250px; 
   width: 40%; 
   overflow-y: scroll;
-  float: right;
+  position: sticky;
 }
 
 /* TODO: animation on hover and click*/

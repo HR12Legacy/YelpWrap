@@ -49,7 +49,10 @@ a:hover {
 .cardHeading {
   padding: 16px;
 }
-.fieldLine, .buttonLine {
+.fieldLine {
+  padding: 16px;
+}
+.buttonLine {
   padding: 16px;
 }
 .errorMessage {
