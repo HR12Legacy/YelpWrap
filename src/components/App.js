@@ -73,6 +73,7 @@ export default class App extends React.Component {
     this.setState({query: term, filter: filter, sortBy: sortBy, openNow: openNow, delivery: delivery},()=>{
       axios.post('/search', {term, location, filter, sortBy, openNow, delivery})
       .then((data) => {
+        console.log(data)
         this.setState({results: data.data.businesses, 
           coords: {lat: data.data.region.center.latitude, lng: data.data.region.center.longitude}
         })
@@ -81,9 +82,6 @@ export default class App extends React.Component {
         console.log('err from axios: ', err);
       })
     })
-    .catch((err) => {
-      console.log('err from axios: ', err);
-    });
   }
 
   searchHandlerByCoords(term='delis', lat, lng){
