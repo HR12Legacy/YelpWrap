@@ -23,6 +23,7 @@ module.exports = {
     }; 
 
     request(options, (err, response, body) => {
+      console.log(body)
       var results = JSON.parse(body);
       console.log(results)
       cb(results.businesses)
