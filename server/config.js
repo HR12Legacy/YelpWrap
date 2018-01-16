@@ -1,11 +1,16 @@
 const config =require('../config.js');
 
+
 const knex = require('knex')({
 	client: 'pg',
 	connection: {
 		host: 'localhost',
 		port: '5432',
+<<<<<<< HEAD
 		user: config.DB_USER,
+=======
+		user: `${config.dbuser}`,
+>>>>>>> featBranch
 		database: 'yelpwrap'
 	}
 });

@@ -16,6 +16,7 @@ module.exports = {
         longitude: body.lng
       };
     }
+
     const options = {
       url: 'https://api.yelp.com/v3/businesses/search?',
       headers: {'Authorization': `Bearer ${config.Yelp_TOKEN}` },
