@@ -5,7 +5,7 @@ const knex = require('knex')({
 	connection: {
 		host: 'localhost',
 		port: '5432',
-		user: `christinemourani`,
+		user: `EvanBaker`,
 		database: 'yelpwrap'
 	}
 });
@@ -44,10 +44,10 @@ knex.schema.hasTable('favorites').then(exists => {
 
 knex.schema.hasTable('messages').then(exists => {
 	if(!exists) {
-		knex.schema.createTable('favorites', (table) => {
+		knex.schema.createTable('messages', (table) => {
 			table.increments('id').primary();
 			table.text('content');
-			table.integer('zipCode');
+			table.foreign('room').references('ziproom.id');
 			table.foreign('userId').references('users.id');
 		})
 		.then(table => {
