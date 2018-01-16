@@ -10,12 +10,18 @@ const restaurantsController = {
       image_url: body.img_url,
       location: body.location,
       display_address: body.display_address,
-    }).then(() => {
-      cb();
+    }).then((insertedRestaurant) => {
+      // create association between restaurant and user
+      knex('userRestaurants').insert({
+        userId: body.userId,
+        restaurantId: insertedRestaurant.id
+      }).then(() => {
+        cb();
+      })
     })
   },
   retrieve: (body, cb) => {
-    knex('restuarants')
+    knex('userRestaurants').where('userId', body.userId)
     .then((result) => {
       cb(result);
     })

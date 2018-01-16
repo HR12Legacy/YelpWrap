@@ -4,6 +4,6 @@ const searchController = require('./search');
 
 module.exports = {
 	user: userController,
-	restaurant: restaurantsController,
+	favorite: restaurantsController,
 	search: searchController,
 }
