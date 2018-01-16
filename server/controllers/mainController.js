@@ -1,4 +1,4 @@
-const restaurantsController = require('./restuarants');
+const restaurantsController = require('./restaurants');
 const userController = require('./users');
 const searchController = require('./search');
 
