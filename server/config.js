@@ -5,7 +5,7 @@ const knex = require('knex')({
 	connection: {
 		host: 'localhost',
 		port: '5432',
-		user: `EvanBaker`,
+		user: config.DB_USER,
 		database: 'yelpwrap'
 	}
 });
