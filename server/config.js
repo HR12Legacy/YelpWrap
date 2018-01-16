@@ -5,7 +5,7 @@ const knex = require('knex')({
 	connection: {
 		host: 'localhost',
 		port: '5432',
-		user: `EvanBaker`,
+		user: config.DB_USER,
 		database: 'yelpwrap'
 	}
 });
@@ -25,17 +25,29 @@ knex.schema.hasTable('users').then(exists => {
 	}
 });
 
-knex.schema.hasTable('favorites').then(exists => {
+knex.schema.hasTable('restaurants').then(exists => {
 	if(!exists) {
-		knex.schema.createTable('favorites', (table) => {
+		knex.schema.createTable('restaurants', (table) => {
 			table.increments('id').primary();
-			table.integer('userId');
 			table.string('url', 255);
 			table.string('name', 255);
 			table.string('phone', 16);
 			table.string('display_address', 255);
 			table.string('image_url', 255);
 			table.string('location', 255);
+			table.string('zipcode', 255);
+		}).then(table => {
+			console.log('Created table:', table);
+		})
+	}
+})
+
+knex.schema.hasTable('user_restaurants').then(exists => {
+	if(!exists) {
+		knex.schema.createTable('user_restaurants', (table) => {
+			table.increments('id').primary();
+			table.integer('userId').references('id').inTable('users');
+			table.integer('restaurantId').references('id').inTable('restaurants');
 		}).then(table => {
 			console.log('Created table:', table);
 		})
