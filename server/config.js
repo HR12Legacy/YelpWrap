@@ -5,7 +5,7 @@ const knex = require('knex')({
 	connection: {
 		host: 'localhost',
 		port: '5432',
-		user: `${config.dbuser}`,
+		user: `christinemourani`,
 		database: 'yelpwrap'
 	}
 });
@@ -56,6 +56,19 @@ knex.schema.hasTable('messages').then(exists => {
 	}
 })
 
+
+knex.schema.hasTable('ziproom').then(exists => {
+	if(!exists) {
+		knex.schema.createTable('ziproom', (table) => {
+			table.increments('id').primary();
+			table.integer('zipcode');
+			table.integer('user_count');
+			table.string('top_restaurant', 255);
+		}).then(table => {
+			console.log('Created table:', table);
+		})
+	}
+})
 
 const db = require('bookshelf')(knex);
 
