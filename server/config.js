@@ -1,16 +1,11 @@
 const config =require('../config.js');
 
-
 const knex = require('knex')({
 	client: 'pg',
 	connection: {
 		host: 'localhost',
 		port: '5432',
-<<<<<<< HEAD
-		user: config.DB_USER,
-=======
 		user: `${config.dbuser}`,
->>>>>>> featBranch
 		database: 'yelpwrap'
 	}
 });
@@ -42,6 +37,20 @@ knex.schema.hasTable('favorites').then(exists => {
 			table.string('image_url', 255);
 			table.string('location', 255);
 		}).then(table => {
+			console.log('Created table:', table);
+		})
+	}
+})
+
+knex.schema.hasTable('messages').then(exists => {
+	if(!exists) {
+		knex.schema.createTable('favorites', (table) => {
+			table.increments('id').primary();
+			table.text('content');
+			table.integer('zipCode');
+			table.foreign('userId').references('users.id');
+		})
+		.then(table => {
 			console.log('Created table:', table);
 		})
 	}
