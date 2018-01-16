@@ -5,8 +5,6 @@ import keys from '../../config';
 import style from './container.css';
 import star from 'material-ui/svg-icons/toggle/star';
 
-
-
 class MapContainer extends React.Component {
   constructor(props) {
     super(props);
@@ -34,6 +32,7 @@ class MapContainer extends React.Component {
         'paddingTop': '30px',
         'position': 'relative',
       }
+
       return (
         <div className={style.mapContainer}>
           <Map
@@ -55,7 +54,7 @@ class MapContainer extends React.Component {
               return (<Marker 
                 icon={this.props.faves.indexOf(name) > -1 ? { url:'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c9/Star_empty_font_awesome.svg/2000px-Star_empty_font_awesome.svg.png',
                        anchor: new google.maps.Point(8,8),
-                       scaledSize: new google.maps.Size(16,16)}: undefined}
+                       scaledSize: new google.maps.Size(16,16)} : undefined}
                 onMouseover={this.onMarkerHover} 
                 key={idx} info={marker} 
                 position={{lat, lng}}
