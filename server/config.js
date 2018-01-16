@@ -25,17 +25,28 @@ knex.schema.hasTable('users').then(exists => {
 	}
 });
 
-knex.schema.hasTable('favorites').then(exists => {
+knex.schema.hasTable('restaurants').then(exists => {
 	if(!exists) {
-		knex.schema.createTable('favorites', (table) => {
+		knex.schema.createTable('restaurants', (table) => {
 			table.increments('id').primary();
-			table.integer('userId');
 			table.string('url', 255);
 			table.string('name', 255);
 			table.string('phone', 16);
 			table.string('display_address', 255);
 			table.string('image_url', 255);
-			table.string('location', 255);
+			table.string('zipcode', 255);
+		}).then(table => {
+			console.log('Created table:', table);
+		})
+	}
+})
+
+knex.schema.hasTable('userRestaurants').then(exists => {
+	if(!exists) {
+		knex.schema.createTable('userRestaurants', (table) => {
+			table.increments('id').primary();
+			table.foreign('userId').references('users.id');
+			table.foreign('restaurantId').references('restuarants.id');
 		}).then(table => {
 			console.log('Created table:', table);
 		})
@@ -44,7 +55,7 @@ knex.schema.hasTable('favorites').then(exists => {
 
 knex.schema.hasTable('messages').then(exists => {
 	if(!exists) {
-		knex.schema.createTable('favorites', (table) => {
+		knex.schema.createTable('messages', (table) => {
 			table.increments('id').primary();
 			table.text('content');
 			table.integer('zipCode');

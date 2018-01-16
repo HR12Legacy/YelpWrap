@@ -1,9 +1,8 @@
 const knex = require('../../server/config.js').knex;
 
-const favoriteController = {
+const restaurantsController = {
   add: (body, cb) => {
-    knex('favorites').insert({
-      userId: body.userId,
+    knex('restaurants').insert({
       url: body.url,
       name: body.name,
       phone: body.phone,
@@ -16,11 +15,11 @@ const favoriteController = {
     })
   },
   retrieve: (body, cb) => {
-    knex('favorites').where('userId', body.userId)
+    knex('restuarants')
     .then((result) => {
       cb(result);
     })
   }
 }
 
-module.exports = favoriteController;
+module.exports = restaurantsController;
