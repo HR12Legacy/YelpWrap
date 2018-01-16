@@ -17,10 +17,15 @@ const messageController = {
       })
   },
   getMessageByRoom: (roomId, cb) => {
-
-  },
-  getMessageByUser: (user, cb) => {
-
+    Message.where({"roomId": roomId})
+           .fetchAll()
+           .then(messages => {
+              cb(messages)
+           })
+           .catch(error => {
+              console.log('error fetching messages: ', error)
+              cb([])
+           })
   }
 }
 

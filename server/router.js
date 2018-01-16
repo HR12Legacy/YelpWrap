@@ -138,12 +138,16 @@ router.post('/message', (req, res) => {
   })
 })
 
-// create a new room
+// create a new room it it doesn't already exist and returns id
+// otherwise return all persisted messages for that room along with id
 router.post('/ziproom', (req, res) => {
-  controllers.ziproom.addZiproom(req.body, ziproomAdded => {
-    if (ziproomAdded) {
-      res.json(true)
+  controllers.ziproom.addZiproom(req.body, (ziproomExists, room, error) => {
+    if (ziproomExists) {
+      controllers.message.getMessageByRoom(room.attributes.id, (messages) => {
+        res.json(messages);
+      })
     } else {
+      console.log(error)
       res.json(false)
     }
   })
