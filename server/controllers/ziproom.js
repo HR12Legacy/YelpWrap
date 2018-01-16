@@ -1,6 +1,21 @@
 const Ziproom = require('../models/Ziproom.js');
 
 const ziproomController = {
+  doesZiproomExist: (zipcode, cb) => {
+    Ziproom.where({zipcode: zipcode})
+           .fetch()
+           .then(model => {
+              if (model) {
+                cb(true)
+              } else {
+                cb(true)
+              }
+           })
+           .catch(error => {
+              console.log('error checking if room exists: ', error)
+              cb(false)
+           })
+  },
   addZiproom: (ziproom, cb) => {
     let instance = new Ziproom({
       zipcode: ziproom.zipcode,
