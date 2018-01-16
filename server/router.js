@@ -127,6 +127,7 @@ router.post('/login', (req, res) => {
 
 });
 
+// save a new message
 router.post('/message', (req, res) => {
   controllers.message.addMessage(req.body, messagedAdded => {
     if (messagedAdded) {
@@ -136,5 +137,18 @@ router.post('/message', (req, res) => {
     }
   })
 })
+
+// create a new room
+router.post('/ziproom', (req, res) => {
+  controllers.ziproom.addZiproom(req.body, ziproomAdded => {
+    if (ziproomAdded) {
+      res.json(true)
+    } else {
+      res.json(false)
+    }
+  })
+})
+
+
 
 module.exports = router;

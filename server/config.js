@@ -47,8 +47,8 @@ knex.schema.hasTable('messages').then(exists => {
 		knex.schema.createTable('messages', (table) => {
 			table.increments('id').primary();
 			table.text('content');
-			table.foreign('roomId').references('ziproom.id');
-			table.foreign('userId').references('users.id');
+			table.integer('roomId').references('id').inTable('ziproom');
+			table.integer('userId').references('id').inTable('users');
 		})
 		.then(table => {
 			console.log('Created table:', table);
@@ -61,7 +61,7 @@ knex.schema.hasTable('ziproom').then(exists => {
 	if(!exists) {
 		knex.schema.createTable('ziproom', (table) => {
 			table.increments('id').primary();
-			table.integer('zipcode');
+			table.string('zipcode');
 			table.integer('user_count');
 			table.string('top_restaurant', 255);
 		}).then(table => {
