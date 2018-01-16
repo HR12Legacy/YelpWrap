@@ -6,11 +6,7 @@ const knex = require('knex')({
 	connection: {
 		host: 'localhost',
 		port: '5432',
-<<<<<<< HEAD
 		user: config.DB_USER,
-=======
-		user: `${config.dbuser}`,
->>>>>>> featBranch
 		database: 'yelpwrap'
 	}
 });
