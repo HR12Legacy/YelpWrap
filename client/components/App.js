@@ -99,11 +99,10 @@ export default class App extends React.Component {
     })
   }
 
-
   onMarkerPositionChanged(mapProps, map) {
     var coords = {lat: map.center.lat(), lng: map.center.lng()}
     this.getZipFromCoords(coords.lat, coords.lng, (zip) =>
-      this.setState({location: zip, coords: coords},()=>{this.searchHandlerByZip(this.state.query, this.state.location)})
+      this.setState({coords: coords},()=>{this.searchHandlerByZip(this.state.query, this.state.location)})
     )
   };
 
@@ -113,11 +112,10 @@ export default class App extends React.Component {
         console.log('result', result)
           this.setState({
             favorites: result.data,
-          }, ()=> console.log(this.state.favorites))
+          }, () => console.log(this.state.favorites))
       })
     }
   };
-
 
   render() {    
     return (
@@ -145,4 +143,4 @@ export default class App extends React.Component {
 }
 
 
-//pass evan user and zipcod
+//pass evan user and zipcode
