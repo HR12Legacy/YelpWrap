@@ -127,4 +127,14 @@ router.post('/login', (req, res) => {
 
 });
 
+router.post('/message', (req, res) => {
+  controllers.message.addMessage(req.body, messagedAdded => {
+    if (messagedAdded) {
+      res.json(true);
+    } else {
+      res.json(false);
+    }
+  })
+})
+
 module.exports = router;

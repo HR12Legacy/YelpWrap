@@ -1,6 +1,7 @@
-const db = require('../config.js');
+const bookshelf = require('../config.js').db;
 
-let message = bookshelf.Model.extend({
-  tableName: 'messages',
-  
+let Message = bookshelf.Model.extend({
+  tableName: 'messages'
 })
+
+module.exports = Message;

@@ -47,7 +47,7 @@ knex.schema.hasTable('messages').then(exists => {
 		knex.schema.createTable('messages', (table) => {
 			table.increments('id').primary();
 			table.text('content');
-			table.foreign('room').references('ziproom.id');
+			table.foreign('roomId').references('ziproom.id');
 			table.foreign('userId').references('users.id');
 		})
 		.then(table => {
