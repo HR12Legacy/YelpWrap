@@ -1,9 +1,11 @@
+const config = require('../config.js')
+
 const knex = require('knex')({
 	client: 'pg',
 	connection: {
 		host: 'localhost',
 		port: '5432',
-		user: 'root',
+		user: `${config.dbuser}`,
 		database: 'yelpwrap'
 	}
 });
