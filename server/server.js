@@ -8,7 +8,7 @@ const router = require('./router.js');
 const db = require('./config').db;
 const app = express();
 
-app.set('PORT', process.env.PORT || 1337);
+app.set('PORT', process.env.PORT || 1338);
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
