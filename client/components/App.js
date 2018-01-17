@@ -27,9 +27,10 @@ export default class App extends React.Component {
       results: [],
       coords: {lat: 40.7137930034,
         lng: -74.0081977844},
-      location: '',
+      location: '10017',
       favorites: [],
-      chatroom: {}
+      chatroom: {}, 
+      messages: []
     }
 
     this.searchHandlerByZip = this.searchHandlerByZip.bind(this);
@@ -126,8 +127,7 @@ export default class App extends React.Component {
   }
 
   goHome(){
-    this.setState({location: this.props.homezip}, () => this.searchHandlerByZip(this.state.query, this.props.homezip))
-    this.updateChat()
+    this.setState({location: this.props.user.homezip}, () => this.searchHandlerByZip(this.state.query, this.props.user.homezip))
   }
 
   generateFavorites(callback) {
@@ -140,12 +140,6 @@ export default class App extends React.Component {
       })
     }
   };
-
-  updateChat(){
-    // axios.post('/changeZiproom', (data) => this.setState({chatroom: data.data}))
-  }
-
-
 
   render() {   
     return (
@@ -160,7 +154,7 @@ export default class App extends React.Component {
         <div className={styles.entryList}>
           <EntryList userId={ this.props.userId } list={this.state.results}/>
         </div>
-        <Chat location={this.state.location} userId={this.state.userId} />
+        <Chat location={this.props.location} userId={this.state.userId} messages={this.state.messages}/>
         <div className={styles.entryList} data-type="favorites">
           <EntryList faves={ this.state.favorites } userId={ this.props.userId } list={this.state.favorites}/>
         </div>
