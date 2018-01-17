@@ -50,7 +50,7 @@ router.post('/search', function(req, res){
 
   request(options, (err, response, body) => {
     const datas = JSON.parse(body);
-    console.log(datas)
+    // console.log(datas)
     if(req.body.delivery) {
       datas.businesses = datas.businesses.reduce((acc, curr) => {
         curr.transactions.indexOf('delivery') !== -1 ? acc.push(curr) : acc;
