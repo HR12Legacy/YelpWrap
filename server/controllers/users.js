@@ -15,7 +15,25 @@ const userController = {
   	.catch(err => {
   		console.error(err)
   	})
-  }
+	},
+	update: (body, cb) => {
+		knex.select('*').from('users')
+		.where('email', body.email)
+		.update(body)
+		.then(updatedUser=> {
+			cb(updatedUser)
+		})
+		.catch(err=> {
+			console.error(err)
+		})
+	},
+	getUser: (id, cb) => {
+		knex.select('*').from('users')
+		.where('id', id)
+		.then(user=> {
+			cb(user);
+		})
+	}
 }
 
 module.exports = userController;

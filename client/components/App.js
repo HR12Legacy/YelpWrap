@@ -9,9 +9,7 @@ import styles from './entries.css'
 import style from './container.css'
 import ServerActions from '../ServerActions';
 import Location from './Location.js'
-
-
-
+import Profile from './Profile';
 /**
  * NOTICE:
  * npm install --save axios on production branch 
@@ -150,7 +148,7 @@ export default class App extends React.Component {
   render() {   
     return (
       <div style={{height: '200px'}}>
-      <Location location={this.state.location} top={this.state.results.length ? this.state.results[0].name : ''}/>
+        <Location location={this.state.location} top={this.state.results.length ? this.state.results[0].name : ''}/>
         <Search search={this.searchHandlerByZip} 
                 filterFunc={this.selectHandler} 
                 filter={this.state.filter} 
@@ -161,9 +159,12 @@ export default class App extends React.Component {
           <EntryList userId={ this.props.userId } list={this.state.results}/>
         </div>
         <Chat location={this.state.location} userId={this.state.userId} />
-        <div className={styles.entryList} data-type="favorites">
-          <EntryList faves={ this.state.favorites } userId={ this.props.userId } list={this.state.favorites}/>
-        </div>
+        <Profile 
+          user={this.props.user}
+          list={this.state.favorites}
+          faves={this.state.favorites}
+          refreshProfile={this.props.refreshProfile}
+        />
         <div className={style.map}>
           <GoogleApiWrapper  goHome={this.goHome} onSelectZipcode={this.onSelectZipcode} faves={ this.state.favorites } markers={ this.state.results } onMarkerPositionChanged={ this.onMarkerPositionChanged} 
           xy={this.state.coords} />
