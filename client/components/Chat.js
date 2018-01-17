@@ -36,6 +36,10 @@ class Chat extends React.Component {
     })
   }
 
+  componentDidReceiveProps(){
+    console.log('received props')
+  }
+
   initSocket() {
     const socket = io(socketUrl);
     
