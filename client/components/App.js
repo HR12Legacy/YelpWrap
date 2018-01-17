@@ -7,6 +7,7 @@ import sample from '../../sampledata.js';
 import styles from './entries.css'
 import style from './container.css'
 import ServerActions from '../ServerActions';
+import Profile from './Profile';
 /**
  * NOTICE:
  * npm install --save axios on production branch 
@@ -21,7 +22,7 @@ export default class App extends React.Component {
       coords: {lat: 48.61021668181817,
         lng: 9.103665540909093},
       location: '',
-      favorites: [],
+      favorites: []
     }
     this.searchHandlerByZip = this.searchHandlerByZip.bind(this);
     this.selectHandler = this.selectHandler.bind(this);
@@ -115,7 +116,6 @@ export default class App extends React.Component {
     }
   };
 
-
   render() {    
     return (
       <div style={{height: '200px'}}>
@@ -125,8 +125,13 @@ export default class App extends React.Component {
         <div className={styles.entryList}>
           <EntryList userId={ this.props.userId } list={this.state.results}/>
         </div>
-        <div className={styles.entryList} data-type="favorites">
-          <EntryList faves={ this.state.favorites } userId={ this.props.userId } list={this.state.favorites}/>
+        <div style={{float: 'right', position: 'sticky'}}>
+          <Profile 
+            user={this.props.user}
+            list={this.state.favorites}
+            faves={this.state.favorites}
+            refreshProfile={this.props.refreshProfile}
+          />
         </div>
         <div className={style.map}>
           <GoogleApiWrapper  faves={ this.state.favorites } markers={ this.state.results } onMarkerPositionChanged={ this.onMarkerPositionChanged.bind(this) } 

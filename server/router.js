@@ -75,6 +75,12 @@ router.get('/favorite/:userId', (req, res) => {
   })
 })
 
+router.get('/user/:id', (req, res) => {
+  controllers.user.getUser(req.params.id, (result)=> {
+    res.json(result[0]);
+  })
+})
+
 router.post('/user', (req, res) => {
   const validationResult = util.validateSignupForm(req.body);
   if (!validationResult.success) {
@@ -87,10 +93,19 @@ router.post('/user', (req, res) => {
   }
   controllers.user.add(req.body, console.log)
   return res.status(200).json({
-      success:true,
-      redirectUrl: '/'
+    success:true,
+    redirectUrl: '/'
   })
 });
+
+router.put('/user', (req, res) => {
+  controllers.user.update(req.body, (updatedUser)=> {
+    res.status(200).json({
+      success:true,
+      redirectUrl: '/'
+    })
+  })
+})
 
 router.post('/login', (req, res) => {
   const validationResult = util.validateLoginForm(req.body);
@@ -110,7 +125,9 @@ router.post('/login', (req, res) => {
           return res.status(200).json({
               success:true,
               redirectUrl: '/',
-              userId: user.id
+              userId: user.id,
+              // added in user object to response
+              user: user
           })
         } else {
           // validationResult.message = 'Check form for errors';

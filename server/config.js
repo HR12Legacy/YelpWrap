@@ -17,6 +17,8 @@ knex.schema.hasTable('users').then(exists => {
 			table.string('email', 255).unique();
 			table.string('password');
 			table.string('name');
+			table.string('homezip');
+			table.string('image_url')
 		}).then(table => {
 			console.log('Created table:', table);
 		}).catch(err => {
