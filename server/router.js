@@ -50,6 +50,7 @@ router.post('/search', function(req, res){
 
   request(options, (err, response, body) => {
     var datas = JSON.parse(body);
+    // console.log(datas)
     datas.businesses = datas.businesses.filter( bus => bus.location.zip_code === req.body.location)
     datas.businesses.splice(20)
     if(req.body.delivery) {
@@ -162,7 +163,10 @@ router.post('/ziproom', (req, res) => {
   controllers.ziproom.addZiproom(req.body, (ziproomExists, room, error) => {
     if (ziproomExists) {
       controllers.message.getMessageByRoom(room.attributes.id, (messages) => {
-        res.json(messages);
+        res.json({
+          messages: messages,
+          room: room
+        });
       })
     } else {
       console.log(error)

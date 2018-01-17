@@ -82,7 +82,6 @@ class Base extends React.Component {
                 userId={this.state.userId}
                 user={this.state.user}
                 refreshProfile={this.refreshProfile}
-
                 />
             }}/>
 
