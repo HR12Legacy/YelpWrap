@@ -8,8 +8,14 @@ module.exports = {
       console.log('user disconnected')
     })
 
-    socket.on('chat message', (message) => {
-      io.emit('chat message', message)
+    socket.on('newRoom', (newroom) => {
+      console.log('newroom', newroom)
+      socket.leave(socket.room)
+      socket.room = newroom;
+      socket.on(`${newroom}`, (message) => {
+        console.log('hello')
+        io.emit(`${newroom}`, message)
+      })
     })
   }
 }

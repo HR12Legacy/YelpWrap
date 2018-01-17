@@ -3,8 +3,9 @@ import React from 'react';
 import io from 'socket.io-client';
 import events from '../chatEvents.js';
 import $ from 'jquery';
+import axios from 'axios';
 
-const socketUrl = 'http://localhost:1337'
+const socketUrl = 'http://localhost:1338'
 
 class Chat extends React.Component {
   constructor(props) {
@@ -12,14 +13,16 @@ class Chat extends React.Component {
     this.state = {
       socket: null,
       user: null,
-      message: ''
+      message: '',
+      currentRoomId: null
     }
 
     this.initSocket = this.initSocket.bind(this)
-    this.setUser = this.setUser.bind(this)
     this.handleChange = this.handleChange.bind(this)
     this.handleEnter = this.handleEnter.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
+    this.getMessagesForRoom = this.getMessagesForRoom.bind(this)
+    this.saveMessage = this.saveMessage.bind(this)
   }
 
   componentWillMount() {
@@ -27,8 +30,10 @@ class Chat extends React.Component {
   }
 
   componentDidMount() {
-    const {socket} = this.state
-    socket.on('chat message', (message) => {
+    const {socket} = this.state;
+    socket.emit('newRoom', `${this.props.location}`)
+    this.getMessagesForRoom(this.props.location)
+    socket.on(`${this.props.location}`, (message) => {
       const messageEl = document.createElement('li');
       messageEl.innerHTML = message;
       document.getElementById('messages').append(messageEl)
@@ -36,24 +41,29 @@ class Chat extends React.Component {
     })
   }
 
-  componentDidReceiveProps(){
-    console.log('received props')
+  componentWillReceiveProps(newProps) {
+    if (this.props.location !== newProps.location) {
+      const {socket} = this.state
+      socket.off();
+      socket.emit('newRoom', `${newProps.location}`)
+      this.getMessagesForRoom(newProps.location)
+      socket.on(`${newProps.location}`, (message) => {
+        const messageEl = document.createElement('li');
+        messageEl.innerHTML = message;
+        document.getElementById('messages').append(messageEl)
+        $('#messages').animate({scrollTop: $('#messages').prop('scrollHeight')}, 500)
+      })
+    } 
   }
 
   initSocket() {
     const socket = io(socketUrl);
     
     socket.on('connect', () => {
-      console.log('connected')
+      console.log('connecting')
     })
     
     this.setState({socket})
-  }
-
-  setUser(user) {
-    const {socket} = this.state
-    socket.emit(events.userConnected, user)
-    this.setState({user})
   }
 
   handleChange(event) {
@@ -69,9 +79,27 @@ class Chat extends React.Component {
   handleSubmit() {
     const {socket} = this.state
     const {message} = this.state
-    socket.emit('chat message', message)
+    saveMessa
+    socket.emit(`${this.props.location}`, message)
     this.setState({
         message: ''
+    })
+  }
+
+  getMessagesForRoom(zipcode) {
+    axios.post('/ziproom', {"zipcode": zipcode})
+         .then(data => {
+            this.setState({
+              currentRoomId: data.data.room.id
+            })
+         })
+  }
+
+  saveMessage(message) {
+    axios.post('/message', {
+      content: message,
+      roomId: this.state.roomId,
+      userId: this.props.userId
     })
   }
 
