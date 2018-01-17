@@ -23,23 +23,23 @@ router.post('/search', function(req, res){
   var qs; // qs are the params for request to yelps api 
   if(req.body.location) { //this if statement to check wheter location was given in human readable (zip code etc.) or coordinates
     qs = {term: req.body.term,
-      limit: 4,
+      limit: 40,
       location: req.body.location,
       price: req.body.filter,
-      radius: 8046,      
+      radius: 2092,      
       open_now: req.body.openNow,
       sort_by: req.body.sortBy,
     };
-  } else {
-    qs = {term: req.body.term,
-      limit: 4,
-      radius: 8046,
-      latitude: req.body.lat,
-      longitude: req.body.lng,
-      price: req.body.filter,
-      open_now: req.body.openNow,
-      sort_by: req.body.sortBy,
-    };
+  // } else {
+  //   qs = {term: req.body.term,
+  //     limit: 4,
+  //     radius: 8046,
+  //     latitude: req.body.lat,
+  //     longitude: req.body.lng,
+  //     price: req.body.filter,
+  //     open_now: req.body.openNow,
+  //     sort_by: req.body.sortBy,
+  //   };
   }
 
   const options = {
@@ -49,8 +49,9 @@ router.post('/search', function(req, res){
   }; 
 
   request(options, (err, response, body) => {
-    const datas = JSON.parse(body);
-    // console.log(datas)
+    var datas = JSON.parse(body);
+    datas.businesses = datas.businesses.filter( bus => bus.location.zip_code === req.body.location)
+    datas.businesses.splice(20)
     if(req.body.delivery) {
       datas.businesses = datas.businesses.reduce((acc, curr) => {
         curr.transactions.indexOf('delivery') !== -1 ? acc.push(curr) : acc;

@@ -4,7 +4,8 @@ const CaretUp = require("react-icons/lib/fa/caret-up");
 import keys from '../../config';
 import style from './container.css';
 import star from 'material-ui/svg-icons/toggle/star';
-
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import RaisedButton from 'material-ui/RaisedButton';
 
 
 class MapContainer extends React.Component {
@@ -28,14 +29,18 @@ class MapContainer extends React.Component {
   
   render() {
       const mapStyle = {
-        'height': '100%',
+        'height': '100%', 
+        'width': '100%',
         'overflow': 'hidden',
         'paddingBottom': '22.25%',
         'paddingTop': '30px',
-        'position': 'relative',
+        'position': 'absolute',
       }
+
       return (
-        <div className={style.mapContainer}>
+        <span className={style.mapContainer}>
+        <RaisedButton label="Take me here!" onClick={this.props.onSelectZipcode}/>
+        <RaisedButton label="Go home" onClick={this.props.goHome} />
           <Map
             google={this.props.google}
             center={
@@ -43,7 +48,13 @@ class MapContainer extends React.Component {
             }
             gestureHandling={"cooperative"}
             disableDefaultUI={true}
-            zoom={10}
+            zoomControl={true}
+            mapTypeControl={true}
+            scaleControl={true}
+            streetViewControl={true}
+            panControl={true}
+            scrollWheel={true}
+            zoom={15}
             style={mapStyle}
             onDragend={
               this.props.onMarkerPositionChanged
@@ -69,7 +80,7 @@ class MapContainer extends React.Component {
               </div>
             </InfoWindow>
           </Map>
-        </div>
+        </span>
       )
   }
 }
@@ -77,3 +88,4 @@ class MapContainer extends React.Component {
 export default GoogleApiWrapper({
   apiKey: (keys.GoogleMap_TOKEN)
 })(MapContainer)
+

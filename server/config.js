@@ -73,7 +73,7 @@ knex.schema.hasTable('ziproom').then(exists => {
 	if(!exists) {
 		knex.schema.createTable('ziproom', (table) => {
 			table.increments('id').primary();
-			table.string('zipcode');
+			table.string('zipcode', 15);
 			table.integer('user_count');
 			table.string('top_restaurant', 255);
 		}).then(table => {

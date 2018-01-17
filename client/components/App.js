@@ -1,17 +1,23 @@
 import React from 'react';
 import Search from './Search.js';
 import EntryList from './EntryList.js';
+import Chat from './Chat.js'
 const axios = require('axios');
 import GoogleApiWrapper from './MyMapComponent';
 import sample from '../../sampledata.js';
 import styles from './entries.css'
 import style from './container.css'
 import ServerActions from '../ServerActions';
-import Chat from './Chat.js';
+import Location from './Location.js'
+
+
+
 /**
  * NOTICE:
  * npm install --save axios on production branch 
  */
+
+
 export default class App extends React.Component {
   constructor(props) {
     super(props);
@@ -19,62 +25,84 @@ export default class App extends React.Component {
       isAuthenticated: false,
       query: '',
       results: [],
-      coords: {lat: 48.61021668181817,
-        lng: 9.103665540909093},
+      coords: {lat: 40.7137930034,
+        lng: -74.0081977844},
       location: '',
       favorites: [],
+      chatroom: {}
     }
+
     this.searchHandlerByZip = this.searchHandlerByZip.bind(this);
     this.selectHandler = this.selectHandler.bind(this);
-    this.searchHandlerByCoords = this.searchHandlerByCoords.bind(this);
     this.generateFavorites = this.generateFavorites.bind(this);
+    this.onMarkerPositionChanged = this.onMarkerPositionChanged.bind(this)
+    this.onSelectZipcode = this.onSelectZipcode.bind(this)
+    this.goHome = this.goHome.bind(this)
   }
-  
+
   getPosition(options) {
     return new Promise(function (resolve, reject) {
       navigator.geolocation.getCurrentPosition(resolve, reject, options);
     });
   }
-  
+
+  getZipFromCoords(lat, lng, cb){
+    var point = new google.maps.LatLng(lat, lng);
+      new google.maps.Geocoder().geocode(
+          {'latLng': point},
+          function (res, status) {
+            var zip = res[0].formatted_address.match(/,\s\w{2}\s(\d{5})/)
+            console.log('zip', zip, zip[1])
+            cb(zip[1])  
+          }
+      )
+  }
+ 
   componentWillReceiveProps(nextProps) {
     console.log(this.props.userId)
     if(this.props.userId) this.generateFavorites();
   }
 
   componentDidMount() {
-    this.searchHandlerByZip();
-
+    var that = this;
     this.getPosition()
     .then(result => {
-      this.setState({ coords: {lat: result.coords.latitude, lng: result.coords.longitude} }, ()=>{
-        this.searchHandlerByCoords(this.state.query, this.state.coords.lat, 
-        this.state.coords.lng)
-      }
-    )})
-    .catch(err => console.error(err));
+       var lat = result.coords.latitude;
+       var lng = result.coords.longitude;
+       this.getZipFromCoords(lat, lng, (zip) =>
+
+         this.setState({location: zip}, function(){
+            that.searchHandlerByZip('delis', that.state.location) 
+            that.setState({
+              coords: {lat: lat, lng: lng}
+            })  
+         })
+       )
+    })
+    .catch(err =>  this.searchHandlerByZip());
   }
 
   selectHandler(e) {
     e.preventDefault();
-    console.log('e.taget', e.target.name)
+
     if(e.target.name === 'openNow' || e.target.name === 'delivery'){
-      this.setState({[e.target.name]: !this.state[e.target.name]}, ()=>{console.log('select handler', this.state);
-        this.searchHandlerByCoords(this.state.query, this.state.coords.lat, 
-          this.state.coords.lng, this.state.filter, this.state.sortBy, this.state.openNow, this.state.delivery);
+      this.setState({[e.target.name]: !this.state[e.target.name]}, () => {
+        console.log('select handler', this.state);
+        this.searchHandlerByZip(this.state.query, this.state.location, this.state.filter, this.state.sortBy, this.state.openNow, this.state.delivery);
       })
-    }else{
-      this.setState({[e.target.name]: e.target.value}, ()=>{console.log('select handler yah',this.state);
-        this.searchHandlerByCoords(this.state.query, this.state.coords.lat, 
-          this.state.coords.lng, this.state.filter, this.state.sortBy, this.state.openNow, this.state.delivery);
+    } else {
+      this.setState({[e.target.name]: e.target.value}, () => {
+          console.log('select handler yah',this.state)
+          this.searchHandlerByZip(this.state.query, this.state.location, this.state.filter, this.state.sortBy, this.state.openNow, this.state.delivery);
       })
-    }
+     }
   }
+
 
   searchHandlerByZip(term='delis', location='10007', filter, sortBy, openNow, delivery){
     this.setState({query: term, filter: filter, sortBy: sortBy, openNow: openNow, delivery: delivery},()=>{
       axios.post('/search', {term, location, filter, sortBy, openNow, delivery})
       .then((data) => {
-        console.log('data from search handler by zip: ', data)
         this.setState({results: data.data.businesses, 
           coords: {lat: data.data.region.center.latitude, lng: data.data.region.center.longitude}
         })
@@ -85,25 +113,22 @@ export default class App extends React.Component {
     })
   }
 
-  searchHandlerByCoords(term='delis', lat, lng){
-    axios.post('/search', {term, lat, lng})
-    .then((data) => {
-      console.log('data from search handler by coords: ', data);
-      this.setState({results: data.data.businesses, 
-        coords: {lat: data.data.region.center.latitude, lng: data.data.region.center.longitude}},()=>{
-          console.log('fixing coords', data)
-        })
-    })
-    .catch((err) => {
-      console.log('err from axios: ', err);
-    });
-  }
-
   onMarkerPositionChanged(mapProps, map) {
     var coords = {lat: map.center.lat(), lng: map.center.lng()}
-    this.setState({coords: coords},()=>{this.searchHandlerByCoords(this.state.query, this.state.coords.lat, this.state.coords.lng)})
+    this.setState({coords: coords})
+   
   };
 
+  onSelectZipcode(){
+     this.getZipFromCoords(this.state.coords.lat, this.state.coords.lng, (zip) =>
+      this.setState({location: zip}, () => this.searchHandlerByZip(this.state.query, zip))
+    )
+  }
+
+  goHome(){
+    this.setState({location: this.props.homezip}, () => this.searchHandlerByZip(this.state.query, this.props.homezip))
+    this.updateChat()
+  }
 
   generateFavorites(callback) {
     if (this.props.userId) {
@@ -111,30 +136,40 @@ export default class App extends React.Component {
         console.log('result', result)
           this.setState({
             favorites: result.data,
-          }, ()=> console.log(this.state.favorites))
+          }, () => console.log(this.state.favorites))
       })
     }
   };
 
+  updateChat(){
+    // axios.post('/changeZiproom', (data) => this.setState({chatroom: data.data}))
+  }
 
-  render() {    
+
+
+  render() {   
     return (
       <div style={{height: '200px'}}>
-        <Search search={this.searchHandlerByZip} filterFunc={this.selectHandler} 
-        filter={this.state.filter} 
-        sortBy={this.state.sortBy} openNow={this.state.openNow} delivery={this.state.delivery}/>
+      <Location location={this.state.location} top={this.state.results.length ? this.state.results[0].name : ''}/>
+        <Search search={this.searchHandlerByZip} 
+                filterFunc={this.selectHandler} 
+                filter={this.state.filter} 
+                sortBy={this.state.sortBy} 
+                openNow={this.state.openNow} 
+                delivery={this.state.delivery} />
         <div className={styles.entryList}>
           <EntryList userId={ this.props.userId } list={this.state.results}/>
         </div>
+        <Chat location={this.state.location} userId={this.state.userId} />
         <div className={styles.entryList} data-type="favorites">
           <EntryList faves={ this.state.favorites } userId={ this.props.userId } list={this.state.favorites}/>
         </div>
         <div className={style.map}>
-          <GoogleApiWrapper  faves={ this.state.favorites } markers={ this.state.results } onMarkerPositionChanged={ this.onMarkerPositionChanged.bind(this) } 
+          <GoogleApiWrapper  goHome={this.goHome} onSelectZipcode={this.onSelectZipcode} faves={ this.state.favorites } markers={ this.state.results } onMarkerPositionChanged={ this.onMarkerPositionChanged} 
           xy={this.state.coords} />
         </div>
-        <Chat />
       </div>
     )
   }
 }
+
