@@ -7,6 +7,7 @@ import sample from '../../sampledata.js';
 import styles from './entries.css'
 import style from './container.css'
 import ServerActions from '../ServerActions';
+import Chat from './Chat.js';
 /**
  * NOTICE:
  * npm install --save axios on production branch 
@@ -132,6 +133,7 @@ export default class App extends React.Component {
           <GoogleApiWrapper  faves={ this.state.favorites } markers={ this.state.results } onMarkerPositionChanged={ this.onMarkerPositionChanged.bind(this) } 
           xy={this.state.coords} />
         </div>
+        <Chat />
       </div>
     )
   }

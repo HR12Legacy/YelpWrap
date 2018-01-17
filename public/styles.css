@@ -18,3 +18,26 @@ body {
   padding: 0 16px;
   color: green;
 }
+
+/* Chat Room */
+
+.chatContainer {
+  display: inline-block;
+  width: 50%
+}
+
+.chat {
+  width: 100%;
+  margin: 0px;
+  padding: 0px;
+  display: inline-block;
+  border: 2px solid black;
+  overflow: auto;
+}
+
+#messages {
+  list-style-type: none;
+  padding-left: 2.5%;
+  height: 300px;
+  overflow: auto;
+}

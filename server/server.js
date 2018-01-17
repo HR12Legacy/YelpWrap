@@ -7,6 +7,9 @@ const path = require('path');
 const router = require('./router.js');
 const db = require('./config').db;
 const app = express();
+const http = require('http').Server(app);
+const io = module.exports.io = require('socket.io')(http);
+const socketManager = require('./socketManager.js')
 
 app.set('PORT', process.env.PORT || 1337);
 
@@ -27,9 +30,11 @@ app.use(webpackMiddleware(compiler, {
 	historyApiFallback: true,
 }));
 
+io.on('connection', socketManager.connect);
+
 
 app.use('/', router)
 
-app.listen(app.get('PORT'), () => {
+http.listen(app.get('PORT'), () => {
   console.log('App listening on port:', app.get('PORT'));
 })
