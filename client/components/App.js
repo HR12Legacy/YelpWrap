@@ -161,7 +161,7 @@ export default class App extends React.Component {
         <div className={styles.entryList}>
           <EntryList userId={ this.props.userId } list={this.state.results}/>
         </div>
-        <Chat location={this.state.location} />
+        <Chat location={this.state.location} userId={this.props.userId}/>
         <div className={styles.entryList} data-type="favorites">
           <EntryList faves={ this.state.favorites } userId={ this.props.userId } list={this.state.favorites}/>
         </div>
