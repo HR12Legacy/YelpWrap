@@ -49,14 +49,9 @@ router.post('/search', function(req, res){
   }; 
 
   request(options, (err, response, body) => {
-<<<<<<< HEAD
-    const datas = JSON.parse(body);
-    // console.log(datas)
-=======
     var datas = JSON.parse(body);
     datas.businesses = datas.businesses.filter( bus => bus.location.zip_code === req.body.location)
     datas.businesses.splice(20)
->>>>>>> created location profile, fixed map
     if(req.body.delivery) {
       datas.businesses = datas.businesses.reduce((acc, curr) => {
         curr.transactions.indexOf('delivery') !== -1 ? acc.push(curr) : acc;

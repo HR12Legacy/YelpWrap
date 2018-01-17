@@ -8,7 +8,6 @@ import sample from '../../sampledata.js';
 import styles from './entries.css'
 import style from './container.css'
 import ServerActions from '../ServerActions';
-import Chat from './Chat.js';
 import Location from './Location.js'
 
 
@@ -169,7 +168,6 @@ export default class App extends React.Component {
           <GoogleApiWrapper  goHome={this.goHome} onSelectZipcode={this.onSelectZipcode} faves={ this.state.favorites } markers={ this.state.results } onMarkerPositionChanged={ this.onMarkerPositionChanged} 
           xy={this.state.coords} />
         </div>
-        <Chat />
       </div>
     )
   }
