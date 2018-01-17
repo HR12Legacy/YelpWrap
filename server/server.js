@@ -11,7 +11,7 @@ const http = require('http').Server(app);
 const io = module.exports.io = require('socket.io')(http);
 const socketManager = require('./socketManager.js')
 
-app.set('PORT', process.env.PORT || 1337);
+app.set('PORT', process.env.PORT || 1338);
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));

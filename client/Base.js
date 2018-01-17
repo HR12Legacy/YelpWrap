@@ -19,14 +19,17 @@ class Base extends React.Component {
     super();
     this.state = {
       isLoggedIn: false,
-      userId: null,
+      userId: 'christine',
+      homezip: '10017'
     }
   }
 
   handleLogin(email) {
+    //get user info from data base 
     this.setState({
       isLoggedIn: !this.state.isLoggedIn,
       userId: email,
+      homezip: homezip
     }, ()=> console.log(this.state));
   }
 
@@ -67,6 +70,7 @@ class Base extends React.Component {
             <Route path='/' render={() => {
               return <App 
                 userId={this.state.userId}
+                homezip={this.state.homezip}
                 />
             }}/>
 
