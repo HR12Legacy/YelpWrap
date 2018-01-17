@@ -40,7 +40,7 @@ class MapContainer extends React.Component {
       return (
         <span className={style.mapContainer}>
         <RaisedButton label="Take me here!" onClick={this.props.onSelectZipcode}/>
-        <RaisedButton label="Go home" onClick={this.props.goHome} />
+        <RaisedButton label="Go home" onClick={ this.props.goHome} />
           <Map
             google={this.props.google}
             center={
