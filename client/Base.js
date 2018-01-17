@@ -20,7 +20,6 @@ class Base extends React.Component {
     this.state = {
       isLoggedIn: false,
       userId: 'christine',
-      homezip: '10017'
     }
   }
 
@@ -29,7 +28,6 @@ class Base extends React.Component {
     this.setState({
       isLoggedIn: !this.state.isLoggedIn,
       userId: email,
-      homezip: homezip
     }, ()=> console.log(this.state));
   }
 
@@ -70,7 +68,6 @@ class Base extends React.Component {
             <Route path='/' render={() => {
               return <App 
                 userId={this.state.userId}
-                homezip={this.state.homezip}
                 />
             }}/>
 

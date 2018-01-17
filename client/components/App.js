@@ -27,7 +27,7 @@ export default class App extends React.Component {
       results: [],
       coords: {lat: 40.7137930034,
         lng: -74.0081977844},
-      location: '',
+      location: '10017',
       favorites: [],
       chatroom: {}
     }
@@ -72,6 +72,7 @@ export default class App extends React.Component {
        this.getZipFromCoords(lat, lng, (zip) =>
 
          this.setState({location: zip}, function(){
+            console.log('state set', this.state.location)
             that.searchHandlerByZip('delis', that.state.location) 
             that.setState({
               coords: {lat: lat, lng: lng}
@@ -79,7 +80,9 @@ export default class App extends React.Component {
          })
        )
     })
-    .catch(err =>  this.searchHandlerByZip());
+    .catch(err =>  () => {
+      this.searchHandlerByZip();
+    }) 
   }
 
   selectHandler(e) {
@@ -87,12 +90,10 @@ export default class App extends React.Component {
 
     if(e.target.name === 'openNow' || e.target.name === 'delivery'){
       this.setState({[e.target.name]: !this.state[e.target.name]}, () => {
-        console.log('select handler', this.state);
         this.searchHandlerByZip(this.state.query, this.state.location, this.state.filter, this.state.sortBy, this.state.openNow, this.state.delivery);
       })
     } else {
       this.setState({[e.target.name]: e.target.value}, () => {
-          console.log('select handler yah',this.state)
           this.searchHandlerByZip(this.state.query, this.state.location, this.state.filter, this.state.sortBy, this.state.openNow, this.state.delivery);
       })
      }
@@ -160,7 +161,7 @@ export default class App extends React.Component {
         <div className={styles.entryList}>
           <EntryList userId={ this.props.userId } list={this.state.results}/>
         </div>
-        <Chat location={this.state.location} userId={this.state.userId} />
+        <Chat location={this.state.location} />
         <div className={styles.entryList} data-type="favorites">
           <EntryList faves={ this.state.favorites } userId={ this.props.userId } list={this.state.favorites}/>
         </div>
