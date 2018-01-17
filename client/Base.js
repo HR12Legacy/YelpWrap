@@ -11,6 +11,7 @@ import style from './base.css';
 import Header from './components/Header';
 import IconButton from 'material-ui/IconButton';
 import ActionHome from 'material-ui/svg-icons/action/home';
+import axios from 'axios';
 
 injectTapEventPlugin();
 
@@ -19,18 +20,27 @@ class Base extends React.Component {
     super();
     this.state = {
       isLoggedIn: false,
-      userId: 'christine',
-      homezip: '10017'
+      userId: null,
+      user: {},
     }
+    this.refreshProfile = this.refreshProfile.bind(this);
   }
 
-  handleLogin(email) {
-    //get user info from data base 
+  handleLogin(id, user) {
     this.setState({
       isLoggedIn: !this.state.isLoggedIn,
-      userId: email,
-      homezip: homezip
+      userId: id,
+      user: user
     }, ()=> console.log(this.state));
+  }
+
+  refreshProfile() {
+    axios.get('/user/' + this.state.userId)
+      .then((result)=> {
+        this.setState({
+          user: result.data
+        })
+      })
   }
 
   render() {
@@ -70,7 +80,8 @@ class Base extends React.Component {
             <Route path='/' render={() => {
               return <App 
                 userId={this.state.userId}
-                homezip={this.state.homezip}
+                user={this.state.user}
+                refreshProfile={this.refreshProfile}
                 />
             }}/>
 
