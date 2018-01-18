@@ -6,6 +6,7 @@ import style from './container.css';
 import star from 'material-ui/svg-icons/toggle/star';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import RaisedButton from 'material-ui/RaisedButton';
+const axios = require('axios')
 
 
 class MapContainer extends React.Component {
@@ -25,6 +26,15 @@ class MapContainer extends React.Component {
       activeMarker: marker,
       info: props.info
     })
+  }
+
+  onClick(props, marker, event){
+    axios.get('user/' + props.info)
+    .then(function(data){
+      console.log(data)
+      data.data
+    })
+
   }
   
   render() {
@@ -56,22 +66,35 @@ class MapContainer extends React.Component {
             scrollWheel={true}
             zoom={15}
             style={mapStyle}
-            onDragend={
-              this.props.onMarkerPositionChanged
-            }>
-            {this.props.markers.map((marker, idx) => {
+            onDragend={this.props.onMarkerPositionChanged}
+            >
+              {this.props.markers.map((marker, idx) => {
               const lat = marker.coordinates.latitude;
               const lng = marker.coordinates.longitude;
               const name = marker.name;
               return (<Marker 
-                icon={this.props.faves.indexOf(name) > -1 ? { url:'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c9/Star_empty_font_awesome.svg/2000px-Star_empty_font_awesome.svg.png',
-                       anchor: new google.maps.Point(8,8),
-                       scaledSize: new google.maps.Size(16,16)}: undefined}
                 onMouseover={this.onMarkerHover} 
                 key={idx} info={marker} 
                 position={{lat, lng}}
               />)
             })}
+            {/*this.props.zips.map((zip, idx) => {
+                var lat, lng, name
+                var geocoder = new google.maps.Geocoder()
+                geocoder.geocode({address: zip},
+                  function(results_array, status) { 
+                    lat = results_array[0].geometry.location.lat()
+                    lng = results_array[0].geometry.location.lng()
+                  })
+              return (<Marker 
+                icon={{url:"https://cdn0.iconfinder.com/data/icons/gray-business-toolbar/512/affiliate-3-512.png",
+                       anchor: new google.maps.Point(16,16),
+                       scaledSize: new google.maps.Size(32,32)}}
+                onClick={this.onClick} 
+                key={idx} info={zip} 
+                position={{lat, lng}}
+              />)
+            })*/}
             <InfoWindow marker={this.state.activeMarker} visible={this.state.showingInfoWindow}>
               <div>
                 <h3> {this.state.info.name} </h3>
