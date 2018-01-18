@@ -78,7 +78,7 @@ class MapContainer extends React.Component {
                 position={{lat, lng}}
               />)
             })}
-            {this.props.zips.map((zip, idx) => {
+            {/*this.props.zips.map((zip, idx) => {
                 var lat, lng, name
                 var geocoder = new google.maps.Geocoder()
                 geocoder.geocode({address: zip},
@@ -94,7 +94,7 @@ class MapContainer extends React.Component {
                 key={idx} info={zip} 
                 position={{lat, lng}}
               />)
-            })}
+            })*/}
             <InfoWindow marker={this.state.activeMarker} visible={this.state.showingInfoWindow}>
               <div>
                 <h3> {this.state.info.name} </h3>
