@@ -18,6 +18,7 @@ const userController = {
 	},
 	update: (body, cb) => {
 		knex.select('*').from('users')
+		.returning('homezip')
 		.where('email', body.email)
 		.update(body)
 		.then(updatedUser=> {
@@ -32,6 +33,13 @@ const userController = {
 		.where('id', id)
 		.then(user=> {
 			cb(user);
+		})
+	},
+	getZipUsers: (zipcode, cb) => {
+		knex.select('*').from('users')
+		.where('homezip', zipcode)
+		.then(users=> {
+			cb(users);
 		})
 	}
 }
