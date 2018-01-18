@@ -5,7 +5,7 @@ import events from '../chatEvents.js';
 import $ from 'jquery';
 import axios from 'axios';
 
-const socketUrl = 'http://localhost:1338'
+const socketUrl = 'http://localhost:1337'
 
 class Chat extends React.Component {
   constructor(props) {
@@ -30,27 +30,39 @@ class Chat extends React.Component {
   }
 
   componentDidMount() {
-    const {socket} = this.state;
+    let {socket} = this.state;
     socket.emit('newRoom', `${this.props.location}`)
     this.getMessagesForRoom(this.props.location)
     socket.on(`${this.props.location}`, (message) => {
-      const messageEl = document.createElement('li');
-      messageEl.innerHTML = message;
-      document.getElementById('messages').append(messageEl)
-      $('#messages').animate({scrollTop: $('#messages').prop('scrollHeight')}, 500)
+      console.log(message)
+      const $username = $(`<p>${message.username}</p>`)
+      const $message = $(`<p>${message.message}</p>`)
+      const $image = $(`<img src="http://hotchillitri.co.uk/wp-content/uploads/2016/10/empty-avatar.jpg" />`)
+      const $container = $(`<li></li>`);
+      $container.append($username, $message, $image)
+        $('#messages').append($message)
+        $('#messages').animate({scrollTop: $('#messages').prop('scrollHeight')}, 500)
     })
   }
 
   componentWillReceiveProps(newProps) {
     if (this.props.location !== newProps.location) {
-      const {socket} = this.state
-      socket.off();
+      let {socket} = this.state
+      socket.disconnect()
+      socket.connect()
+      socket.off()
       socket.emit('newRoom', `${newProps.location}`)
+      
       this.getMessagesForRoom(newProps.location)
+      
       socket.on(`${newProps.location}`, (message) => {
-        const messageEl = document.createElement('li');
-        messageEl.innerHTML = message;
-        document.getElementById('messages').append(messageEl)
+        console.log(message)
+        const $username = $(`<p>${message.username || 'anonymous'}</p>`)
+        const $message = $(`<p>${message.message}</p>`)
+        const $image = $(`<img src="http://hotchillitri.co.uk/wp-content/uploads/2016/10/empty-avatar.jpg" />`)
+        const $container = $(`<li></li>`);
+        $container.append($username, $message, $image)
+        $('#messages').append($message)
         $('#messages').animate({scrollTop: $('#messages').prop('scrollHeight')}, 500)
       })
     } 
@@ -77,10 +89,15 @@ class Chat extends React.Component {
   }
 
   handleSubmit() {
+    const username = this.props.user.name ? this.props.user.name : 'anonymous'
     const {socket} = this.state
     const {message} = this.state
-    saveMessa
-    socket.emit(`${this.props.location}`, message)
+    this.saveMessage(message)
+    socket.emit(`${this.props.location}`, {
+      username: `${username}`,
+      message: `${message}`,
+      picture: `${this.props.user.image_url}`
+    })
     this.setState({
         message: ''
     })
@@ -90,15 +107,27 @@ class Chat extends React.Component {
     axios.post('/ziproom', {"zipcode": zipcode})
          .then(data => {
             this.setState({
-              currentRoomId: data.data.room.id
+              currentRoomId: data.data.room.id,
+              messages: data.data.messages
+            }, () => {
+              this.renderOldMessages()
             })
          })
+  }
+
+  renderOldMessages() {
+    $('#messages').empty();
+    this.state.messages.forEach(message => {
+      const name = message.name || 'anonymous'
+      $('#messages').append($(`<li>${name}: ${message.content}</li>`))
+      $('#messages').animate({scrollTop: $('#messages').prop('scrollHeight')}, 10)
+    })
   }
 
   saveMessage(message) {
     axios.post('/message', {
       content: message,
-      roomId: this.state.roomId,
+      roomId: this.state.currentRoomId,
       userId: this.props.userId
     })
   }
