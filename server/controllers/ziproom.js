@@ -1,4 +1,5 @@
 const Ziproom = require('../models/Ziproom.js');
+const knex = require('../../server/config.js').knex;
 
 const ziproomController = {
   doesZiproomExist: (zipcode, cb) => {
@@ -38,6 +39,12 @@ const ziproomController = {
         cb(false, undefined, error)
       }
     })
+  }, 
+  retrieve: (cb) => {
+    knex.select('*').from('ziproom')
+      .then((result) => {
+        cb(result);
+      })
   }
 }
 
