@@ -1,21 +1,17 @@
 const io = require('./server.js').io
 
 module.exports = {
-  connect: function(socket) {
-    console.log('socketId: ', socket.id)
-    
-    socket.on('disconnect', () => {
-      console.log('user disconnected')
-    })
-
+  connect: function(socket) {    
     socket.on('newRoom', (newroom) => {
-      console.log('newroom', newroom)
-      socket.leave(socket.room)
-      socket.room = newroom;
       socket.on(`${newroom}`, (message) => {
-        console.log('hello')
         io.emit(`${newroom}`, message)
       })
     })
-  }
+
+    socket.on('disconnect', () => {
+      socket.removeListener('newRoom', () => {
+        console.log('disconnecting')
+      })
+    })
+  },
 }
