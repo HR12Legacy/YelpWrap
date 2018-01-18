@@ -1,4 +1,6 @@
 const Message = require('../models/Message.js');
+const User = require('../models/User.js');
+const Knex = require('../config.js').knex
 
 const messageController = {
   addMessage: (message, cb) => {
@@ -17,15 +19,13 @@ const messageController = {
       })
   },
   getMessageByRoom: (roomId, cb) => {
-    Message.where({"roomId": roomId})
-           .fetchAll()
-           .then(messages => {
-              cb(messages)
-           })
-           .catch(error => {
-              console.log('error fetching messages: ', error)
-              cb([])
-           })
+    Knex.select('*')
+        .from('messages')
+        .where({
+          roomId: roomId
+        })
+        .leftJoin('users', 'users.id', 'messages.userId')
+        .then(messages => {cb(messages)})
   }
 }
 

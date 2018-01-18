@@ -85,5 +85,6 @@ knex.schema.hasTable('ziproom').then(exists => {
 })
 
 const db = require('bookshelf')(knex);
+db.plugin('registry')
 
 module.exports = {db, knex};
