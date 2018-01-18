@@ -10,6 +10,7 @@ import style from './container.css'
 import ServerActions from '../ServerActions';
 import Location from './Location.js'
 import Profile from './Profile';
+import Toggle from 'material-ui/Toggle';
 /**
  * NOTICE:
  * npm install --save axios on production branch 
@@ -28,7 +29,9 @@ export default class App extends React.Component {
       location: '10017',
       favorites: [],
       chatroom: {}, 
-      messages: []
+      messages: [], 
+      usersToggled: false, 
+      zips: []
     }
 
     this.searchHandlerByZip = this.searchHandlerByZip.bind(this);
@@ -37,6 +40,7 @@ export default class App extends React.Component {
     this.onMarkerPositionChanged = this.onMarkerPositionChanged.bind(this)
     this.onSelectZipcode = this.onSelectZipcode.bind(this)
     this.goHome = this.goHome.bind(this)
+    this.toggleUsers = this.toggleUsers.bind(this)
   }
 
   getPosition(options) {
@@ -63,6 +67,7 @@ export default class App extends React.Component {
   }
 
   componentDidMount() {
+    this.getZips()
     var that = this;
     this.getPosition()
     .then(result => {
@@ -139,6 +144,15 @@ export default class App extends React.Component {
     }
   };
 
+  toggleUsers(){
+    console.log('suuuuuuup')
+    this.setState({usersToggled : !this.state.usersToggled})
+  }
+
+  getZips(){
+    axios.get('/ziproom').then((data) => this.setState({zips: data.data}))
+  }
+
   render() {   
     return (
       <div style={{height: '200px'}}>
@@ -160,7 +174,8 @@ export default class App extends React.Component {
           refreshProfile={this.props.refreshProfile}
         />
         <div className={style.map}>
-          <GoogleApiWrapper  goHome={this.goHome} onSelectZipcode={this.onSelectZipcode} faves={ this.state.favorites } markers={ this.state.results } onMarkerPositionChanged={ this.onMarkerPositionChanged} 
+        <span><Toggle label="Show Users" labelPosition="right" onToggle={this.toggleUsers}/></span>
+          <GoogleApiWrapper  zips={this.state.zips} usersToggled={this.state.usersToggled} goHome={this.goHome} onSelectZipcode={this.onSelectZipcode} faves={ this.state.favorites } markers={ this.state.results } onMarkerPositionChanged={ this.onMarkerPositionChanged} 
           xy={this.state.coords} />
         </div>
       </div>

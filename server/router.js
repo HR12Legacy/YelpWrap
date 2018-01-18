@@ -18,7 +18,6 @@ const User = require('./models/User')
 // })
 
 
-
 router.post('/search', function(req, res){
   var qs; // qs are the params for request to yelps api 
   if(req.body.location) { //this if statement to check wheter location was given in human readable (zip code etc.) or coordinates
@@ -62,6 +61,10 @@ router.post('/search', function(req, res){
   });   
 });
 
+router.get('/ziproom', function(req, res){
+  controllers.ziproom.retrieve((results) =>
+    res.json(results.map(result => result.zipcode)))
+})
 
 router.post('/favorite', (req, res) => {
   controllers.favorite.add(req.body, () => {
