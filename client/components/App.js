@@ -61,14 +61,15 @@ export default class App extends React.Component {
           }
       )
   }
- 
+  
+
   componentWillReceiveProps(nextProps) {
     console.log(this.props.userId)
     if(this.props.userId) this.generateFavorites();
   }
 
   componentDidMount() {
-    this.getZips()
+
     var that = this;
     this.getPosition()
     .then(result => {
@@ -88,6 +89,7 @@ export default class App extends React.Component {
     .catch(err =>  () => {
       this.searchHandlerByZip();
     }) 
+    this.getZips()
   }
 
   selectHandler(e) {

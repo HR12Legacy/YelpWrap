@@ -6,8 +6,30 @@ const config =require('../config.js');
 const controllers = require('../server/controllers/mainController.js');
 const util = require('./util.js');
 const User = require('./models/User')
+const session = require('express-session')
 // router.use(bodyParser.json());
 
+const isLoggedIn = function(req) {
+  return req.session ? !!req.session.user : false;
+};
+
+const checkUser = function(req, res, next){
+  if (!isLoggedIn(req)) {
+    res.json(false)
+  } else {
+    next();
+  }
+};
+
+const createSession = function(req, res, userObj) {
+  return req.session.regenerate(function() {
+      req.session.user = userObj;
+
+      res.json(userObj)
+    });
+};
+
+router.get('/', checkUser, (req, res) => res.json(req.session.user))
 
 
 router.get('/reviews/:id', function(req, res){
@@ -101,11 +123,12 @@ router.post('/user', (req, res) => {
       errors: validationResult.errors
     });
   }
-  controllers.user.add(req.body, console.log)
-  return res.status(200).json({
-    success:true,
-    redirectUrl: '/'
+
+  controllers.user.add(req.body, function(user){
+    createSession(req, res, { success:true, redirectUrl: '/', user: user, userId: user.id})
   })
+  
+
 });
 
 router.put('/user', (req, res) => {
@@ -130,15 +153,16 @@ router.post('/login', (req, res) => {
     .fetch()
     .then(user => {
       user.comparePassword(req.body.password, (match) => {
-        console.log(user)
+
         if(match) {
-          return res.status(200).json({
+           var responseObj = {
               success:true,
               redirectUrl: '/',
               userId: user.id,
-              // added in user object to response
               user: user
-          })
+          }
+          createSession(req, res, responseObj)
+         
         } else {
           // validationResult.message = 'Check form for errors';
           // validationResult.errors = 'Invalid combinations';
@@ -182,6 +206,12 @@ router.post('/ziproom', (req, res) => {
     }
   })
 })
+
+router.get('/logout', function(req, res) {
+  req.session.destroy(function(err) {
+    res.end();
+  });
+});
 
 
 

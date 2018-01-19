@@ -58,7 +58,7 @@ class Profile extends React.Component {
 
   render() {
     let showOrInput = (
-      <div>Home Zipcode: {this.props.user.homezip || '10017'}</div>
+      <div>Home Zipcode: { this.props.user ? this.props.user.homezip : '10017'}</div>
     )
     let buttonText;
     if (this.state.changeZip) {
@@ -80,7 +80,7 @@ class Profile extends React.Component {
       <div>
         <Card>
           <img 
-            src={this.props.user.image_url || 'http://hotchillitri.co.uk/wp-content/uploads/2016/10/empty-avatar.jpg'}
+            src={this.props.user ? this.props.user.image_url : 'http://hotchillitri.co.uk/wp-content/uploads/2016/10/empty-avatar.jpg'}
             height="100"
             width="100"
           />

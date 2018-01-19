@@ -10,6 +10,7 @@ const app = express();
 const http = require('http').Server(app);
 const io = module.exports.io = require('socket.io')(http);
 const socketManager = require('./socketManager.js')
+const session = require('express-session')
 
 app.set('PORT', process.env.PORT || 1337);
 
@@ -19,6 +20,13 @@ app.use(bodyParser.urlencoded({ extended: false }));
 const compiler = webpack(config);
 
 app.use(express.static(path.join(__dirname, '../public')))
+
+app.use(session({
+  secret: 'oldyelper',
+  resave: false,
+  saveUninitialized: true
+}));
+
 
 // app.use(webpackMiddleware(compiler, {
 // 	hot: true,
