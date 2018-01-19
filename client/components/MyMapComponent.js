@@ -44,7 +44,7 @@ class MapContainer extends React.Component {
 
   onClick(props, marker, event){
     console.log('props', props)
-    axios.get('/user/' + props.info)
+    axios.get('/users/' + props.info)
     .then((data) => {
       if (data.data.length){
         this.setState({users: data.data})
@@ -102,7 +102,7 @@ class MapContainer extends React.Component {
                 var lng =  zip.longitude
                 console.log('code', code)
  
-                if (this.props.google !== undefined){
+                if (this.props.google !== undefined && this.props.usersToggled === true){
                 return (<Marker 
                   icon={{url:"https://cdn0.iconfinder.com/data/icons/gray-business-toolbar/512/affiliate-3-512.png",
                          anchor: new google.maps.Point(16,16),

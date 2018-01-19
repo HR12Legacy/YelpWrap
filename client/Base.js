@@ -26,13 +26,34 @@ class Base extends React.Component {
     this.refreshProfile = this.refreshProfile.bind(this);
   }
 
+  componentDidMount(){
+    axios.get('/')
+    .then(data => {
+      console.log('this is the data', data)
+      if (data.data !== false){
+        this.handleLogin(data.data.userId, data.data.user)
+      } 
+    })
+    .catch(err => console.log(err))
+  }
+
   handleLogin(id, user) {
     this.setState({
-      isLoggedIn: !this.state.isLoggedIn,
+      isLoggedIn: true,
       userId: id,
       user: user
     }, ()=> console.log(this.state));
   }
+
+   handleLogout(id, user) {
+    axios.get('/logout')
+    this.setState({
+      isLoggedIn: false,
+      userId: null,
+      user: {}
+    }, ()=> console.log(this.state));
+  }
+
 
   refreshProfile() {
     axios.get('/user/' + this.state.userId)
@@ -70,7 +91,7 @@ class Base extends React.Component {
                     <Link to="/login">Log in</Link>
                     <Link to="/signup">Sign up</Link> 
                   </div> :
-                  <div onClick={this.handleLogin.bind(this)}> Logout </div>
+                  <Link onClick={this.handleLogout.bind(this)} to="/"> Logout</Link>
                 }
               </div>
             </div>
