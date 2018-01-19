@@ -11,6 +11,7 @@
   "author": "Gustaf Brostedt",
   "license": "ISC",
   "dependencies": {
+    "append-react-dom": "^1.0.1",
     "axios": "^0.17.1",
     "babel": "^6.23.0",
     "babel-core": "^6.26.0",
@@ -31,6 +32,7 @@
     "markerclustererplus": "^2.1.4",
     "material-design-icons": "^3.0.1",
     "material-ui": "^0.20.0",
+    "moment": "^2.20.1",
     "nodemon": "^1.14.7",
     "npmlog": "4.1.2",
     "pg": "^7.4.0",

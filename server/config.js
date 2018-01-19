@@ -63,6 +63,7 @@ knex.schema.hasTable('messages').then(exists => {
 			table.text('content');
 			table.integer('roomId').references('id').inTable('ziproom');
 			table.integer('userId').references('id').inTable('users');
+			table.timestamp('created_at').defaultTo(knex.fn.now())
 		})
 		.then(table => {
 			console.log('Created table:', table);

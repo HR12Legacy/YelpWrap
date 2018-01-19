@@ -1,9 +1,12 @@
 
 import React from 'react';
 import io from 'socket.io-client';
-import events from '../chatEvents.js';
 import $ from 'jquery';
 import axios from 'axios';
+import Avatar from 'material-ui/Avatar'
+import append from 'append-react-dom'
+import ReactDOM from 'react-dom'
+import moment from 'moment'
 
 const socketUrl = 'http://localhost:1337'
 
@@ -23,6 +26,7 @@ class Chat extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this)
     this.getMessagesForRoom = this.getMessagesForRoom.bind(this)
     this.saveMessage = this.saveMessage.bind(this)
+    this.renderNewMessage = this.renderNewMessage.bind(this)
   }
 
   componentWillMount() {
@@ -34,14 +38,7 @@ class Chat extends React.Component {
     socket.emit('newRoom', `${this.props.location}`)
     this.getMessagesForRoom(this.props.location)
     socket.on(`${this.props.location}`, (message) => {
-      console.log(message)
-      const $username = $(`<p>${message.username}</p>`)
-      const $message = $(`<p>${message.message}</p>`)
-      const $image = $(`<img src="http://hotchillitri.co.uk/wp-content/uploads/2016/10/empty-avatar.jpg" />`)
-      const $container = $(`<li></li>`);
-      $container.append($username, $message, $image)
-        $('#messages').append($message)
-        $('#messages').animate({scrollTop: $('#messages').prop('scrollHeight')}, 500)
+      this.renderNewMessage(message)
     })
   }
 
@@ -56,14 +53,7 @@ class Chat extends React.Component {
       this.getMessagesForRoom(newProps.location)
       
       socket.on(`${newProps.location}`, (message) => {
-        console.log(message)
-        const $username = $(`<p>${message.username || 'anonymous'}</p>`)
-        const $message = $(`<p>${message.message}</p>`)
-        const $image = $(`<img src="http://hotchillitri.co.uk/wp-content/uploads/2016/10/empty-avatar.jpg" />`)
-        const $container = $(`<li></li>`);
-        $container.append($username, $message, $image)
-        $('#messages').append($message)
-        $('#messages').animate({scrollTop: $('#messages').prop('scrollHeight')}, 500)
+        this.renderNewMessage(message)
       })
     } 
   }
@@ -89,7 +79,7 @@ class Chat extends React.Component {
   }
 
   handleSubmit() {
-    const username = this.props.user.name ? this.props.user.name : 'anonymous'
+    const username = this.props.user.name || 'Anonymous'
     const {socket} = this.state
     const {message} = this.state
     this.saveMessage(message)
@@ -106,6 +96,7 @@ class Chat extends React.Component {
   getMessagesForRoom(zipcode) {
     axios.post('/ziproom', {"zipcode": zipcode})
          .then(data => {
+            console.log(data)
             this.setState({
               currentRoomId: data.data.room.id,
               messages: data.data.messages
@@ -118,17 +109,47 @@ class Chat extends React.Component {
   renderOldMessages() {
     $('#messages').empty();
     this.state.messages.forEach(message => {
-      const name = message.name || 'anonymous'
-      $('#messages').append($(`<li>${name}: ${message.content}</li>`))
-      $('#messages').animate({scrollTop: $('#messages').prop('scrollHeight')}, 10)
+      message.image_url = message.image_url || "http://hotchillitri.co.uk/wp-content/uploads/2016/10/empty-avatar.jpg"
+      
+      const $container = $(`<li></li>`);
+      const $username = $(`<p>${message.name || 'Anonymous'}  <span class="timestamp">${moment(message.created_at).fromNow()}</span></p>`)
+      const $message = $(`<p>${message.content}</p>`)
+      const $break = $(`<br/>`)
+      const $image = $(`<img src="${message.image_url}" />`)
+
+      $container.addClass('messageContainer')
+      $username.addClass('username')
+      $message.addClass('message')
+      $image.addClass('images')
+      
+      $container.append($image, $username, $break, $message)
+      $('#messages').append($container)
+      $('#messages').animate({scrollTop: $('#messages').prop('scrollHeight')}, 0)
     })
+  }
+
+  renderNewMessage(message) {
+    const image_url = (message.picture === 'undefined') ? "http://hotchillitri.co.uk/wp-content/uploads/2016/10/empty-avatar.jpg" : message.picture 
+    const $container = $(`<li></li>`);
+    const $username = $(`<p>${message.username} <span class="timestamp">${moment().fromNow()}</span></p>`)
+    const $message = $(`<p>${message.message}</p>`)
+    const $break = $(`<br/>`)
+    const $image = $(`<img src=${image_url} />`)
+    const differentClass = (message.username === this.props.user.name) ? 'userMessageContainer' : 'messageContainer'
+    $container.addClass(differentClass)
+    $username.addClass('username')
+    $message.addClass('message')
+    $image.addClass('images')
+    $container.append($image, $username, $break, $message)
+    $('#messages').append($container)
+    $('#messages').animate({scrollTop: $('#messages').prop('scrollHeight')}, 1000)
   }
 
   saveMessage(message) {
     axios.post('/message', {
       content: message,
       roomId: this.state.currentRoomId,
-      userId: this.props.userId
+      userId: this.props.user.id
     })
   }
 
