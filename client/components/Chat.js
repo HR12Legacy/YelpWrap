@@ -5,7 +5,7 @@ import events from '../chatEvents.js';
 import $ from 'jquery';
 import axios from 'axios';
 
-const socketUrl = 'http://localhost:1338'
+const socketUrl = 'http://localhost:1337'
 
 class Chat extends React.Component {
   constructor(props) {
