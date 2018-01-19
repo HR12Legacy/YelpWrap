@@ -6,7 +6,7 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import LoginPage from './components/auth/LoginContainer.js';
 import SignUpPage from './components/auth/SignUpContainer.js';
 import injectTapEventPlugin from 'react-tap-event-plugin';
-import { HashRouter, Route, Link } from 'react-router-dom';
+import { HashRouter, Route, Link, Redirect } from 'react-router-dom';
 import style from './base.css';
 import Header from './components/Header';
 import IconButton from 'material-ui/IconButton';
@@ -24,6 +24,7 @@ class Base extends React.Component {
       user: {},
     }
     this.refreshProfile = this.refreshProfile.bind(this);
+    this.handleLogin = this.handleLogin.bind(this);
   }
 
   handleLogin(id, user) {
@@ -76,8 +77,9 @@ class Base extends React.Component {
             </div>
           </div>
           }/>    
-          <switch>
-            <Route path='/' render={() => {
+          
+          <hr/>
+            <Route exact path='/' render={() => {
               return <App 
                 userId={this.state.userId}
                 user={this.state.user}
@@ -85,19 +87,20 @@ class Base extends React.Component {
                 />
             }}/>
 
+           {/* <Route path='/login' render={() => {
+                         <Route path='/' component={App} />
+                         return (
+                           <LoginPage 
+                             login={this.handleLogin.bind(this)}
+                             faves={this.generateFavorites}
+                           />
+                         )
+                       }}/>*/}
+
             <Route path='/login' render={() => {
-              <Route path='/' component={App} />
-              return (
-                <LoginPage 
-                  login={this.handleLogin.bind(this)}
-                  faves={this.generateFavorites}
-                />
-              )
+              return (this.state.isLoggedIn) ? <Redirect to="/" /> : <LoginPage login={this.handleLogin} faves={this.generateFavorites}/>
             }}/>
-
             <Route path='/signup' component={SignUpPage} />
-
-          </switch>
 
         </div>
       </HashRouter>

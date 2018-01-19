@@ -1,6 +1,5 @@
 import React from 'react';
 import io from 'socket.io-client';
-import events from '../chatEvents.js';
 import $ from 'jquery';
 import axios from 'axios';
 import { getMuiTheme } from 'material-ui/styles/getMuiTheme';
