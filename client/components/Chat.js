@@ -33,9 +33,6 @@ class Chat extends React.Component {
   }
 
   componentDidMount() {
-    console.log('component mounting emitting again')
-
-      console.log('hehehehehe')
       let {socket} = this.state;
       socket.disconnect()
       socket.connect()
@@ -102,6 +99,7 @@ class Chat extends React.Component {
     const username = this.props.user.name || 'Anonymous'
     const {socket} = this.state
     const {message} = this.state
+    console.log('sending url', this.props.user.image_url)
     this.saveMessage(message)
     socket.emit(`${this.props.location}`, {
       username: `${username}`,
@@ -148,7 +146,7 @@ class Chat extends React.Component {
   }
 
   renderNewMessage(message) {
-    const image_url = (message.picture === 'undefined' || 'null') ? "http://hotchillitri.co.uk/wp-content/uploads/2016/10/empty-avatar.jpg" : message.picture 
+    const image_url = ((message.picture === 'undefined' || message.picture === 'null') ? "http://hotchillitri.co.uk/wp-content/uploads/2016/10/empty-avatar.jpg" : message.picture); 
     const $container = $(`<li></li>`);
     const $username = $(`<p>${message.username} <span class="timestamp">${moment().fromNow()}</span></p>`)
     const $message = $(`<p>${message.message}</p>`)

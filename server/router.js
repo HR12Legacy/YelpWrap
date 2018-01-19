@@ -29,7 +29,7 @@ const createSession = function(req, res, userObj) {
     });
 };
 
-router.get('/', checkUser, (req, res) => res.json(req.session.user))
+router.get('/session', checkUser, (req, res) => res.json(req.session.user))
 
 
 router.get('/reviews/:id', function(req, res){
@@ -116,19 +116,20 @@ router.get('/user/:id', (req, res) => {
 router.post('/user', (req, res) => {
   const validationResult = util.validateSignupForm(req.body);
   if (!validationResult.success) {
-    console.log(validationResult)
-    return res.status(400).send({
+    res.status(200).send({
       success: false,
       message: validationResult.message,
       errors: validationResult.errors
     });
+  } else {
+    controllers.user.add(req.body, function(created, user){
+      if (created) {
+        createSession(req, res, { success:true, redirectUrl: '/', user: user, userId: user.id})
+      } else {
+        res.status(200).send({success: false})
+      }
+    }) 
   }
-
-  controllers.user.add(req.body, function(user){
-    createSession(req, res, { success:true, redirectUrl: '/', user: user, userId: user.id})
-  })
-  
-
 });
 
 router.put('/user', (req, res) => {
