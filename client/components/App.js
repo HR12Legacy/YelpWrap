@@ -42,6 +42,7 @@ export default class App extends React.Component {
     this.onSelectZipcode = this.onSelectZipcode.bind(this)
     this.goHome = this.goHome.bind(this)
     this.toggleUsers = this.toggleUsers.bind(this)
+    this.getZips = this.getZips.bind(this)
   }
 
   getPosition(options) {
@@ -129,7 +130,9 @@ export default class App extends React.Component {
 
   onSelectZipcode(){
      this.getZipFromCoords(this.state.coords.lat, this.state.coords.lng, (zip) =>
-      this.setState({location: zip}, () => this.searchHandlerByZip(this.state.query, zip))
+      this.setState({location: zip}, () => 
+        this.searchHandlerByZip(this.state.query, zip)
+      )
     )
   }
 
@@ -170,7 +173,7 @@ export default class App extends React.Component {
         <div className={styles.entryList}>
           <EntryList userId={ this.props.userId } list={this.state.results}/>
         </div>
-        <Chat location={this.state.location} user={this.props.user} />
+        <Chat location={this.state.location} user={this.props.user} getZips={this.getZips}/>
         <ChatBot location={this.state.location} restaurants={this.state.results}/>
         <Profile 
           user={this.props.user}

@@ -3,10 +3,12 @@ const User = require('../models/User.js');
 
 const userController = {
   add: (body, cb) => {
+  	console.log(body)
   	const newUser = new User({
   		email: body.email,
       name: body.name,
   		password: body.password,
+  		homezip: body.location
   	})
   	newUser.save()
   	.then(newUser => {
@@ -38,7 +40,7 @@ const userController = {
 	getZipUsers: (zipcode, cb) => {
 		knex.select('*').from('users')
 		.where('homezip', zipcode)
-		.then(users=> {
+		.then(users => {
 			cb(users);
 		})
 	}
