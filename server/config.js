@@ -22,7 +22,8 @@ knex.schema.hasTable('users').then(exists => {
 		}).then(table => {
 			console.log('Created table:', table);
 			knex('users').insert({
-				name: 'chatbot'
+				name: 'chatbot',
+				image_url: 'https://edspace.american.edu/perf683/wp-content/uploads/sites/392/2015/10/robot.png'
 			}).then(()=>{console.log('created chatbot')})
 		}).catch(err => {
 			console.error('Error:', err);

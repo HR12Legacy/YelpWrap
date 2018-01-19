@@ -16,7 +16,8 @@ class ChatBot extends React.Component {
       currentRoomId: null,
       reviews: [],
       reviewNumber: 0,
-      currentIndex: null
+      currentIndex: null,
+      attention: false
     }
     this.initSocket = this.initSocket.bind(this)
     this.saveMessage = this.saveMessage.bind(this)
@@ -24,8 +25,11 @@ class ChatBot extends React.Component {
     this.getRoomData = this.getRoomData.bind(this)
     this.messageHandler = this.messageHandler.bind(this)
 
+    this.attention = this.attention.bind(this)
     this.describe = this.describe.bind(this)
     this.rating = this.rating.bind(this)
+    this.price = this.price.bind(this)
+    this.phone = this.phone.bind(this)
 
     this.findRestaurant = this.findRestaurant.bind(this)
     this.nextReview = this.nextReview.bind(this)
@@ -55,10 +59,11 @@ class ChatBot extends React.Component {
   }
 
   findRestaurant(message) {
-    console.log(message)
+    const lowerCaseMessage = message.toLowerCase()
     const restaurants = this.props.restaurants;
     for (let i = 0; i < restaurants.length; i++) {
-      if (message.search(restaurants[i].name)) {
+      let restaurant = restaurants[i].name.toLowerCase()
+      if (lowerCaseMessage.search(restaurant) !== -1) {
         return {id: restaurants[i].id, index: i}
       }
     }
@@ -74,67 +79,91 @@ class ChatBot extends React.Component {
   }
 
   messageHandler(message) {
-    const choices = ['tell me about', 'how is', 'show me', 'describe', 'more', 'continue', 'go on', 'rating', 'rate', 'review', 'star', 'cost', 'price', 'expensive', 'cheap', 'phone', 'call', 'reach', 'hours', 'it open', 'it closed', 'yelp', 'link', 'website', 'site', 'pickup', 'delivery', 'directions', 'reservation']
-    const matches = {
-      // tell me about
-        'tell me about': 'describe',
-        'how is': 'describe',
-        'show me': 'describe',
-        'describe': 'describe',
-      // tell me more -> iterate through info choices
-        'more': 'more',
-        'continue': 'more',
-        'go on': 'more',
-      // rating? -> rating with num reviews
-        'rating': 'rating',
-        'rate': 'rating',
-        'review': 'rating',
-        'star': 'rating',
-      // price?
-        'cost': 'price',
-        'price': 'price',
-        'expensive': 'price',
-        'cheap': 'price',
-      // phone number?
-        'phone': 'phone',
-        'call': 'phone',
-        'reach': 'phone',
-      // is it open?
-        'hours': 'open',
-        'it open': 'open',
-        'it closed': 'open',
-      // give me a link
-        'yelp': 'link',
-        'link': 'link',
-        'website': 'link',
-        'site': 'link',
-      // what are its pickup and delivery options
-        'pickup': 'delivery',
-        'delivery': 'delivery',
-      // give me directions
-        'directions': 'directions',
-        'map': 'directions',
-      // let me make a reservation
-        'reservation': 'reservation',
-        'reserve': 'reservation',
-      // oops
-        'oops': 'oops'
-    }
-    const lowerCaseMessage = message.message.toLowerCase();
-    let matchedChoice = 'oops'
-    choices.forEach((choice)=> {
-      let startIndex = lowerCaseMessage.search(choice);
-      if (startIndex !== -1) {
-        matchedChoice = choice
+    if (message.username !== 'chatbot') {
+      const choices = ['chatbot', 'tell me about', 'how is', 'show me', 'describe', 'more', 'continue', 'go on', 'rating', 'rate', 'review', 'star', 'how much', 'cost', 'price', 'expensive', 'cheap', 'phone', 'call', 'reach', 'hours', 'it open', 'it closed', 'yelp', 'link', 'website', 'site', 'pickup', 'delivery', 'directions', 'reservation']
+      const matches = {
+        // greeting
+          'chatbot': 'attention',
+        // tell me about
+          'tell me about': 'describe',
+          'how is': 'describe',
+          'show me': 'describe',
+          'describe': 'describe',
+        // tell me more -> iterate through info choices
+          'more': 'more',
+          'continue': 'more',
+          'go on': 'more',
+        // rating? -> rating with num reviews
+          'rating': 'rating',
+          'rate': 'rating',
+          'review': 'rating',
+          'star': 'rating',
+        // price?
+          'how much': 'price',
+          'cost': 'price',
+          'price': 'price',
+          'expensive': 'price',
+          'cheap': 'price',
+        // phone number?
+          'phone': 'phone',
+          'call': 'phone',
+          'reach': 'phone',
+        // is it open?
+          'hours': 'open',
+          'it open': 'open',
+          'it closed': 'open',
+        // give me a link
+          'yelp': 'link',
+          'link': 'link',
+          'website': 'link',
+          'site': 'link',
+        // what are its pickup and delivery options
+          'pickup': 'delivery',
+          'delivery': 'delivery',
+        // give me directions
+          'directions': 'directions',
+          'map': 'directions',
+        // let me make a reservation
+          'reservation': 'reservation',
+          'reserve': 'reservation',
+        // oops
+          'oops': 'oops'
       }
-    })
-    const answerType = matches[matchedChoice];
-    console.log(answerType)
-    if (answerType === 'describe') {
-      this.describe(message.message);
-    } else if (answerType === 'rating') {
-      this.rating()
+      const lowerCaseMessage = message.message.toLowerCase();
+      let matchedChoice = 'oops'
+      for (let choice of choices) {
+        let startIndex = lowerCaseMessage.search(choice);
+        if (startIndex !== -1) {
+          matchedChoice = choice
+        }
+      }
+      const answerType = matches[matchedChoice];
+      if (answerType === 'attention') {
+        this.attention()
+      } else {
+        if (this.state.attention) {
+          if (answerType === 'describe') {
+            this.describe(message.message)
+          } else if (answerType === 'rating') {
+            this.rating()
+          } else if (answerType === 'price') {
+            this.price()
+          } else if (answerType === 'phone') {
+            this.phone()
+          }
+        }
+      }
     }
+  }
+
+  attention() {
+    this.setState({
+      attention: !this.state.attention,
+    }, ()=> {
+      setTimeout(()=> {
+        this.botSubmit('Oh hey there! How can I help?')
+      }, 500)
+    })
   }
 
   describe(message) {
@@ -156,12 +185,37 @@ class ChatBot extends React.Component {
   }
 
   rating() {
-    console.log(this.state.currentIndex)
     if (this.props.restaurants.length > 0 && this.state.currentIndex !== null) {
       setTimeout(() => {
-        this.botSubmit('The rating is ' + this.props.restaurants[this.state.currentIndex].rating + '!')
+        this.botSubmit(
+          'It has ' + 
+          this.props.restaurants[this.state.currentIndex].rating + 
+          ' stars based on ' + 
+          this.props.restaurants[this.state.currentIndex].review_count +
+          ' reviews!'
+        )
       }, 500);
     }
+  }
+
+  price() {
+    if (this.props.restaurants.length > 0 && this.state.currentIndex !== null) {
+      const priceString = {
+        '$': `It's pretty cheap!`,
+        '$$': `It's affordable for the most part.`,
+        '$$$': `Check your balance before going...`,
+        '$$$$': `Be ready to take out a second mortgage.`
+      }
+      setTimeout(() => {
+        this.botSubmit(
+          priceString[this.props.restaurants[this.state.currentIndex].price]
+        )
+      }, 500)
+    }
+  }
+
+  phone() {
+    
   }
 
   getReviews() {
@@ -194,7 +248,6 @@ class ChatBot extends React.Component {
 
   botSubmit(message) {
     const username = 'chatbot'
-    message = message || 'this is a bot message'
     const {socket} = this.state
     this.saveMessage(message)
     socket.emit(`${this.props.location}`, {
