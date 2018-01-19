@@ -58,7 +58,7 @@ class Profile extends React.Component {
 
   render() {
     let showOrInput = (
-      <div>Home Zipcode: {this.props.user.homezip || '10021'}</div>
+      <div>Home Zipcode: {this.props.user.homezip || '10017'}</div>
     )
     let buttonText;
     if (this.state.changeZip) {

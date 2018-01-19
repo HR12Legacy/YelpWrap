@@ -21,6 +21,9 @@ knex.schema.hasTable('users').then(exists => {
 			table.string('image_url')
 		}).then(table => {
 			console.log('Created table:', table);
+			knex('users').insert({
+				name: 'chatbot'
+			}).then(()=>{console.log('created chatbot')})
 		}).catch(err => {
 			console.error('Error:', err);
 		})

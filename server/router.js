@@ -10,12 +10,11 @@ const User = require('./models/User')
 
 
 
-// router.post('/search', function(req, res){
-//   console.log('search router')
-//   controllers.search.request(req.body, result => {
-//     res.status(200).send(result);
-//   })
-// })
+router.get('/reviews/:id', function(req, res){
+  controllers.search.getReviews(req.params.id, result => {
+    res.status(200).send(result);
+  })
+})
 
 
 router.post('/search', function(req, res){
@@ -49,16 +48,17 @@ router.post('/search', function(req, res){
 
   request(options, (err, response, body) => {
     var datas = JSON.parse(body);
-    // console.log(datas)
-    datas.businesses = datas.businesses.filter( bus => bus.location.zip_code === req.body.location)
-    datas.businesses.splice(20)
-    if(req.body.delivery) {
-      datas.businesses = datas.businesses.reduce((acc, curr) => {
-        curr.transactions.indexOf('delivery') !== -1 ? acc.push(curr) : acc;
-        return acc;
-      }, []);
+    if (datas.businesses) {
+      datas.businesses = datas.businesses.filter( bus => bus.location.zip_code === req.body.location)
+      datas.businesses.splice(20)
+      if(req.body.delivery) {
+        datas.businesses = datas.businesses.reduce((acc, curr) => {
+          curr.transactions.indexOf('delivery') !== -1 ? acc.push(curr) : acc;
+          return acc;
+        }, []);
+      }
+      res.send(datas); 
     }
-    res.send(datas); 
   });   
 });
 
