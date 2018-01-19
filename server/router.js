@@ -31,6 +31,7 @@ const createSession = function(req, res, userObj) {
     });
 };
 
+
 router.get('/session', checkUser, (req, res) => res.json(req.session.user))
 
 
