@@ -28,5 +28,18 @@ module.exports = {
       console.log(results)
       cb(results.businesses)
     })
+  },
+
+  getReviews: (id, cb) => {
+    const options = {
+      url: 'https://api.yelp.com/v3/businesses/' + id  + '/reviews',
+      headers: {'Authorization': `Bearer ${config.Yelp_TOKEN}` }
+    }; 
+
+    request(options, (err, response, body) => {
+      var results = JSON.parse(body);
+      console.log(results)
+      cb(results.reviews)
+    })
   }
 }
