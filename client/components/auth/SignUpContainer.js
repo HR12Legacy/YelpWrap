@@ -1,7 +1,8 @@
 import React, { PropTypes } from 'react';
 import SignUpForm from './SignUpForm.js';
 import ServerActions from '../../ServerActions.js';
-import { Link } from 'react-router-dom';
+import { Link, BrowserRouter } from 'react-router-dom';
+import {browserHistory} from 'react-router'
 
 
 class SignUpPage extends React.Component {
@@ -43,6 +44,13 @@ class SignUpPage extends React.Component {
         this.setState({
           errors: {}
         });
+        if (xhr.response.success) {
+          // redirect
+          console.log('should redirect')
+          this.props.history.push('/')
+        } else {
+          alert('There is already an account associated with this email!')
+        }
       } else {
         const errors = xhr.response.errors ? xhr.response.errors : {};
         errors.summary = xhr.response.message;

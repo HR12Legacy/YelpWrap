@@ -35,10 +35,10 @@ a:hover {
   margin: 0 8px;
 }
 .container {
-  position: absolute;
-  margin: 0 auto;
+  padding-top: 20px;
+  margin: 5% auto;
   text-align: center;
-  width: 700px;
+  width: 40%;
 }
 .card-heading {
   padding: 16px;

@@ -10,10 +10,10 @@ const userController = {
   	})
   	newUser.save()
   	.then(newUser => {
-  		cb(newUser);
+  		cb(true, newUser);
   	})
   	.catch(err => {
-  		console.error(err)
+  		cb(false, err)
   	})
 	},
 	update: (body, cb) => {
