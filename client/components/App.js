@@ -2,6 +2,7 @@ import React from 'react';
 import Search from './Search.js';
 import EntryList from './EntryList.js';
 import Chat from './Chat.js'
+import ChatBot from './ChatBot.js'
 const axios = require('axios');
 import GoogleApiWrapper from './MyMapComponent';
 import sample from '../../sampledata.js';
@@ -168,6 +169,7 @@ export default class App extends React.Component {
           <EntryList userId={ this.props.userId } list={this.state.results}/>
         </div>
         <Chat location={this.state.location} user={this.props.user} />
+        <ChatBot location={this.state.location} restaurants={this.state.results}/>
         <Profile 
           user={this.props.user}
           list={this.state.favorites}
