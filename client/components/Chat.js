@@ -1,4 +1,3 @@
-
 import React from 'react';
 import io from 'socket.io-client';
 import $ from 'jquery';
@@ -34,12 +33,31 @@ class Chat extends React.Component {
   }
 
   componentDidMount() {
+    console.log('component mounting emitting again')
+
+      console.log('hehehehehe')
+      let {socket} = this.state;
+      socket.disconnect()
+      socket.connect()
+      socket.emit('newRoom', `${this.props.location}`)
+      socket.off()
+      socket.removeAllListeners()
+      socket.removeListener(`${this.props.location}`)
+      
+      this.getMessagesForRoom(this.props.location)
+      
+      socket.on(`${this.props.location}`, (message) => {
+        this.renderNewMessage(message)
+      }) 
+
+  }
+
+  componentWillUnmount() {
     let {socket} = this.state;
-    socket.emit('newRoom', `${this.props.location}`)
-    this.getMessagesForRoom(this.props.location)
-    socket.on(`${this.props.location}`, (message) => {
-      this.renderNewMessage(message)
-    })
+    socket.disconnect();
+    socket.off()
+    socket.removeAllListeners()
+    socket.removeListener(`${this.props.location}`)
   }
 
   componentWillReceiveProps(newProps) {
@@ -48,6 +66,8 @@ class Chat extends React.Component {
       socket.disconnect()
       socket.connect()
       socket.off()
+      socket.removeAllListeners()
+      socket.removeListener(`${this.props.location}`)
       socket.emit('newRoom', `${newProps.location}`)
       
       this.getMessagesForRoom(newProps.location)
@@ -96,7 +116,6 @@ class Chat extends React.Component {
   getMessagesForRoom(zipcode) {
     axios.post('/ziproom', {"zipcode": zipcode})
          .then(data => {
-            console.log(data)
             this.setState({
               currentRoomId: data.data.room.id,
               messages: data.data.messages
@@ -129,7 +148,7 @@ class Chat extends React.Component {
   }
 
   renderNewMessage(message) {
-    const image_url = (message.picture === 'undefined') ? "http://hotchillitri.co.uk/wp-content/uploads/2016/10/empty-avatar.jpg" : message.picture 
+    const image_url = (message.picture === 'undefined' || 'null') ? "http://hotchillitri.co.uk/wp-content/uploads/2016/10/empty-avatar.jpg" : message.picture 
     const $container = $(`<li></li>`);
     const $username = $(`<p>${message.username} <span class="timestamp">${moment().fromNow()}</span></p>`)
     const $message = $(`<p>${message.message}</p>`)
@@ -168,3 +187,5 @@ class Chat extends React.Component {
 }
 
 export default Chat;
+
+
