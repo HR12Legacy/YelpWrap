@@ -1,14 +1,14 @@
 
 .mapContainer{
-  height: 45vh; 
+  height: 35vh; 
   display: block;
   position: sticky;
 }
 .map{
-	  float: left;
-    width: 100%;
-    clear: both;
-    position: relative;
+  float: left;
+  width: 100%;
+  clear: both;
+  position: relative;
 }
 
 .searchContainer {
@@ -23,4 +23,22 @@
   position: sticky;
 }
 
+.column {
+  float: left;
+  width: 50%;
+}
 
+.columnPaddingLeft {
+  padding: 10px;
+}
+
+.columnPaddingRight {
+  padding: 10px;
+  padding-left: 0px;
+}
+
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}

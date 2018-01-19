@@ -12,11 +12,12 @@ import ServerActions from '../ServerActions';
 import Location from './Location.js'
 import Profile from './Profile';
 import Toggle from 'material-ui/Toggle';
+import {Tabs, Tab} from 'material-ui/Tabs'
 /**
  * NOTICE:
  * npm install --save axios on production branch 
  */
-
+//aaron was here
 
 export default class App extends React.Component {
   constructor(props) {
@@ -157,30 +158,49 @@ export default class App extends React.Component {
 
   render() {   
     return (
-      <div style={{height: '200px'}}>
-        <Location location={this.state.location} top={this.state.results.length ? this.state.results[0].name : ''}/>
-        <Search search={this.searchHandlerByZip} 
-                filterFunc={this.selectHandler} 
-                filter={this.state.filter} 
-                sortBy={this.state.sortBy} 
-                openNow={this.state.openNow} 
-                delivery={this.state.delivery} />
-        <div className={styles.entryList}>
-          <EntryList userId={ this.props.userId } list={this.state.results}/>
+      <div className={style.row}>
+        <div className={style.column}>
+          <div className={style.columnPaddingLeft}> 
+            <Search search={this.searchHandlerByZip} 
+                    filterFunc={this.selectHandler} 
+                    filter={this.state.filter} 
+                    sortBy={this.state.sortBy} 
+                    openNow={this.state.openNow} 
+                    delivery={this.state.delivery} />
+                  
+            <div className={style.map}>
+              <span><Toggle label="Show Users" labelPosition="right" onToggle={this.toggleUsers}/></span>
+              <GoogleApiWrapper  zips={this.state.zips} usersToggled={this.state.usersToggled} goHome={this.goHome} onSelectZipcode={this.onSelectZipcode} faves={ this.state.favorites } markers={ this.state.results } onMarkerPositionChanged={ this.onMarkerPositionChanged} 
+              xy={this.state.coords} />
+            </div>
+          </div>
         </div>
-        <Chat location={this.state.location} user={this.props.user} />
-        <ChatBot location={this.state.location} restaurants={this.state.results}/>
-        <Profile 
-          user={this.props.user}
-          list={this.state.favorites}
-          faves={this.state.favorites}
-          refreshProfile={this.props.refreshProfile}
-        />
-        <div className={style.map}>
-        <span><Toggle label="Show Users" labelPosition="right" onToggle={this.toggleUsers}/></span>
-          <GoogleApiWrapper  zips={this.state.zips} usersToggled={this.state.usersToggled} goHome={this.goHome} onSelectZipcode={this.onSelectZipcode} faves={ this.state.favorites } markers={ this.state.results } onMarkerPositionChanged={ this.onMarkerPositionChanged} 
-          xy={this.state.coords} />
+
+        <div className={style.column}>
+          <div className={style.columnPaddingRight}>
+            <Location location={this.state.location} top={this.state.results.length ? this.state.results[0].name : ''}/>
+            <Tabs initialSelectedIndex={1}>
+              <Tab label="Restaurants List" >
+                <div className={styles.entryList}>
+                  <EntryList userId={ this.props.userId } list={this.state.results}/>
+                </div>
+              </Tab>
+              <Tab label="Chat" >
+                <Chat location={this.state.location} user={this.props.user} />
+              </Tab>
+              <Tab label="Profile" >
+                <Profile 
+                  user={this.props.user}
+                  list={this.state.favorites}
+                  faves={this.state.favorites}
+                  refreshProfile={this.props.refreshProfile}
+                />
+              </Tab>
+            </Tabs>
+            <ChatBot location={this.state.location} restaurants={this.state.results}/>
+          </div>
         </div>
+
       </div>
     )
   }

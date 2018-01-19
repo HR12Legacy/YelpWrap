@@ -1,6 +1,6 @@
 .topBar {
   padding: 10px 15px;
-  margin-bottom: 50px;
+  /* margin-bottom: 50px; */
 }
 .topBar::after {
   content: '';
