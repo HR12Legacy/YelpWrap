@@ -8,14 +8,18 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import RaisedButton from 'material-ui/RaisedButton';
 const zipcodes = require('zipcodes')
 const axios = require('axios')
+import Avatar from 'material-ui/Avatar'
 
 const ZipUser = (props) => ( 
   <div>
-  <h3> {props.name} </h3>
-  <img style={{height: '40px', width: '40px'}} src={props.img} alt=""/>
+  <h3> 
+  <img  style={{height: '20px', width: '20px', borderRadius: '8px'}} src={props.img || 'http://hotchillitri.co.uk/wp-content/uploads/2016/10/empty-avatar.jpg'} alt=""/>
+   {'  ' + props.name}
+   </h3>
   </div>
   )
 
+// style={{height: '40px', width: '40px'}}
 
 class MapContainer extends React.Component {
   constructor(props) {
@@ -33,8 +37,8 @@ class MapContainer extends React.Component {
     this.onMarkerHover = this.onMarkerHover.bind(this);
     this.onClick = this.onClick.bind(this)
   }
-  onMarkerHover(props, marker, event) {
 
+  onMarkerHover(props, marker, event) {
     this.setState({
       showingInfoWindow: !this.state.showingInfoWindow,
       activeMarker: marker,
@@ -46,10 +50,12 @@ class MapContainer extends React.Component {
     console.log('props', props)
     axios.get('/users/' + props.info)
     .then((data) => {
+      console.log(data.data,'userdata')
       if (data.data.length){
-        this.setState({users: data.data})
-      } 
-      this.setState({activeZip: marker, showingZipUsers: !this.state.showingZipUsers})
+        this.setState({users: data.data, activeZip: marker, showingZipUsers: !this.state.showingZipUsers})
+      } else {
+        this.setState({users: [] , activeZip: marker, showingZipUsers: !this.state.showingZipUsers})
+      }
     })
   }
   
@@ -105,8 +111,8 @@ class MapContainer extends React.Component {
                 if (this.props.google !== undefined && this.props.usersToggled === true){
                 return (<Marker 
                   icon={{url:"https://cdn0.iconfinder.com/data/icons/gray-business-toolbar/512/affiliate-3-512.png",
-                         anchor: new google.maps.Point(16,16),
-                         scaledSize: new google.maps.Size(32,32)}}
+                         anchor: new google.maps.Point(25,25),
+                         scaledSize: new google.maps.Size(50,50)}}
                   onClick={this.onClick}
                   key={idx} info={code} 
                   position={{lat, lng}}

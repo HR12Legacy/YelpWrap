@@ -121,6 +121,7 @@ class Chat extends React.Component {
               messages: data.data.messages
             }, () => {
               this.renderOldMessages()
+              this.props.getZips()
             })
          })
   }

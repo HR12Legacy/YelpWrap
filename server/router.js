@@ -15,8 +15,10 @@ const isLoggedIn = function(req) {
 
 const checkUser = function(req, res, next){
   if (!isLoggedIn(req)) {
+    console.log('hi')
     res.json(false)
   } else {
+    console.log('something')
     next();
   }
 };
@@ -29,7 +31,7 @@ const createSession = function(req, res, userObj) {
     });
 };
 
-router.get('/', checkUser, (req, res) => res.json(req.session.user))
+router.get('/session', checkUser, (req, res) => console.log('hey'))
 
 
 router.get('/reviews/:id', function(req, res){
@@ -125,6 +127,7 @@ router.post('/user', (req, res) => {
   }
 
   controllers.user.add(req.body, function(user){
+    console.log(user)
     createSession(req, res, { success:true, redirectUrl: '/', user: user, userId: user.id})
   })
   
