@@ -30,7 +30,6 @@ class Base extends React.Component {
   componentDidMount(){
     axios.get('/session')
     .then(data => {
-      console.log('this is the data', data)
       if (data.data !== false){
         this.handleLogin(data.data.userId, data.data.user)
       } 

@@ -15,8 +15,10 @@ const isLoggedIn = function(req) {
 
 const checkUser = function(req, res, next){
   if (!isLoggedIn(req)) {
+    console.log('hi')
     res.json(false)
   } else {
+    console.log('something')
     next();
   }
 };
