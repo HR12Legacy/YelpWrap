@@ -23,7 +23,7 @@ body {
 
 .chatContainer {
   display: inline-block;
-  width: 50%
+  /* width: 50% */
 }
 
 .chat {
@@ -38,7 +38,7 @@ body {
 #messages {
   list-style-type: none;
   padding-left: 2.5%;
-  height: 300px;
+  height: 65vh;
   overflow: auto;
 }
 
