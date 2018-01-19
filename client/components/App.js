@@ -152,6 +152,10 @@ export default class App extends React.Component {
     }
   };
 
+  toggleUsers(){
+    this.setState({usersToggled : !this.state.usersToggled})
+  }
+
 
   getZips(){
     axios.get('/ziproom').then((data) => this.setState({zips: data.data}))
