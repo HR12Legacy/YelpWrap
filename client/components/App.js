@@ -58,7 +58,6 @@ export default class App extends React.Component {
           {'latLng': point},
           function (res, status) {
             var zip = res[0].formatted_address.match(/,\s\w{2}\s(\d{5})/)
-            console.log('zip', zip, zip[1])
             cb(zip[1])  
           }
       )
@@ -66,7 +65,6 @@ export default class App extends React.Component {
   
 
   componentWillReceiveProps(nextProps) {
-    console.log(this.props.userId)
     if(this.props.userId) this.generateFavorites();
   }
 
@@ -80,7 +78,6 @@ export default class App extends React.Component {
        this.getZipFromCoords(lat, lng, (zip) =>
 
          this.setState({location: zip}, function(){
-            console.log('state set', this.state.location)
             that.searchHandlerByZip('delis', that.state.location) 
             that.setState({
               coords: {lat: lat, lng: lng}
@@ -144,7 +141,6 @@ export default class App extends React.Component {
   generateFavorites(callback) {
     if (this.props.userId) {
       ServerActions.getRequest('/favorite/'+this.props.userId, (result) => {
-        console.log('result', result)
           this.setState({
             favorites: result.data,
           }, () => console.log(this.state.favorites))
@@ -153,7 +149,6 @@ export default class App extends React.Component {
   };
 
   toggleUsers(){
-    console.log('suuuuuuup')
     this.setState({usersToggled : !this.state.usersToggled})
   }
 
