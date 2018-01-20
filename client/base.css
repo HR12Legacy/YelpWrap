@@ -20,6 +20,15 @@
 .topBarRight a {
   margin-right: 10px;
 }
+
+.topBarCenter {
+  float: left;
+  margin-left: 40%;
+  font-size: 150%;
+  position: relative;
+  text-align: center;
+}
+
 .smallIcon {
   width: 36;
   height: 36;
