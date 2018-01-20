@@ -152,9 +152,6 @@ export default class App extends React.Component {
     }
   };
 
-  toggleUsers(){
-    this.setState({usersToggled : !this.state.usersToggled})
-  }
 
 
   getZips(){
