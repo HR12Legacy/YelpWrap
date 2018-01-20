@@ -9,6 +9,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 const zipcodes = require('zipcodes')
 const axios = require('axios')
 import Avatar from 'material-ui/Avatar'
+import Toggle from 'material-ui/Toggle';
 
 const ZipUser = (props) => ( 
   <div>
@@ -27,6 +28,7 @@ class MapContainer extends React.Component {
     this.state = {
       showingInfoWindow: false,
       showingZipUsers: false, 
+      usersToggled : false,
       activeMarker: {},
       activeZip: {},
       info:{},
@@ -36,6 +38,7 @@ class MapContainer extends React.Component {
     }
     this.onMarkerHover = this.onMarkerHover.bind(this);
     this.onClick = this.onClick.bind(this)
+    this.toggleUsers = this.toggleUsers.bind(this)
   }
 
   onMarkerHover(props, marker, event) {
@@ -47,10 +50,8 @@ class MapContainer extends React.Component {
   }
 
   onClick(props, marker, event){
-    console.log('props', props)
     axios.get('/users/' + props.info)
     .then((data) => {
-      console.log(data.data,'userdata')
       if (data.data.length){
         this.setState({users: data.data, activeZip: marker, showingZipUsers: !this.state.showingZipUsers})
       } else {
@@ -58,7 +59,10 @@ class MapContainer extends React.Component {
       }
     })
   }
-  
+
+  toggleUsers(){
+    this.setState({usersToggled : !this.state.usersToggled})
+  }
 
   render() {
       const mapStyle = {
@@ -74,10 +78,11 @@ class MapContainer extends React.Component {
         <span className={style.mapContainer}>
         <RaisedButton label="Take me here!" onClick={this.props.onSelectZipcode}/>
         <RaisedButton label="Go home" onClick={ this.props.goHome} />
+        <RaisedButton label="Show Users"  onClick={this.toggleUsers} primary={this.state.usersToggled}/>
           <Map
             google={this.props.google}
             center={
-              this.props.xy
+              this.props.xy 
             }
             gestureHandling={"cooperative"}
             disableDefaultUI={true}
@@ -101,14 +106,14 @@ class MapContainer extends React.Component {
                   position={{lat, lng}}
                 />)
               })}
-    {this.props.zips.map((zip, idx) => {
+           {this.props.zips.map((zip, idx) => {
+          
                 var zip = zipcodes.lookup(zip)
                 var code = zip.zip
                 var lat = zip.latitude
                 var lng =  zip.longitude
-                console.log('code', code)
  
-                if (this.props.google !== undefined && this.props.usersToggled === true){
+                if (this.props.google !== undefined && this.state.usersToggled === true){
                 return (<Marker 
                   icon={{url:"https://cdn0.iconfinder.com/data/icons/gray-business-toolbar/512/affiliate-3-512.png",
                          anchor: new google.maps.Point(25,25),

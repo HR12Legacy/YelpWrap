@@ -11,8 +11,8 @@ import style from './container.css'
 import ServerActions from '../ServerActions';
 import Location from './Location.js'
 import Profile from './Profile';
-import Toggle from 'material-ui/Toggle';
 import {Tabs, Tab} from 'material-ui/Tabs'
+const zipcodes = require('zipcodes')
 /**
  * NOTICE:
  * npm install --save axios on production branch 
@@ -32,18 +32,16 @@ export default class App extends React.Component {
       favorites: [],
       chatroom: {}, 
       messages: [], 
-      usersToggled: false, 
       zips: []
-    }
+    }    
 
     this.searchHandlerByZip = this.searchHandlerByZip.bind(this);
-    this.selectHandler = this.selectHandler.bind(this);
     this.generateFavorites = this.generateFavorites.bind(this);
     this.onMarkerPositionChanged = this.onMarkerPositionChanged.bind(this)
     this.onSelectZipcode = this.onSelectZipcode.bind(this)
     this.goHome = this.goHome.bind(this)
-    this.toggleUsers = this.toggleUsers.bind(this)
     this.getZips = this.getZips.bind(this)
+    this.sendLocation = this.sendLocation.bind(this)
   }
 
   getPosition(options) {
@@ -58,7 +56,6 @@ export default class App extends React.Component {
           {'latLng': point},
           function (res, status) {
             var zip = res[0].formatted_address.match(/,\s\w{2}\s(\d{5})/)
-            console.log('zip', zip, zip[1])
             cb(zip[1])  
           }
       )
@@ -66,7 +63,6 @@ export default class App extends React.Component {
   
 
   componentWillReceiveProps(nextProps) {
-    console.log('hi', this.props.userId)
     if(this.props.userId) this.generateFavorites();
   }
 
@@ -80,7 +76,6 @@ export default class App extends React.Component {
        this.getZipFromCoords(lat, lng, (zip) =>
 
          this.setState({location: zip}, function(){
-            console.log('state set', this.state.location)
             that.searchHandlerByZip('delis', that.state.location) 
             that.setState({
               coords: {lat: lat, lng: lng}
@@ -94,21 +89,6 @@ export default class App extends React.Component {
     this.getZips()
   }
 
-  selectHandler(e) {
-    e.preventDefault();
-
-    if(e.target.name === 'openNow' || e.target.name === 'delivery'){
-      this.setState({[e.target.name]: !this.state[e.target.name]}, () => {
-        this.searchHandlerByZip(this.state.query, this.state.location, this.state.filter, this.state.sortBy, this.state.openNow, this.state.delivery);
-      })
-    } else {
-      this.setState({[e.target.name]: e.target.value}, () => {
-          this.searchHandlerByZip(this.state.query, this.state.location, this.state.filter, this.state.sortBy, this.state.openNow, this.state.delivery);
-      })
-     }
-  }
-
-
   searchHandlerByZip(term='delis', location='10007', filter, sortBy, openNow, delivery){
     this.setState({query: term, filter: filter, sortBy: sortBy, openNow: openNow, delivery: delivery},()=>{
       axios.post('/search', {term, location, filter, sortBy, openNow, delivery})
@@ -120,6 +100,12 @@ export default class App extends React.Component {
       .catch((err) => {
         console.log('err from axios: ', err);
       })
+    })
+  }
+
+  sendLocation(location){
+    this.setState({
+      location: location
     })
   }
 
@@ -145,7 +131,6 @@ export default class App extends React.Component {
     console.log('calling generate favorites', this.props.userId)
     if (this.props.userId) {
       ServerActions.getRequest('/favorite/'+this.props.userId, (result) => {
-        console.log('result', result)
           this.setState({
             favorites: result.data,
           }, () => console.log(this.state.favorites))
@@ -153,10 +138,6 @@ export default class App extends React.Component {
     }
   };
 
-  toggleUsers(){
-    console.log('suuuuuuup')
-    this.setState({usersToggled : !this.state.usersToggled})
-  }
 
   getZips(){
     axios.get('/ziproom').then((data) => this.setState({zips: data.data}))
@@ -165,22 +146,21 @@ export default class App extends React.Component {
   render() {   
     return (
       <div className={style.row}>
+
         <div className={style.column}>
-          <div className={style.columnPaddingLeft}> 
-            <Search search={this.searchHandlerByZip} 
-                    filterFunc={this.selectHandler} 
-                    filter={this.state.filter} 
-                    sortBy={this.state.sortBy} 
-                    openNow={this.state.openNow} 
-                    delivery={this.state.delivery} />
-                  
+        <Search search={this.searchHandlerByZip} 
+                sendLocation={this.sendLocation}/>
+          <div className={style.columnPaddingLeft}>    
             <div className={style.map}>
-              <span><Toggle label="Show Users" labelPosition="right" onToggle={this.toggleUsers}/></span>
-              <GoogleApiWrapper  zips={this.state.zips} usersToggled={this.state.usersToggled} goHome={this.goHome} onSelectZipcode={this.onSelectZipcode} faves={ this.state.favorites } markers={ this.state.results } onMarkerPositionChanged={ this.onMarkerPositionChanged} 
+              
+              <GoogleApiWrapper  zips={this.state.zips} goHome={this.goHome} onSelectZipcode={this.onSelectZipcode} faves={ this.state.favorites } markers={ this.state.results } onMarkerPositionChanged={ this.onMarkerPositionChanged} 
               xy={this.state.coords} />
             </div>
+
           </div>
+
         </div>
+
 
         <div className={style.column}>
           <div className={style.columnPaddingRight}>
@@ -205,6 +185,7 @@ export default class App extends React.Component {
                 />
               </Tab>
             </Tabs>
+
             <ChatBot location={this.state.location} restaurants={this.state.results}/>
           </div>
         </div>
