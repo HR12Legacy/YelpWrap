@@ -162,7 +162,7 @@ export default class App extends React.Component {
 
         <div className={style.column}>
           <div className={style.columnPaddingRight}>
-            <Location location={this.state.location} top={this.state.results.length ? this.state.results[0].name : ''}/>
+            {/* <Location location={this.state.location} top={this.state.results.length ? this.state.results[0].name : ''}/> */}
             <Tabs initialSelectedIndex={1}>
               <Tab label="Restaurants List" >
                 <div className={styles.entryList} style={{height: '100%'}}>

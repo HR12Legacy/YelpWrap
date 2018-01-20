@@ -22,9 +22,11 @@ class Base extends React.Component {
       isLoggedIn: false,
       userId: null,
       user: {},
+      location: null
     }
     this.refreshProfile = this.refreshProfile.bind(this);
     this.handleLogin = this.handleLogin.bind(this);
+    this.zipCallBack = this.zipCallBack.bind(this);
   }
 
   componentDidMount(){
@@ -65,7 +67,17 @@ class Base extends React.Component {
       })
   }
 
+  zipCallBack(zip) {
+    this.setState({
+      location: zip
+    })
+  }
+
   render() {
+    let welcome = (<div>YelpWrap</div>)
+    if (this.state.location) {
+      welcome = (<div>Welcome to {this.state.location}!</div>)
+    }
     return (
     <MuiThemeProvider muiTheme={getMuiTheme()}>
       <HashRouter>
@@ -84,7 +96,9 @@ class Base extends React.Component {
                 </IconButton>
                 </Link>
               </div>
-
+              <div className={style.topBarCenter}>
+                {welcome}
+              </div>
               <div className={style.topBarRight}>
                 {
                   !this.state.isLoggedIn ? 
@@ -106,6 +120,7 @@ class Base extends React.Component {
                 user={this.state.user}
                 refreshProfile={this.refreshProfile}
                 isLoggedIn={this.state.isLoggedIn}
+                zipCallBack={this.zipCallBack}
                 />
             }}/>
 
