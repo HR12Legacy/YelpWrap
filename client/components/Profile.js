@@ -76,26 +76,40 @@ class Profile extends React.Component {
     } else {
       buttonText = <div>&#9998;</div>;
     }
-    return(
-      <div>
-        <Card>
-          <img 
-            src={this.props.user ? this.props.user.image_url : 'http://hotchillitri.co.uk/wp-content/uploads/2016/10/empty-avatar.jpg'}
-            height="100"
-            width="100"
-          />
-          <br/>
-          <RaisedButton onClick={this.uploadWidget} className="upload-button">Update Avatar</RaisedButton>
-          <br/>
-          <br/>
-          {showOrInput}
-          <RaisedButton onClick={this.inputSwitcher}>{buttonText}</RaisedButton>
+    console.log('asdkajsdkajsdhkajsd', this.props.isLoggedIn)
+    if (!this.props.isLoggedIn) {
+      return (
+        <div>
+        <Card style={{height: '75vh', padding: '2.5vh'}}>
+          <div>
+            Log in or create an account to see profile!
+          </div>
         </Card>
-        <div className={styles.entryList} data-type="favorites">
-          <EntryList faves={ this.props.faves } userId={ this.props.userId } list={this.props.faves}/>
+
         </div>
-      </div>
-    )
+      )
+    } else {
+      return(
+        <div>
+          <Card style={{height: '75vh', padding: '2.5vh'}}>
+            <img 
+              src={this.props.user ? this.props.user.image_url : 'http://hotchillitri.co.uk/wp-content/uploads/2016/10/empty-avatar.jpg'}
+              height="100"
+              width="100"
+            />
+            <br/>
+            <RaisedButton onClick={this.uploadWidget} className="upload-button">Update Avatar</RaisedButton>
+            <br/>
+            <br/>
+            {showOrInput}
+            <RaisedButton onClick={this.inputSwitcher}>{buttonText}</RaisedButton>
+            <div className={styles.entryList} data-type="favorites">
+              <EntryList faves={ this.props.faves } userId={ this.props.userId } list={this.props.faves}/>
+            </div>
+          </Card>
+        </div>
+      )
+    }
   }
 
 }

@@ -186,7 +186,7 @@ export default class App extends React.Component {
             <Location location={this.state.location} top={this.state.results.length ? this.state.results[0].name : ''}/>
             <Tabs initialSelectedIndex={1}>
               <Tab label="Restaurants List" >
-                <div className={styles.entryList}>
+                <div className={styles.entryList} style={{height: '100%'}}>
                   <EntryList userId={ this.props.userId } list={this.state.results}/>
                 </div>
               </Tab>
@@ -199,6 +199,8 @@ export default class App extends React.Component {
                   list={this.state.favorites}
                   faves={this.state.favorites}
                   refreshProfile={this.props.refreshProfile}
+                  style={{height: '100%'}}
+                  isLoggedIn={this.props.isLoggedIn}
                 />
               </Tab>
             </Tabs>
