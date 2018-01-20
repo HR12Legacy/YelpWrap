@@ -23,7 +23,7 @@ body {
 
 .chatContainer {
   display: inline-block;
-  /* width: 50% */
+  width: 100%;
 }
 
 .chat {
@@ -31,7 +31,6 @@ body {
   margin: 0px;
   padding: 0px;
   display: inline-block;
-  border: 2px solid black;
   overflow: auto;
 }
 
@@ -53,7 +52,7 @@ body {
   width: 100%;
   margin-top: 5px;
   display: block;
-  height: 50px;
+  height: 65px;
 }
 
 .username {
@@ -82,6 +81,15 @@ body {
 
 .header {
   height: 5%;
+}
+
+.inputContainer {
+  width: 100%;
+}
+
+.inputContainer button {
+  width: 100%;
+  height: 25px;
 }
 
 

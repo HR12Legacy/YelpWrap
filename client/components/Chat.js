@@ -3,6 +3,8 @@ import io from 'socket.io-client';
 import $ from 'jquery';
 import axios from 'axios';
 import Avatar from 'material-ui/Avatar'
+import RaisedButton from 'material-ui/RaisedButton';
+import TextField from 'material-ui/TextField';
 import append from 'append-react-dom'
 import ReactDOM from 'react-dom'
 import moment from 'moment'
@@ -178,8 +180,10 @@ class Chat extends React.Component {
           <ul id="messages">
           </ul>
         </div>
-        <input type="text" value={this.state.message} onChange={this.handleChange} onKeyPress={this.handleEnter}/>
-        <button onClick={this.handleSubmit}>Submit</button>
+        <div className="inputContainer">
+          <TextField fullWidth={true} hintText="Type Something" value={this.state.message} onChange={this.handleChange} onKeyPress={this.handleEnter} />
+          <RaisedButton label="Submit" primary={true} fullWidth={true} onClick={this.handleSubmit} />
+        </div>
       </div>
     )
   }
