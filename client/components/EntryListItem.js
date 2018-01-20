@@ -24,7 +24,10 @@ class GridListItem extends React.Component {
       name: this.props.item.name,
       phone: '',
       display_address: this.props.item.location.display_address
-    }, console.log)
+    }, () => {
+      console.log('favorites??')
+      this.props.generateFavorites()
+    })
   }
 
   render(){
