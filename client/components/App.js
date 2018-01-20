@@ -139,7 +139,6 @@ export default class App extends React.Component {
   };
 
 
-
   getZips(){
     axios.get('/ziproom').then((data) => this.setState({zips: data.data}))
   }
