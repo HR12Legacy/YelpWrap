@@ -76,7 +76,6 @@ class Profile extends React.Component {
     } else {
       buttonText = <div>&#9998;</div>;
     }
-    console.log('asdkajsdkajsdhkajsd', this.props.isLoggedIn)
     if (!this.props.isLoggedIn) {
       return (
         <div>
