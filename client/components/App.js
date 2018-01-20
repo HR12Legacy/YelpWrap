@@ -149,6 +149,7 @@ export default class App extends React.Component {
         <div className={style.column}>
         <Search search={this.searchHandlerByZip} 
                 sendLocation={this.sendLocation}/>
+
           <div className={style.columnPaddingLeft}>    
             <div className={style.map}>
               
