@@ -23,7 +23,11 @@ body {
 
 .chatContainer {
   display: inline-block;
-  /* width: 50% */
+  width: 100%;
+<<<<<<< HEAD
+=======
+  height: 90%;
+>>>>>>> featBranch
 }
 
 .chat {
@@ -31,7 +35,6 @@ body {
   margin: 0px;
   padding: 0px;
   display: inline-block;
-  border: 2px solid black;
   overflow: auto;
 }
 
@@ -53,7 +56,11 @@ body {
   width: 100%;
   margin-top: 5px;
   display: block;
-  height: 50px;
+<<<<<<< HEAD
+  height: 65px;
+=======
+  height: 15%;
+>>>>>>> featBranch
 }
 
 .username {
@@ -65,11 +72,12 @@ body {
 .message {
   margin: 0px 0px 0px 10px;
   float: left;
+  width: 80%;
 }
 
 .images {
-  width: 40px;
-  height: 40px;
+  width: 55px;
+  height: 100%;
   border-radius: 50%;
   float: left;
 }
@@ -84,5 +92,18 @@ body {
   height: 5%;
 }
 
+.inputContainer {
+  width: 100%;
+}
+
+.inputContainer button {
+  width: 100%;
+  height: 25px;
+}
+
+.location span {
+  font-size: 2em;
+  margin: 0 auto;
+}
 
 
