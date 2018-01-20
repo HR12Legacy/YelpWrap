@@ -9,7 +9,7 @@ import append from 'append-react-dom'
 import ReactDOM from 'react-dom'
 import moment from 'moment'
 
-const socketUrl = 'http://localhost:1337'
+const socketUrl = 'http://yelpbotapp.herokuapp.com/' + process.env.PORT
 
 class Chat extends React.Component {
   constructor(props) {

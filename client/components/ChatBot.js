@@ -4,7 +4,8 @@ import $ from 'jquery';
 import axios from 'axios';
 import { getMuiTheme } from 'material-ui/styles/getMuiTheme';
 
-const socketUrl = 'http://localhost:1337'
+const socketUrl = 'http://yelpbotapp.herokuapp.com/' + process.env.PORT
+// 'http://localhost:1337'
 
 class ChatBot extends React.Component {
   constructor(props) {
