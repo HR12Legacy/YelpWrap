@@ -66,7 +66,7 @@ class MapContainer extends React.Component {
 
   render() {
       const mapStyle = {
-        'height': '100%', 
+        'height': '95%', 
         'width': '100%',
         'overflow': 'hidden',
         'paddingBottom': '22.25%',
@@ -76,9 +76,9 @@ class MapContainer extends React.Component {
 
       return (
         <span className={style.mapContainer}>
-        <RaisedButton label="Take me here!" onClick={this.props.onSelectZipcode}/>
-        <RaisedButton label="Go home" onClick={ this.props.goHome} />
-        <RaisedButton label="Show Users"  onClick={this.toggleUsers} primary={this.state.usersToggled}/>
+        <RaisedButton label="Take me here!" onClick={this.props.onSelectZipcode} className='third'/>
+        <RaisedButton label="Go home" onClick={ this.props.goHome} className='third'/>
+        <RaisedButton label="Show Users"  onClick={this.toggleUsers} className='third' primary={this.state.usersToggled}/>
           <Map
             google={this.props.google}
             center={

@@ -74,7 +74,7 @@ class Base extends React.Component {
   }
 
   render() {
-    let welcome = (<div>YelpWrap</div>)
+    let welcome = (<div></div>)
     if (this.state.location) {
       welcome = (<div>Welcome to {this.state.location}!</div>)
     }
@@ -95,6 +95,7 @@ class Base extends React.Component {
                 <ActionHome/>
                 </IconButton>
                 </Link>
+                YelpBot
               </div>
               <div className={style.topBarCenter}>
                 {welcome}

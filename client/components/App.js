@@ -75,7 +75,8 @@ export default class App extends React.Component {
        var lng = result.coords.longitude;
        this.getZipFromCoords(lat, lng, (zip) =>
          this.setState({location: zip}, function(){
-            that.searchHandlerByZip('delis', that.state.location) 
+            this.props.zipCallBack(this.state.location)
+            that.searchHandlerByZip('food', that.state.location) 
             that.setState({
               coords: {lat: lat, lng: lng}
             })  
@@ -88,10 +89,11 @@ export default class App extends React.Component {
     this.getZips()
   }
 
-  searchHandlerByZip(term='delis', location='10007', filter, sortBy, openNow, delivery){
+  searchHandlerByZip(term='food', location='10007', filter, sortBy, openNow, delivery){
     this.setState({query: term, filter: filter, sortBy: sortBy, openNow: openNow, delivery: delivery},()=>{
       axios.post('/searches', {location})
       .then((data) => {
+        this.props.zipCallBack(this.state.location)
         this.setState({results: data.data.businesses, 
           coords: {lat: data.data.region.center.latitude, lng: data.data.region.center.longitude}
         })
@@ -105,6 +107,8 @@ export default class App extends React.Component {
   sendLocation(location){
     this.setState({
       location: location
+    }, ()=> {
+      this.props.zipCallBack(this.state.location)
     })
   }
 
