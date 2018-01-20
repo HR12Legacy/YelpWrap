@@ -135,7 +135,7 @@ class Search extends React.Component {
         <br/>
         <div>
         &nbsp;&nbsp;&nbsp;
-          <SelectField floatingLabelText="Price" value={this.state.filter} onChange={this.filter}>
+          <SelectField style={{width: '150px'}} floatingLabelText="Price" value={this.state.filter} onChange={this.filter}>
             <MenuItem value="" primarytext="Tha Dolla Menu"/>
             <MenuItem value="2" primaryText="$$"/>
             <MenuItem value="3" primaryText="$$$"/>
@@ -144,7 +144,7 @@ class Search extends React.Component {
           
           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
        
-          <SelectField floatingLabelText="Sort By"  value={this.state.sortBy} onChange={this.sort} >
+          <SelectField style={{width: '150px'}} floatingLabelText="Sort By"  value={this.state.sortBy} onChange={this.sort} >
             <MenuItem value="best_match" primaryText="Best Match"></MenuItem>
             <MenuItem value="rating" primaryText="Highest Rated"></MenuItem>
             <MenuItem value="review_count" primaryText="Most Reviewed"></MenuItem>
