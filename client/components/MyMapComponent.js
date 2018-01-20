@@ -61,7 +61,6 @@ class MapContainer extends React.Component {
   }
 
   toggleUsers(){
-    console.log('yo')
     this.setState({usersToggled : !this.state.usersToggled})
   }
 
@@ -107,7 +106,8 @@ class MapContainer extends React.Component {
                   position={{lat, lng}}
                 />)
               })}
-    {this.props.zips.map((zip, idx) => {
+           {this.props.zips.map((zip, idx) => {
+          
                 var zip = zipcodes.lookup(zip)
                 var code = zip.zip
                 var lat = zip.latitude

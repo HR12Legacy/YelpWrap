@@ -3,6 +3,9 @@ import style from './container.css';
 import TextField from 'material-ui/TextField';
 import IconButton from 'material-ui/IconButton';
 import ActionSearch from 'material-ui/svg-icons/action/search';
+import SelectField from 'material-ui/SelectField';
+import RaisedButton from 'material-ui/RaisedButton';
+import MenuItem from 'material-ui/MenuItem';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 
@@ -14,19 +17,45 @@ class Search extends React.Component {
     this.state = {
       term: '',
       location: '',
+      openNow: false,
+      delivery: false, 
+      sortBy: '', 
+      filter: '', 
+      sortOptions: [],
+      filterOptions: [] 
     }
+
     this.changeHandler = this.changeHandler.bind(this)
     this.clickHandler = this.clickHandler.bind(this)
+    this.sort = this.sort.bind(this)
+    this.filter = this.filter.bind(this)
   }
 
-  changeHandler(e){
-    e.preventDefault();
-    this.setState({[e.target.name]: e.target.value});
-  }
   clickHandler(e){
     e.preventDefault();
     this.props.sendLocation(this.state.location)
-    this.props.search(this.state.term, this.state.location, this.props.filter, this.props.sortBy, this.props.openNow);
+    this.props.search(this.state.term, this.state.location, this.state.filter, this.state.sortBy, this.state.openNow);
+  }
+
+  changeHandler(e, index, value) {
+    e.preventDefault();
+    if (e.target.value){
+      let key = e.target.name
+      let val = (e.target.value)
+      this.setState({ [key] : val })
+    } else if (e.target.innerHTML === 'Open Now'){
+       this.setState({openNow: !this.state.openNow})
+    } else if (e.target.innerHTML === 'Has Delivery'){
+      this.setState({delivery: !this.state.delivery})
+    } 
+  }
+
+  sort(e, index, value){
+    this.setState({sortBy: value})
+  }
+
+  filter(e, index, value){
+    this.setState({filter: value})
   }
 
   //MERGE COPY WITH SELECT AND MY NEW TEXT FIELDS
@@ -106,26 +135,24 @@ class Search extends React.Component {
         <br/>
         <div>
         &nbsp;&nbsp;&nbsp;
-          <select style={styles.dropDown} name="filter" onChange={this.props.filterFunc}>
-            <option value="" disabled selected hidden>Price</option>
-            <option value="1">Tha Dolla Menu</option>
-            <option value="2">$$</option>
-            <option value="3">$$$</option>
-            <option value="4">Bourgeoisie</option>
-          </select> 
+          <SelectField floatingLabelText="Price" value={this.state.filter} onChange={this.filter}>
+            <MenuItem value="" primarytext="Tha Dolla Menu"/>
+            <MenuItem value="2" primaryText="$$"/>
+            <MenuItem value="3" primaryText="$$$"/>
+            <MenuItem value="4" primaryText="Bourgeoisie"/>
+          </SelectField> 
           
           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-          
-          <select name="sortBy" style={styles.dropDown} onChange={this.props.filterFunc} >
-            <option value="" disabled selected hidden>Sort By</option>
-            <option value="best_match">Best Match</option>
-            <option value="rating">Highest Rated</option>
-            <option value="review_count">Most Reviewed</option>
-          </select>
+       
+          <SelectField floatingLabelText="Sort By"  value={this.state.sortBy} onChange={this.sort} >
+            <MenuItem value="best_match" primaryText="Best Match"></MenuItem>
+            <MenuItem value="rating" primaryText="Highest Rated"></MenuItem>
+            <MenuItem value="review_count" primaryText="Most Reviewed"></MenuItem>
+          </SelectField>
           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-          <button name='openNow' onClick={this.props.filterFunc} style={styles.buttonOpen}> Open Now</button>
+          <RaisedButton name='openNow' onClick={this.changeHandler} label="Open Now" primary={this.state.openNow}/>
           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-          <button name='delivery' onClick={this.props.filterFunc} style={styles.buttonOpen}>Has Delivery</button>
+          <RaisedButton name='delivery' onClick={this.changeHandler} label="Has Delivery" primary={this.state.delivery}/>
        </div>
        <br/>
 
