@@ -66,12 +66,12 @@ export default class App extends React.Component {
   
 
   componentWillReceiveProps(nextProps) {
-    console.log(this.props.userId)
+    console.log('hi', this.props.userId)
     if(this.props.userId) this.generateFavorites();
   }
 
   componentDidMount() {
-
+    this.generateFavorites()
     var that = this;
     this.getPosition()
     .then(result => {
@@ -142,6 +142,7 @@ export default class App extends React.Component {
   }
 
   generateFavorites(callback) {
+    console.log('calling generate favorites', this.props.userId)
     if (this.props.userId) {
       ServerActions.getRequest('/favorite/'+this.props.userId, (result) => {
         console.log('result', result)
@@ -187,7 +188,7 @@ export default class App extends React.Component {
             <Tabs initialSelectedIndex={1}>
               <Tab label="Restaurants List" >
                 <div className={styles.entryList} style={{height: '100%'}}>
-                  <EntryList userId={ this.props.userId } list={this.state.results}/>
+                  <EntryList userId={ this.props.userId } list={this.state.results} generateFavorites={this.generateFavorites}/>
                 </div>
               </Tab>
               <Tab label="Chat" >

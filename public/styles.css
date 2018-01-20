@@ -24,10 +24,7 @@ body {
 .chatContainer {
   display: inline-block;
   width: 100%;
-<<<<<<< HEAD
-=======
   height: 90%;
->>>>>>> featBranch
 }
 
 .chat {
@@ -56,11 +53,8 @@ body {
   width: 100%;
   margin-top: 5px;
   display: block;
-<<<<<<< HEAD
   height: 65px;
-=======
-  height: 15%;
->>>>>>> featBranch
+  /*height: 15%;*/
 }
 
 .username {
