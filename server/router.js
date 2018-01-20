@@ -26,11 +26,13 @@ const checkUser = function(req, res, next){
 const createSession = function(req, res, userObj) {
   return req.session.regenerate(function() {
       req.session.user = userObj;
-
       res.json(userObj)
     });
 };
 
+router.post('/test', function(req, res){
+  console.log('this is a test postman')
+})
 
 router.get('/session', checkUser, (req, res) => res.json(req.session.user))
 
@@ -42,11 +44,12 @@ router.get('/reviews/:id', function(req, res){
 })
 
 
-router.post('/search', function(req, res){
+router.post('/searches', function(req, res){
+  console.log('testing')
   var qs; // qs are the params for request to yelps api 
   if(req.body.location) { //this if statement to check wheter location was given in human readable (zip code etc.) or coordinates
     qs = {term: req.body.term,
-      limit: 100,
+      limit: 50,
       location: req.body.location,
       price: req.body.filter,
       radius: 2092,      
@@ -72,7 +75,6 @@ router.post('/search', function(req, res){
   }; 
 
   request(options, (err, response, body) => {
-
     var datas = JSON.parse(body);
     if (datas.businesses) {
       datas.businesses = datas.businesses.filter( bus => bus.location.zip_code === req.body.location)
@@ -157,8 +159,9 @@ router.post('/login', (req, res) => {
     new User({email: req.body.email})
     .fetch()
     .then(user => {
-      user.comparePassword(req.body.password, (match) => {
 
+     user.comparePassword(req.body.password, (match) => {
+          console.log(4)
         if(match) {
            var responseObj = {
               success:true,
@@ -166,9 +169,11 @@ router.post('/login', (req, res) => {
               userId: user.id,
               user: user
           }
+          console.log(5)
           createSession(req, res, responseObj)
          
         } else {
+          console.log(6)
           // validationResult.message = 'Check form for errors';
           // validationResult.errors = 'Invalid combinations';
           return res.status(400).send({

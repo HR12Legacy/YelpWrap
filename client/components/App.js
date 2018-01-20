@@ -74,7 +74,6 @@ export default class App extends React.Component {
        var lat = result.coords.latitude;
        var lng = result.coords.longitude;
        this.getZipFromCoords(lat, lng, (zip) =>
-
          this.setState({location: zip}, function(){
             that.searchHandlerByZip('delis', that.state.location) 
             that.setState({
@@ -91,14 +90,14 @@ export default class App extends React.Component {
 
   searchHandlerByZip(term='delis', location='10007', filter, sortBy, openNow, delivery){
     this.setState({query: term, filter: filter, sortBy: sortBy, openNow: openNow, delivery: delivery},()=>{
-      axios.post('/search', {term, location, filter, sortBy, openNow, delivery})
+      axios.post('/searches', {location})
       .then((data) => {
         this.setState({results: data.data.businesses, 
           coords: {lat: data.data.region.center.latitude, lng: data.data.region.center.longitude}
         })
       })
       .catch((err) => {
-        console.log('err from axios: ', err);
+        console.log('err from axios: ')
       })
     })
   }
@@ -152,7 +151,6 @@ export default class App extends React.Component {
                 sendLocation={this.sendLocation}/>
           <div className={style.columnPaddingLeft}>    
             <div className={style.map}>
-              
               <GoogleApiWrapper  zips={this.state.zips} goHome={this.goHome} onSelectZipcode={this.onSelectZipcode} faves={ this.state.favorites } markers={ this.state.results } onMarkerPositionChanged={ this.onMarkerPositionChanged} 
               xy={this.state.coords} />
             </div>
