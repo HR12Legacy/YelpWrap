@@ -7,6 +7,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 
 
+
 class Search extends React.Component {
   constructor (props){
     super(props)
@@ -24,6 +25,7 @@ class Search extends React.Component {
   }
   clickHandler(e){
     e.preventDefault();
+    this.props.sendLocation(this.state.location)
     this.props.search(this.state.term, this.state.location, this.props.filter, this.props.sortBy, this.props.openNow);
   }
 
@@ -82,7 +84,7 @@ class Search extends React.Component {
         <div>
         &nbsp;&nbsp;&nbsp;&nbsp;
         <TextField
-          floatingLabelText="Place, Bussiness, Restaurant..."
+          floatingLabelText="Place, Business, Restaurant..."
           name="term"
           onChange={this.changeHandler}
           value={this.state.term}
