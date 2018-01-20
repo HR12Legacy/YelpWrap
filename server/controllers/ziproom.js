@@ -19,9 +19,10 @@ const ziproomController = {
   },
   addZiproom: function(ziproom, cb) {
     this.doesZiproomExist(ziproom.zipcode, (exists, model, error) => {
+      console.log('exists, model, error', exists, model, error)
       if (exists) {
         cb(true, model, undefined)
-      } else if (error === undefined){
+      } else if (error === undefined && ziproom.zipcode){
         let instance = new Ziproom({
           zipcode: ziproom.zipcode,
           user_count: 0,

@@ -12,6 +12,7 @@ import ServerActions from '../ServerActions';
 import Location from './Location.js'
 import Profile from './Profile';
 import {Tabs, Tab} from 'material-ui/Tabs'
+const zipcodes = require('zipcodes')
 /**
  * NOTICE:
  * npm install --save axios on production branch 
@@ -32,10 +33,9 @@ export default class App extends React.Component {
       chatroom: {}, 
       messages: [], 
       zips: []
-    }
+    }    
 
     this.searchHandlerByZip = this.searchHandlerByZip.bind(this);
-    this.selectHandler = this.selectHandler.bind(this);
     this.generateFavorites = this.generateFavorites.bind(this);
     this.onMarkerPositionChanged = this.onMarkerPositionChanged.bind(this)
     this.onSelectZipcode = this.onSelectZipcode.bind(this)
@@ -88,20 +88,6 @@ export default class App extends React.Component {
     }) 
     this.getZips()
   }
-
-  selectHandler(e) {
-    e.preventDefault();
-    if(e.target.name === 'openNow' || e.target.name === 'delivery'){
-      this.setState({[e.target.name]: !this.state[e.target.name]}, () => {
-        this.searchHandlerByZip(this.state.query, this.state.location, this.state.filter, this.state.sortBy, this.state.openNow, this.state.delivery);
-      })
-    } else {
-      this.setState({[e.target.name]: e.target.value}, () => {
-          this.searchHandlerByZip(this.state.query, this.state.location, this.state.filter, this.state.sortBy, this.state.openNow, this.state.delivery);
-      })
-     }
-  }
-
 
   searchHandlerByZip(term='delis', location='10007', filter, sortBy, openNow, delivery){
     this.setState({query: term, filter: filter, sortBy: sortBy, openNow: openNow, delivery: delivery},()=>{
@@ -164,12 +150,7 @@ export default class App extends React.Component {
 
         <div className={style.column}>
         <Search search={this.searchHandlerByZip} 
-                    filterFunc={this.selectHandler} 
-                    filter={this.state.filter} 
-                    sortBy={this.state.sortBy} 
-                    openNow={this.state.openNow} 
-                    delivery={this.state.delivery} 
-                    sendLocation={this.sendLocation}/>
+                sendLocation={this.sendLocation}/>
           <div className={style.columnPaddingLeft}>    
             <div className={style.map}>
               
