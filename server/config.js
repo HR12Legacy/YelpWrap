@@ -3,9 +3,10 @@ const config =require('../config.js');
 const knex = require('knex')({
 	client: 'pg',
 	connection: {
-		host: 'localhost',
+		host: 'yelpwrap.ccvz2vysnybs.us-east-2.rds.amazonaws.com',
 		port: '5432',
-		user: config.DB_USER,
+		user: 'yelpwrap',
+		password: 'yelpwrap',
 		database: 'yelpwrap'
 	}
 });
