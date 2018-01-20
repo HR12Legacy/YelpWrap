@@ -24,6 +24,10 @@ body {
 .chatContainer {
   display: inline-block;
   width: 100%;
+<<<<<<< HEAD
+=======
+  height: 90%;
+>>>>>>> featBranch
 }
 
 .chat {
@@ -52,7 +56,11 @@ body {
   width: 100%;
   margin-top: 5px;
   display: block;
+<<<<<<< HEAD
   height: 65px;
+=======
+  height: 15%;
+>>>>>>> featBranch
 }
 
 .username {
@@ -64,11 +72,12 @@ body {
 .message {
   margin: 0px 0px 0px 10px;
   float: left;
+  width: 80%;
 }
 
 .images {
-  width: 40px;
-  height: 40px;
+  width: 55px;
+  height: 100%;
   border-radius: 50%;
   float: left;
 }
@@ -92,5 +101,9 @@ body {
   height: 25px;
 }
 
+.location span {
+  font-size: 2em;
+  margin: 0 auto;
+}
 
 
