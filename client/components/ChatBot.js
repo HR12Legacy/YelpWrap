@@ -4,8 +4,6 @@ import $ from 'jquery';
 import axios from 'axios';
 import { getMuiTheme } from 'material-ui/styles/getMuiTheme';
 
-const socketUrl = 'http://localhost:1337'
-
 class ChatBot extends React.Component {
   constructor(props) {
     super(props)
@@ -46,17 +44,8 @@ class ChatBot extends React.Component {
     this.nextReview = this.nextReview.bind(this)
   }
 
-  componentWillMount() {
-    this.initSocket();
-  }
-
   componentDidMount() {
-    let {socket} = this.state;
-    socket.emit('newRoom', `${this.props.location}`)
-    this.getRoomData()
-    socket.on(`${this.props.location}`, (message) => {
-      this.messageHandler(message)
-    })
+    this.initSocket();
   }
 
   componentWillReceiveProps() {
@@ -67,6 +56,7 @@ class ChatBot extends React.Component {
     socket.emit('newRoom', `${this.props.location}`)
     this.getRoomData()
     socket.on(`${this.props.location}`, (message) => {
+      console.log('ok')
       this.messageHandler(message)
     })
     this.setState({
@@ -416,7 +406,7 @@ class ChatBot extends React.Component {
       howareyou: 1
     }, ()=> {
       setTimeout(() => {
-        this.botSubmit(`Pretty good for a robot slave. How about you?`)
+        this.botSubmit(`I'm great! Nothing like spending your day looking up restaurant info for people. How about you?`)
       }, 500)
     })
   }
@@ -447,14 +437,12 @@ class ChatBot extends React.Component {
       .then(data => {
         this.setState({
           currentRoomId: data.data.room.id,
-        }, () => {
-          // this.botSubmit()
         })
       })
   }
 
   initSocket() {
-    const socket = io(socketUrl)
+    const socket = io()
     this.setState({socket})
   }
 
