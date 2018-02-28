@@ -15,7 +15,6 @@ const isLoggedIn = function(req) {
 
 const checkUser = function(req, res, next){
   if (!isLoggedIn(req)) {
-    console.log('hi')
     res.json(false)
   } else {
     console.log('something')
@@ -45,7 +44,6 @@ router.get('/reviews/:id', function(req, res){
 
 
 router.post('/searches', function(req, res){
-  console.log('testing')
   var qs; // qs are the params for request to yelps api 
   if(req.body.location) { //this if statement to check wheter location was given in human readable (zip code etc.) or coordinates
     qs = {term: req.body.term,
