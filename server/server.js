@@ -27,19 +27,7 @@ app.use(session({
   saveUninitialized: true
 }));
 
-
-// app.use(webpackMiddleware(compiler, {
-// 	hot: true,
-// 	filename: 'bundle.js',
-// 	publicPath: '/',
-// 	stats: {
-// 		colors: true,
-// 	},
-// 	historyApiFallback: true,
-// }));
-
 io.on('connection', socketManager.connect);
-
 
 app.use('/', router)
 
