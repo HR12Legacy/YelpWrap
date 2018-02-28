@@ -4,9 +4,6 @@ import $ from 'jquery';
 import axios from 'axios';
 import { getMuiTheme } from 'material-ui/styles/getMuiTheme';
 
-const socketUrl = 'http://yelpbotapp.herokuapp.com/' + process.env.PORT
-// 'http://localhost:1337'
-
 class ChatBot extends React.Component {
   constructor(props) {
     super(props)
@@ -417,7 +414,7 @@ class ChatBot extends React.Component {
       howareyou: 1
     }, ()=> {
       setTimeout(() => {
-        this.botSubmit(`Pretty good for a robot slave. How about you?`)
+        this.botSubmit(`I'm great! Nothing like spending your day looking up restaurant info for people. How about you?`)
       }, 500)
     })
   }
@@ -448,18 +445,17 @@ class ChatBot extends React.Component {
       .then(data => {
         this.setState({
           currentRoomId: data.data.room.id,
-        }, () => {
-          // this.botSubmit()
         })
       })
   }
 
   initSocket() {
-    const socket = io(socketUrl)
+    const socket = io()
     this.setState({socket})
   }
 
   botSubmit(message) {
+    console.log(message)
     const username = 'chatbot'
     const {socket} = this.state
     this.saveMessage(message)
