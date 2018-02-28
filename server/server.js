@@ -7,6 +7,10 @@ const path = require('path');
 const router = require('./router.js');
 const db = require('./config').db;
 const app = express();
+const http = require('http').Server(app);
+const io = module.exports.io = require('socket.io')(http);
+const socketManager = require('./socketManager.js')
+const session = require('express-session')
 
 app.set('PORT', process.env.PORT || 1337);
 
@@ -17,19 +21,16 @@ const compiler = webpack(config);
 
 app.use(express.static(path.join(__dirname, '../public')))
 
-app.use(webpackMiddleware(compiler, {
-	hot: true,
-	filename: 'bundle.js',
-	publicPath: '/',
-	stats: {
-		colors: true,
-	},
-	historyApiFallback: true,
+app.use(session({
+  secret: 'oldyelper',
+  resave: false,
+  saveUninitialized: true
 }));
 
+io.on('connection', socketManager.connect);
 
 app.use('/', router)
 
-app.listen(app.get('PORT'), () => {
+http.listen(app.get('PORT'), () => {
   console.log('App listening on port:', app.get('PORT'));
 })

@@ -1,8 +1,9 @@
-const db = require('../config.js').db
+const bookshelf = require('../config.js').db
 var bcrypt = require('bcrypt');
 var Promise = require('bluebird');
+const Message = require('./Message.js')
 
-const User = db.Model.extend({
+const User = bookshelf.Model.extend({
 	tableName: 'users',
 	initialize: function() {
 		this.on('creating', this.hashPassword);
@@ -20,7 +21,10 @@ const User = db.Model.extend({
 			})
 			.catch(err => console.log(err))
 
+	},
+	messages: function() {
+		return this.hasMany(Message)
 	}
 })
 
-module.exports = User;
+module.exports = bookshelf.model('User', User);

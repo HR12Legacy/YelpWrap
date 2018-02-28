@@ -11,8 +11,8 @@ const styles = {
     justifyContent: 'space-around',
   },
   gridList: {
-    width: 450,
-    height: 550,
+    width: '100%',
+    height: '73vh',
     overflowY: 'auto',
   },
 };
@@ -27,7 +27,7 @@ class EntryList extends React.Component {
         <MuiThemeProvider>
           <GridList cols="1" style={styles.gridList}>
             { 
-              this.props.list.map((item, idx)=>{return <GridListItem userId={ this.props.userId }key={ idx } item={ item }/>})
+              this.props.list.map((item, idx)=>{return <GridListItem userId={ this.props.userId }key={ idx } item={ item } generateFavorites={this.props.generateFavorites}/>})
             }
           </GridList>
           </MuiThemeProvider>

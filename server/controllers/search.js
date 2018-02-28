@@ -1,5 +1,5 @@
 const request = require('request')
-const config =require('../../config.js');
+require('dotenv').load();
 
 module.exports = {
   request: (body, cb) => {
@@ -16,17 +16,29 @@ module.exports = {
         longitude: body.lng
       };
     }
+
     const options = {
       url: 'https://api.yelp.com/v3/businesses/search?',
-      headers: {'Authorization': `Bearer ${config.Yelp_TOKEN}` },
+      headers: {'Authorization': `Bearer ${process.env.Yelp_TOKEN}` },
       qs: qs
     }; 
 
     request(options, (err, response, body) => {
       console.log(body)
       var results = JSON.parse(body);
-      console.log(results)
       cb(results.businesses)
+    })
+  },
+
+  getReviews: (id, cb) => {
+    const options = {
+      url: 'https://api.yelp.com/v3/businesses/' + id  + '/reviews',
+      headers: {'Authorization': `Bearer ${process.env.Yelp_TOKEN}` }
+    }; 
+
+    request(options, (err, response, body) => {
+      var results = JSON.parse(body);
+      cb(results.reviews)
     })
   }
 }

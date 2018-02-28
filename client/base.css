@@ -1,6 +1,7 @@
 .topBar {
   padding: 10px 15px;
-  margin-bottom: 50px;
+  /* margin-bottom: 50px; */
+  height: 30px;
 }
 .topBar::after {
   content: '';
@@ -13,7 +14,21 @@
 }
 .topBarRight {
   float: right;
+  margin-top: 17px;
 }
+
+.topBarRight a {
+  margin-right: 10px;
+}
+
+.topBarCenter {
+  float: left;
+  margin-left: 30%;
+  font-size: 150%;
+  position: relative;
+  text-align: center;
+}
+
 .smallIcon {
   width: 36;
   height: 36;

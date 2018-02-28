@@ -32,7 +32,7 @@ processForm(event) {
         this.setState({
           errors: {}
         });
-        this.props.login(xhr.response.userId);
+        this.props.login(xhr.response.userId, xhr.response.user);
       } else {
         const errors = xhr.response.errors ? xhr.response.errors : {};
         errors.summary = xhr.response.message;

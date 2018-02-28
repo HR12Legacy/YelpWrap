@@ -1,3 +1,5 @@
+html { font-family: 'Roboto', sans-serif; }
+
 body {
   margin: 0;
   font-size: 16px;
@@ -18,3 +20,90 @@ body {
   padding: 0 16px;
   color: green;
 }
+
+/* Chat Room */
+
+.chatContainer {
+  display: inline-block;
+  width: 100%;
+  height: 90%;
+}
+
+.chat {
+  width: 100%;
+  margin: 0px;
+  padding: 0px;
+  display: inline-block;
+  overflow: auto;
+}
+
+#messages {
+  list-style-type: none;
+  padding-left: 2.5%;
+  height: 65vh;
+  overflow: auto;
+}
+
+.userMessageContainer {
+  width: 100%;
+  margin-top: 5px;
+  display: block;
+  height: 50px;
+}
+
+.messageContainer {
+  width: 100%;
+  margin-top: 5px;
+  display: block;
+  height: 65px;
+  /*height: 15%;*/
+}
+
+.username {
+  float: left;
+  font-weight: bold;
+  margin: 0px 0px 0px 10px;
+}
+
+.message {
+  margin: 0px 0px 0px 10px;
+  float: left;
+  width: 80%;
+}
+
+.images {
+  width: 55px;
+  height: 100%;
+  border-radius: 50%;
+  float: left;
+}
+
+.timestamp {
+  font-weight: normal;
+  font-style: italic;
+  font-size: .8em;
+}
+
+.header {
+  height: 5%;
+}
+
+.inputContainer {
+  width: 100%;
+}
+
+.inputContainer button {
+  width: 100%;
+  height: 25px;
+}
+
+.location span {
+  font-size: 2em;
+  margin: 0 auto;
+}
+
+.third {
+  width: 33%
+}
+
+
