@@ -48,15 +48,6 @@ class ChatBot extends React.Component {
     this.initSocket();
   }
 
-  componentDidMount() {
-    // let {socket} = this.state;
-    // socket.emit('newRoom', `${this.props.location}`)
-    // this.getRoomData()
-    // socket.on(`${this.props.location}`, (message) => {
-    //   this.messageHandler(message)
-    // })
-  }
-
   componentWillReceiveProps() {
     let {socket} = this.state
     socket.disconnect()
