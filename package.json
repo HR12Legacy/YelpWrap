@@ -5,8 +5,9 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon server/server.js",
-    "build": "webpack --config webpack-config.js --watch",
-    "test": "mocha"
+    "build": "webpack --config webpack-config.js",
+    "test": "mocha",
+    "heroku-postbuild": "webpack -p --config ./webpack.prod.config.js --progress"
   },
   "author": "Gustaf Brostedt",
   "license": "ISC",
