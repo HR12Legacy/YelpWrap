@@ -9,8 +9,6 @@ import append from 'append-react-dom'
 import ReactDOM from 'react-dom'
 import moment from 'moment'
 
-const socketUrl = 'http://localhost:1337'
-
 class Chat extends React.Component {
   constructor(props) {
     super(props)
@@ -78,7 +76,7 @@ class Chat extends React.Component {
   }
 
   initSocket() {
-    const socket = io(socketUrl);
+    const socket = io();
     
     socket.on('connect', () => {
       console.log('connecting')
@@ -101,7 +99,6 @@ class Chat extends React.Component {
     const username = this.props.user.name || 'Anonymous'
     const {socket} = this.state
     const {message} = this.state
-    console.log('sending url', this.props.user.image_url)
     this.saveMessage(message)
     socket.emit(`${this.props.location}`, {
       username: `${username}`,

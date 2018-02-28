@@ -1,7 +1,6 @@
 import React from 'react';
 import {Map, InfoWindow, Marker, GoogleApiWrapper} from 'google-maps-react';
 const CaretUp = require("react-icons/lib/fa/caret-up");
-import keys from '../../config';
 import style from './container.css';
 import star from 'material-ui/svg-icons/toggle/star';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
@@ -143,6 +142,6 @@ class MapContainer extends React.Component {
 }
 
 export default GoogleApiWrapper({
-  apiKey: (keys.GoogleMap_TOKEN)
+  apiKey: ('AIzaSyD0DW99B48t39VDSNAE_S4g0g-4d7A6ZOg')
 })(MapContainer)
 

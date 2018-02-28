@@ -2,7 +2,7 @@ const axios = require('axios');
 const bodyParser = require('body-parser');
 const request = require('request')
 const router = require('express').Router();
-const config =require('../config.js');
+require('dotenv').load();
 const controllers = require('../server/controllers/mainController.js');
 const util = require('./util.js');
 const User = require('./models/User')
@@ -15,7 +15,6 @@ const isLoggedIn = function(req) {
 
 const checkUser = function(req, res, next){
   if (!isLoggedIn(req)) {
-    console.log('hi')
     res.json(false)
   } else {
     console.log('something')
@@ -45,7 +44,6 @@ router.get('/reviews/:id', function(req, res){
 
 
 router.post('/searches', function(req, res){
-  console.log('testing')
   var qs; // qs are the params for request to yelps api 
   if(req.body.location) { //this if statement to check wheter location was given in human readable (zip code etc.) or coordinates
     qs = {term: req.body.term,
@@ -56,21 +54,11 @@ router.post('/searches', function(req, res){
       open_now: req.body.openNow,
       sort_by: req.body.sortBy,
     };
-  // } else {
-  //   qs = {term: req.body.term,
-  //     limit: 4,
-  //     radius: 8046,
-  //     latitude: req.body.lat,
-  //     longitude: req.body.lng,
-  //     price: req.body.filter,
-  //     open_now: req.body.openNow,
-  //     sort_by: req.body.sortBy,
-  //   };
   }
 
   const options = {
     url: 'https://api.yelp.com/v3/businesses/search?',
-    headers: {'Authorization': `Bearer ${config.Yelp_TOKEN}` },
+    headers: {'Authorization': `Bearer ${process.env.Yelp_TOKEN}` },
     qs: qs
   }; 
 

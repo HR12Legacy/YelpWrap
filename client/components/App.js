@@ -17,7 +17,6 @@ const zipcodes = require('zipcodes')
  * NOTICE:
  * npm install --save axios on production branch 
  */
-//aaron was here
 
 export default class App extends React.Component {
   constructor(props) {
@@ -131,7 +130,6 @@ export default class App extends React.Component {
   }
 
   generateFavorites(callback) {
-    console.log('calling generate favorites', this.props.userId)
     if (this.props.userId) {
       ServerActions.getRequest('/favorite/'+this.props.userId, (result) => {
           this.setState({
