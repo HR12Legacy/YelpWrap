@@ -44,7 +44,7 @@ class ChatBot extends React.Component {
     this.nextReview = this.nextReview.bind(this)
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.initSocket();
   }
 
