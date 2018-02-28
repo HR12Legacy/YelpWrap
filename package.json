@@ -6,11 +6,12 @@
   "scripts": {
     "start": "nodemon server/server.js",
     "build": "webpack --config webpack-config.js --watch",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha"
   },
   "author": "Gustaf Brostedt",
   "license": "ISC",
   "dependencies": {
+    "append-react-dom": "^1.0.1",
     "axios": "^0.17.1",
     "babel": "^6.23.0",
     "babel-core": "^6.26.0",
@@ -20,15 +21,22 @@
     "bcrypt": "^1.0.3",
     "bookshelf": "^0.12.0",
     "css-loader": "^0.28.7",
+    "dotenv": "^5.0.1",
     "express": "^4.16.2",
+    "express-session": "^1.15.6",
+    "fstream": "1.0.11",
+    "google-map-react": "^0.27.0",
     "google-maps-react": "^1.1.2",
     "googlemaps": "^1.12.0",
     "history": "^4.7.2",
+    "jquery": "^3.2.1",
     "knex": "^0.14.2",
     "markerclustererplus": "^2.1.4",
     "material-design-icons": "^3.0.1",
     "material-ui": "^0.20.0",
+    "moment": "^2.20.1",
     "nodemon": "^1.14.7",
+    "npmlog": "4.1.2",
     "pg": "^7.4.0",
     "react": "^16.2.0",
     "react-bootstrap": "^0.31.5",
@@ -38,9 +46,17 @@
     "react-router": "^4.2.0",
     "react-router-dom": "^4.2.2",
     "react-tap-event-plugin": "^3.0.2",
+    "sessions": "0.0.2-7",
+    "socket.io": "^2.0.4",
+    "socket.io-client": "^2.0.4",
     "style-loader": "^0.19.1",
     "validator": "^9.2.0",
     "webpack": "^3.10.0",
-    "webpack-dev-middleware": "^2.0.3"
+    "webpack-dev-middleware": "^2.0.3",
+    "zipcodes": "^6.0.0"
+  },
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "mocha": "^5.0.0"
   }
 }

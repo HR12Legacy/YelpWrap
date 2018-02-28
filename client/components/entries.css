@@ -1,0 +1,61 @@
+.entryList {
+  display: flex;
+  margin: 0px;
+  float: left;
+  position: sticky;
+  clear: both;
+}
+
+.entryListItem {
+  padding: 15px; 
+  margin: 15px; 
+  border: 1px solid red; 
+  width: 100%; 
+  height: 60px;
+}
+
+.favEntryList {
+  display: flex; 
+  flex-wrap: wrap; 
+  height: 250px; 
+  width: 40%; 
+  overflow-y: scroll;
+  position: sticky;
+}
+
+.favEntryListItem {
+  padding: 15px; 
+  margin: 15px; 
+  border: 1px solid red; 
+  width: 100%; 
+  height: 60px;
+}
+
+.imageEntryListItem {
+  height: auto; 
+  width: 25%;
+}
+
+.imageFavEntryListItem {
+  height: auto; 
+  width: 25%;
+}
+
+.textBoxListItem {
+  float: right;
+}
+
+.textBoxFavListItem {
+  float: right;
+}
+
+.root {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+.gridList {
+  width: 450px;
+  height: 550px;
+  overflow-y: auto;
+}

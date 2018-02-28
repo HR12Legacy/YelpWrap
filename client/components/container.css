@@ -1,0 +1,44 @@
+
+.mapContainer{
+  height: 35vh; 
+  display: block;
+  position: sticky;
+}
+.map{
+  float: left;
+  width: 100%;
+  clear: both;
+  position: relative;
+}
+
+.searchContainer {
+  height: 15vh; 
+  display: block;
+  position: sticky;
+}
+
+.appContainer {
+  height: 95vh; 
+  display: block;
+  position: sticky;
+}
+
+.column {
+  float: left;
+  width: 50%;
+}
+
+.columnPaddingLeft {
+  padding: 10px;
+}
+
+.columnPaddingRight {
+  padding: 10px;
+  padding-left: 0px;
+}
+
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
