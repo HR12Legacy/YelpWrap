@@ -10,7 +10,7 @@
     "start": "nodemon server/server.js",
     "build": "webpack --config webpack-config.js",
     "test": "mocha",
-    "heroku-postbuild": "webpack -p --config ./webpack.prod.config.js --progress"
+    "heroku-postbuild": "webpack --config webpack-config.js"
   },
   "author": "Gustaf Brostedt",
   "license": "ISC",
